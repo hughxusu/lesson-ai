@@ -34,6 +34,8 @@
     * [装饰器](grammar/other/one)
     * [with语句与上下文管理器](grammar/other/two)
     * [生成器与拷贝](grammar/other/three)
+  * 人工智能基础
+    * [人工智能概述](pattern/index)
 
   
 * 附录
