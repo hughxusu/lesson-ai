@@ -37,6 +37,7 @@
   * 人工智能基础
     * [人工智能概述](pattern/index)
     * [Matplotlib](pattern/one)
+    * [Numpy](pattern/two)
 
   
 * 附录
