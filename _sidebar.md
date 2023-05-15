@@ -36,6 +36,7 @@
     * [生成器与拷贝](grammar/other/three)
   * 人工智能基础
     * [人工智能概述](pattern/index)
+    * [Matplotlib](pattern/one)
 
   
 * 附录
