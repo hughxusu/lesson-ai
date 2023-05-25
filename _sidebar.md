@@ -1,7 +1,6 @@
 
 
 * 引言
-  * [了解程序员的工作](intro/web)
   * [认识Python](intro/history)
   * [搭建Python的开发环境](intro/env)
   * [程序员的自我修养](intro/experience)
