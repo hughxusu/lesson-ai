@@ -1,6 +1,8 @@
+<img src="https://numanal.com/wp-content/uploads/2021/06/NumPy_logo-768x346.png" style="zoom: 50%;" />
+
 # Numpy
 
-<img src="https://numanal.com/wp-content/uploads/2021/06/NumPy_logo-768x346.png" style="zoom: 67%;" />
+
 
 Numpy（Numerical Python）是一个开源的Python科学计算库，用于快速处理任意维度的数组。Numpy 支持常见的数组和矩阵操作。对于同样的数值计算任务，使用Numpy比直接使用Python要简洁的多。Numpy 使用ndarray对象来处理多维数组，该对象是一个快速而灵活的大数据容器。
 
