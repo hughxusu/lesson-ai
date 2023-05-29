@@ -226,3 +226,138 @@ data.read_hdf('./test.h5', key='data') # 读取文件
 
 JSON是一种前后端的交互经常用到数据格式，是一种键值对形式。
 
+```python
+json_read.to_json("./data/test.json", orient='records', lines=True) # 保存文件 orient josn 的存储形式 line 是否为一个对象一行
+json_data = pd.read_json('./test.json') # 读取json文件
+```
+
+## 缺失值处理
+
+```python
+movie = pd.read_csv("./data/IMDB-Movie-Data.csv")
+
+pd.notnull(movie) # 判断是否存在确实值
+pd.isnull(movie) 
+```
+
+缺失值处理
+
+```python
+data = movie.dropna() # 移除缺失值
+movie['Revenue (Millions)'].fillna(movie['Revenue (Millions)'].mean(), inplace=True) # 用平均值替换缺失值
+
+data.replace(to_replace='?', value=np.nan) # 替换部分值
+```
+
+## 数据离散化
+
+连续属性离散化的目的是为了简化数据结构，数据离散化技术可以用来减少给定连续属性值的个数。离散化方法经常作为数据挖掘的工具。
+
+```python
+qcut = pd.qcut(p_change, 10) # 自行分组
+qcut.value_counts() # 计算到每个分组中的数据数目
+
+bins = [-100, -7, -5, -3, 0, 3, 5, 7, 100]
+p_counts = pd.cut(p_change, bins) # 自己指定分组区间
+
+dummies = pd.get_dummies(p_counts, prefix="rise") # 生成 one-hot 编码
+```
+
+## 数据合并
+
+将多张表中的数据合并后一起分析
+
+```python
+pd.concat([data, dummies], axis=1) # 按行索引
+```
+
+数据合并
+
+```python
+left = pd.DataFrame({'key1': ['K0', 'K0', 'K1', 'K2'],
+                        'key2': ['K0', 'K1', 'K0', 'K1'],
+                        'A': ['A0', 'A1', 'A2', 'A3'],
+                        'B': ['B0', 'B1', 'B2', 'B3']})
+
+right = pd.DataFrame({'key1': ['K0', 'K1', 'K1', 'K2'],
+                        'key2': ['K0', 'K0', 'K0', 'K0'],
+                        'C': ['C0', 'C1', 'C2', 'C3'],
+                        'D': ['D0', 'D1', 'D2', 'D3']})
+
+result = pd.merge(left, right, on=['key1', 'key2']) # 内链接
+result = pd.merge(left, right, how='left', on=['key1', 'key2']) # 左链接
+result = pd.merge(left, right, how='right', on=['key1', 'key2']) # 右链接
+result = pd.merge(left, right, how='outer', on=['key1', 'key2']) # 外链接
+```
+
+## 案例
+
+数据来源：https://www.kaggle.com/damianpanek/sunday-eda/data
+
+> [!tip]
+>
+> 1. 我们想知道这些电影数据中评分的平均分，导演的人数等信息，我们应该怎么获取？
+> 2. 对于这一组电影数据，如果我们想rating，runtime的分布情况，应该如何呈现数据？
+> 3. 对于这一组电影数据，如果我们希望统计电影分类(genre)的情况，应该如何处理数据？
+
+读取数据
+
+```python
+import pandas  as pd
+import numpy as np
+from matplotlib import pyplot as plt
+
+path = "./IMDB-Movie-Data.csv"
+df = pd.read_csv(path)
+```
+
+案例 1
+
+```python
+df["Rating"].mean() # 得出评分的平均分
+np.unique(df["Director"]).shape[0] # 得出导演人数信息
+```
+
+案例 2
+
+```python
+# 绘制得分直方图
+plt.figure(figsize=(20,8),dpi=80)
+
+max_ = df["Rating"].max()
+min_ = df["Rating"].min()
+
+t1 = np.linspace(min_,max_,num=21)
+plt.xticks(t1)
+
+plt.grid()
+plt.hist(df["Rating"].values,bins=20)
+
+plt.show()
+
+# 绘制时间分布图
+plt.figure(figsize=(20,8),dpi=80)
+plt.hist(df["Runtime (Minutes)"].values,bins=20)
+
+max_ = df["Runtime (Minutes)"].max()
+min_ = df["Runtime (Minutes)"].min()
+
+t1 = np.linspace(min_,max_,num=21)
+plt.xticks(t1)
+plt.grid()
+
+plt.show()
+```
+
+案例 3
+
+```python
+temp_list = [i.split(",") for i in df["Genre"]]
+genre_list = np.unique([i for j in temp_list for i in j])
+
+for i in range(1000):
+    temp_df.loc[i, temp_list[i]]=1
+    
+temp_df.sum().sort_values(ascending=False).plot(kind="bar",figsize=(20,8),fontsize=20,colormap="cool")
+```
+
