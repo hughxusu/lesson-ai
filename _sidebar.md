@@ -38,6 +38,7 @@
     * [Matplotlib](pattern/one)
     * [Numpy](pattern/two)
     * [Pandas](pattern/four)
+    * [knn](pattern/five)
 
   
 * 附录
