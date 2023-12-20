@@ -158,6 +158,17 @@ np.logspace(0, 2, 3) # 生成10^x
 
 ### 生成随机数组
 
+#### 生成均匀分布
+
+`np.random.uniform(low, high, size)` 创建均匀分布，low 采样下界，high 采样上界，size 输出的 shape
+
+```python
+x1 = np.random.uniform(1.75, 1, 10000000)
+plt.figure(figsize=(20, 10), dpi=100)
+plt.hist(x1, 1000)
+plt.show()
+```
+
 #### 生成正太分布
 
 `np.random.normal(loc, scale, size)` 创建正太分布，loc 此概率分布的均值，scale 概率分布的标准差，size 输出的 shape
@@ -169,22 +180,11 @@ plt.hist(x1, 1000)
 plt.show()
 ```
 
-创建多个正太分布
+生成 8x10 的数组，每个值数具有指定均值和标准差
 
 ```python
 stock_change = np.random.normal(0, 1, (4, 5))
 stock_change
-```
-
-#### 生成均匀分布
-
-`np.random.uniform(low, high, size)` 创建均匀分布，low 采样下界，high 采样上界，size 输出的 shape
-
-```python
-x1 = np.random.uniform(1.75, 1, 10000000)
-plt.figure(figsize=(20, 10), dpi=100)
-plt.hist(x1, 1000)
-plt.show()
 ```
 
 ### 数组的索引、切片
