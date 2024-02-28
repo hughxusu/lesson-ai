@@ -1,5 +1,3 @@
-* Python常用库
-  * [Matplotlib](pattern/one)
-  * [Numpy](pattern/two)
-  * [Pandas](pattern/four)
+* 机器学习基础
+  * [人工智能概述](pattern/index)
 

@@ -14,14 +14,6 @@
 
 等等
 
-### 人工智能的应用
-
-[Midjourney](https://www.midjourney.com/) [Midjourney教程](https://www.woshipm.com/ai/5797763.html)
-
-<img src="https://img.36krcdn.com/hsossms/20230320/v2_a777702b307243408941c9c8fffa1142_oswg1125335oswg1024oswg1024_img_000" style="zoom: 67%;" />
-
-[Ghat GBT](https://chatgptmirror.com/chat) [open ai 官网](https://openai.com/blog/chatgpt)
-
 ## 人工智能三要素
 
 <img src="https://s1.ax1x.com/2023/05/08/p9wRm24.png" style="zoom:67%;" />
@@ -282,18 +274,4 @@
 所建的机器学习模型或者是深度学习模型在训练样本中表现得过于优越，导致在测试数据集中表现不佳。
 
 ![](https://pic2.zhimg.com/v2-beb2ca562ac08aaf25c84c1417df4f9d_b.webp?consumer=ZHI_MENG)
-
-## Azure机器学习模型搭建实验
-
-体验机器学习的工作流程 [Azure](https://studio.azureml.net/)
-
-## 深度学习
-
-深度学习（Deep Learning）是一类算法集合，是机器学习的一个分支。通过构造多层神经网络来训练模型。
-
-深度学习方法近年来，在会话识别、图像识别和对象侦测等领域表现出了惊人的准确性。
-
-<img src="https://images2015.cnblogs.com/blog/853467/201606/853467-20160630140644406-409859737.png" style="zoom: 40%;" />
-
-[深度学习演示](http://playground.tensorflow.org)
 

@@ -3,7 +3,7 @@
 
 <img src="https://www.ncut.edu.cn/images/logo-dh.png"  />
 
-# Python 常用库
+# 机器学习基础
 
 **授课教师：徐夙** 
 
