@@ -21,5 +21,4 @@
 * [统计学习方法 ](https://book.douban.com/subject/33437381/)
 * [机器学习](https://book.douban.com/subject/26708119/)
 * [深度学习入门](https://book.douban.com/subject/30270959/)
-* [机器学习](https://book.douban.com/subject/26708119/)
 
