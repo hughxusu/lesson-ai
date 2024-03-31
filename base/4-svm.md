@@ -1,8 +1,14 @@
 # 支持向量机
 
-对于可分的两类数据有如下图的分布
+对于线性可分的两类数据有如下图的分布
 
 ![](https://editor.analyticsvidhya.com/uploads/729834.png)
+
+> [!note]
+>
+> 当两类数据间可以选择多条分类边界时，称为不适定问题。
+
+对于逻辑回归获得最优边界使用KL距离度量。
 
 点到直线的距离公式
 $$
@@ -20,7 +26,11 @@ $$
 $$
 d=\frac{2}{||w||}
 $$
-对于上图中的数据分布，$d$​ 越大分类间隔越宽，分类效果越好。
+对于上图中的数据分布，$d$​​ 越大分类间隔越宽，分类效果越好。
+
+> [!attention]
+>
+> 支持向量机的优化目标就是最大化 $d$ 表示为margin边界。
 
 $d$ 取得最大值，需要 $||w||$​ 最小。
 
@@ -47,6 +57,9 @@ $$
 \end{cases}
 $$
 
+> [!attention]
+>
+> 支持向量机的最优化是有条件的最优化问题。
 
 <img src="https://s21.ax1x.com/2024/03/23/pFh239A.jpg" style="zoom:50%;" />
 
@@ -84,12 +97,14 @@ $$
 
 ## 线性不可分
 
-<img src="https://img2018.cnblogs.com/blog/1223117/201811/1223117-20181108120203763-2099886688.png" style="zoom: 40%;" />
+<img src="https://s21.ax1x.com/2024/03/31/pF7kub4.png" style="zoom: 40%;" />
 
 对于线性不可分情况SVM分类器无法使得所有的 $i\in N$ 满足下列公式
 $$
 (wx_i+w_0)\cdot y_i>1
 $$
+
+现实问题基本是线性不可分的。
 
 > [!note]
 >
@@ -99,7 +114,9 @@ $$
 $$
 (wx_i+w_0)\cdot y_i>1-\epsilon_i
 $$
-对于上述算式
+<img src="https://miro.medium.com/v2/resize:fit:1400/1*LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
+
+对于上述算式中的 $\epsilon_i$ 不是一个固定的值，对于每一个支持向量都有一个 $\epsilon_i$，对其求和得
 $$
 \sum_{i=1}^{n}\epsilon_i
 $$
@@ -107,7 +124,7 @@ $$
 $$
 \begin{cases}
 (wx_i+w_0)\cdot y_i>1-\epsilon_i\\
-\min{||w||+C\sum_{i=1}^{n}\epsilon_i} \\
+\min{\left(||w||+C\sum_{i=1}^{n}\epsilon_i\right)} \\
 \end{cases}
 $$
 其中 $C$ 错误权重，也是一个超参数。
@@ -124,7 +141,7 @@ $$
 
 > [!attention]
 >
-> 现实问题基本是线性不可分的。
+> 使用SVM前需要对数据进行标准化处理。
 
 对于训练数据解 `train_data` 和 `test_data` 
 
@@ -230,11 +247,11 @@ $$
 \langle \phi(x_i), \phi(x) \rangle=K(x_i, x)
 $$
 
-| 核函数                          | 公式                                           | 对应升维空间 |
-| ------------------------------- | ---------------------------------------------- | ------------ |
-| 线性核<br />Linear Kernel       | $K( x_i, x)=\langle x_i, x \rangle$            | 原始特征空间 |
-| 多项式核<br />Polynomial Kernel | $K( x_i, x)=(a\langle x_i, x \rangle+b)^d$     | 多项式空间   |
-| 高斯核<br />Gaussian Kernel     | $K(x_i, x)=\exp{-\frac{||x_i-x||}{2\sigma^2}}$ | 无穷维空间   |
+| 核函数                          | 公式                                       | 对应升维空间 |
+| ------------------------------- | ------------------------------------------ | ------------ |
+| 线性核<br />Linear Kernel       | $K( x_i, x)=\langle x_i, x \rangle$        | 原始特征空间 |
+| 多项式核<br />Polynomial Kernel | $K( x_i, x)=(a\langle x_i, x \rangle+b)^d$ | 多项式空间   |
+| 高斯核<br />Gaussian Kernel     | $K(x_i, x)=\exp{(-\gamma||x_i-x||^2)}$     | 无穷维空间   |
 
 使用不同的核函数进行预测
 
