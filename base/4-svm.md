@@ -2,7 +2,7 @@
 
 对于线性可分的两类数据有如下图的分布
 
-![](https://s21.ax1x.com/2024/04/01/pF70P6x.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-images/main/pF70P6x.png)
 
 > [!note]
 >
@@ -61,7 +61,7 @@ $$
 >
 > 支持向量机的最优化是有条件的最优化问题。
 
-<img src="https://s21.ax1x.com/2024/03/23/pFh239A.jpg" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/pFh239A.jpg" style="zoom:50%;" />
 
 > [!note]
 >
@@ -114,7 +114,6 @@ $$
 $$
 (wx_i+w_0)\cdot y_i>1-\epsilon_i
 $$
-
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/1_LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
 
@@ -219,7 +218,7 @@ $$
 $$
 上面公式可以理解为 `正则项+损失函数`
 
-<img src="https://www.researchgate.net/profile/Ribana-Roscher/publication/236150927/figure/fig5/AS:669388852191237@1536606147222/Loss-functions-for-commonly-used-classifier-hinge-loss-SVM-cross-entropy-loss.ppm" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/Loss-functions-for-commonly-used-classifier-hinge-loss-SVM-cross-entropy-loss.png" style="zoom: 67%;" />
 
 ## 核函数
 
@@ -227,7 +226,7 @@ $$
 >
 > 对于线性不可分文可以使用升维的方式实现数据的线性可分。
 
-![](https://s21.ax1x.com/2024/03/06/pFreb0e.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-images/main/pFreb0e.png)
 $$
 (x_1, x_2)\rightarrow(x_1, x_2, x_1\cdot x_2)
 $$
