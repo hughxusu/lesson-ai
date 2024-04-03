@@ -97,7 +97,7 @@ $$
 
 ## 线性不可分
 
-<img src="https://s21.ax1x.com/2024/03/31/pF7kub4.png" style="zoom: 40%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/pF7kub4.png" style="zoom: 40%;" />
 
 对于线性不可分情况SVM分类器无法使得所有的 $i\in N$ 满足下列公式
 $$
@@ -114,7 +114,9 @@ $$
 $$
 (wx_i+w_0)\cdot y_i>1-\epsilon_i
 $$
-<img src="https://miro.medium.com/v2/resize:fit:1400/1*LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
+
+
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/1_LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
 
 对于上述算式中的 $\epsilon_i$ 不是一个固定的值，对于每一个支持向量都有一个 $\epsilon_i$，对其求和得
 $$
