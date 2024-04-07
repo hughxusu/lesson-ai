@@ -115,7 +115,7 @@ $$
 (wx_i+w_0)\cdot y_i>1-\epsilon_i
 $$
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/1_LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
+<img src="./images/1_LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:67%;" />
 
 对于上述算式中的 $\epsilon_i$ 不是一个固定的值，对于每一个支持向量都有一个 $\epsilon_i$，对其求和得
 $$
