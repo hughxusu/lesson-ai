@@ -2,7 +2,9 @@
 
 K近邻算法K-Nearest Neighbors（KNN），K表示最近的K个样本。
 
-![](https://www.kdnuggets.com/wp-content/uploads/popular-knn-metrics-0.png)
+![](../images/knn/popular-knn-metrics-0.png)
+
+
 
 KNN 的基本思想是样本距离只够接近，样本的类型可以划分为一类。
 
