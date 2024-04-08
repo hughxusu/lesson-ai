@@ -22,3 +22,4 @@
 * [机器学习](https://book.douban.com/subject/26708119/)
 * [深度学习入门](https://book.douban.com/subject/30270959/)
 
+![alt text](https://almablog-media.s3.ap-south-1.amazonaws.com/image_44_04e8e5442d.png)
