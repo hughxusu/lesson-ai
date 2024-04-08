@@ -2,7 +2,7 @@
 
 K近邻算法K-Nearest Neighbors（KNN），K表示最近的K个样本。
 
-![](../_images/knn/popular-knn-metrics-0.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/knn/popular-knn-metrics-0.png)
 
 
 
@@ -124,7 +124,7 @@ print('best_score =', best_score)
 
 ### 距离权重
 
-<img src="../_images/knn/1681090-20230523083454966-1157335194.png" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/knn/1681090-20230523083454966-1157335194.png" style="zoom: 67%;" />
 
 对于投票的KNN算法，预测的点属于蓝色类。
 
@@ -162,7 +162,7 @@ print('best_method =', best_method)
 
 1. 欧拉距离与曼哈顿距离
 
-![](../_images/knn/1541640266.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/knn/1541640266.png)
 $$
 d=\sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2} \\
 d=\sum_{i=1}^N|x_i-y_i|
