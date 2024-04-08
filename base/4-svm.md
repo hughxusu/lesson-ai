@@ -2,9 +2,9 @@
 
 对于线性可分的两类数据有如下图的分布
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-images/main/pF70P6x.png)
+![](../_images/svm/pF70P6x.png)
 
-> [!note]
+> [!warning]
 >
 > 当两类数据间可以选择多条分类边界时，称为不适定问题。
 
@@ -61,9 +61,9 @@ $$
 >
 > 支持向量机的最优化是有条件的最优化问题。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/pFh239A.jpg" style="zoom:50%;" />
+<img src="../_images/svm/pFh239A.jpg" style="zoom:50%;" />
 
-> [!note]
+> [!warning]
 >
 > 使用拉格朗日求极值，可以推导出 $w$​ 的计算方法。通过全部的训练样本寻找边界点。
 
@@ -77,7 +77,7 @@ w_0=y_i-wx_i
 $$
 $i$ 为任意的边界点，当 $y_i=1$ 时表示正样本，否则表示负样本。
 
-> [!note]
+> [!warning]
 >
 > SVM 算法两部分：第一是在训练集中求所有的边界向量，第二值利用向量求参数。
 >
@@ -97,7 +97,7 @@ $$
 
 ## 线性不可分
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/pF7kub4.png" style="zoom: 40%;" />
+<img src="../_images/svm/pF7kub4.png" style="zoom: 40%;" />
 
 对于线性不可分情况SVM分类器无法使得所有的 $i\in N$ 满足下列公式
 $$
@@ -106,7 +106,7 @@ $$
 
 现实问题基本是线性不可分的。
 
-> [!note]
+> [!warning]
 >
 > 为了能够正确分类，可以放松分类器的限制。
 
@@ -115,7 +115,7 @@ $$
 (wx_i+w_0)\cdot y_i>1-\epsilon_i
 $$
 
-<img src="../images/1_LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
+<img src="../_images/svm/1_LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
 
 对于上述算式中的 $\epsilon_i$ 不是一个固定的值，对于每一个支持向量都有一个 $\epsilon_i$，对其求和得
 $$
@@ -218,15 +218,15 @@ $$
 $$
 上面公式可以理解为 `正则项+损失函数`
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-images/main/Loss-functions-for-commonly-used-classifier-hinge-loss-SVM-cross-entropy-loss.png" style="zoom: 67%;" />
+<img src="../_images/svm/Loss-functions-for-commonly-used-classifier-hinge-loss-SVM-cross-entropy-loss.png" style="zoom: 67%;" />
 
 ## 核函数
 
-> [!note]
+> [!warning]
 >
 > 对于线性不可分文可以使用升维的方式实现数据的线性可分。
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-images/main/pFreb0e.png)
+![](../_images/svm/pFreb0e.png)
 $$
 (x_1, x_2)\rightarrow(x_1, x_2, x_1\cdot x_2)
 $$

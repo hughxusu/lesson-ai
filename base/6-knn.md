@@ -2,13 +2,13 @@
 
 K近邻算法K-Nearest Neighbors（KNN），K表示最近的K个样本。
 
-![](../images/knn/popular-knn-metrics-0.png)
+![](../_images/knn/popular-knn-metrics-0.png)
 
 
 
 KNN 的基本思想是样本距离只够接近，样本的类型可以划分为一类。
 
-> [!Note]
+> [!warning]
 >
 > K 值的取值一般基于经验。
 
@@ -124,11 +124,11 @@ print('best_score =', best_score)
 
 ### 距离权重
 
-<img src="../images/knn/1681090-20230523083454966-1157335194.png" style="zoom: 67%;" />
+<img src="../_images/knn/1681090-20230523083454966-1157335194.png" style="zoom: 67%;" />
 
 对于投票的KNN算法，预测的点属于蓝色类。
 
-> [!note]
+> [!warning]
 >
 > 投票类KNN算法忽略了，样本点之间的距离的影响。更进一步的KNN算法，增加了距离权重的参数，权重等于距离的倒数。
 
@@ -162,7 +162,7 @@ print('best_method =', best_method)
 
 1. 欧拉距离与曼哈顿距离
 
-![](../images/knn/1541640266.png)
+![](../_images/knn/1541640266.png)
 $$
 d=\sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2} \\
 d=\sum_{i=1}^N|x_i-y_i|
@@ -174,7 +174,7 @@ $$
 d=\left(\sum_{i=1}^N|x_i-y_i|^p\right)^{\frac{1}{p}}
 $$
 
-> [!note]
+> [!warning]
 >
 > $p$ 可以认为是一个超参数
 
