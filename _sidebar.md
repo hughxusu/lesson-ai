@@ -7,4 +7,5 @@
   * [决策树](base/5-决策树)
   * [K近邻](base/6-knn)
   * [集成学习](base/7-集成)
+  * [DNN](base/8-dnn)
 
