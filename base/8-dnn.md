@@ -269,7 +269,7 @@ $$
 1. 设计更多的隐层。
 2. 每一层设计更多的神经元。
 
-![](../_images/dnn/Learning-hierarchy-of-visual-features-in-CNN-architecture.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/dnn/Learning-hierarchy-of-visual-features-in-CNN-architecture.png)
 
 隐层可以作为一种特殊的特征选择器。
 
