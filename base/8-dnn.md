@@ -248,3 +248,39 @@ flowchart LR
 > [!warning]
 >
 > 深度学习就是寻找一个合适的网络组合，达到非常好的分类效果。
+
+神经网络参数个数运算
+
+```mermaid
+flowchart LR
+		z(M个神经元)-->c(N个神经元)-->a(二分类)
+```
+
+$$
+M\times N+N+N\times1+1
+$$
+
+> [!warning]
+>
+> 理论上可以证明当神经元N足够多的时候，使用sigmoid函数激活，一层的神经元可以拟合任何函数。
+
+神经网络设计的两个方向
+
+1. 设计更多的隐层。
+2. 每一层设计更多的神经元。
+
+![](../_images/dnn/Learning-hierarchy-of-visual-features-in-CNN-architecture.png)
+
+隐层可以作为一种特殊的特征选择器。
+
+```mermaid
+flowchart LR
+		z((性别))-->c((N_1))
+		z-->d((N_2))
+		z-->b
+		
+		a((年龄))-->b((N_3))
+		a-->d
+		a-->c
+```
+
