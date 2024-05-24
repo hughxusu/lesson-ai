@@ -29,7 +29,7 @@
 
 RGB色彩模式是工业解的一种颜色标准，通过对红（R）、绿（G）、蓝（B）三个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色。红、绿、蓝三个颜色通道每种颜色各分为256阶亮度。
 
-![](../_images/cnn/06181117_2.jpg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/06181117_2.jpg)
 
 ### HSV色彩模式
 
@@ -39,7 +39,7 @@ RGB色彩模式是工业解的一种颜色标准，通过对红（R）、绿（G
 
 明度（Value）：表示颜色明亮度，取值范围为0%（黑）到100%（白）。
 
-![](../_images/cnn/1528422-20190910193823543-563385632.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/1528422-20190910193823543-563385632.png)
 
 ### 灰度图
 
@@ -74,7 +74,7 @@ RGB色彩模式是工业解的一种颜色标准，通过对红（R）、绿（G
 * 中值滤波器
 * 双边滤波器
 
-![](../_images/cnn/cv2_bilateral_vs_gaussian.jpg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/cv2_bilateral_vs_gaussian.jpg)
 
 ### 图像锐化
 
@@ -82,7 +82,7 @@ RGB色彩模式是工业解的一种颜色标准，通过对红（R）、绿（G
 
 方法包括：微分法和高通滤波。
 
-![](../_images/cnn/20201112143017669.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/20201112143017669.png)
 
 ### 边缘提取
 
@@ -94,7 +94,7 @@ RGB色彩模式是工业解的一种颜色标准，通过对红（R）、绿（G
 * Canny算子
 * Laplacisan算子
 
-<img src="../_images/cnn/20210830091350660.png" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/20210830091350660.png" style="zoom:67%;" />
 
 ![](https://img-blog.csdnimg.cn/341548bc9aae459aae25c6fd79cd7b68.png)
 
@@ -104,7 +104,7 @@ RGB色彩模式是工业解的一种颜色标准，通过对红（R）、绿（G
 
 对图像中像素多的灰度级进行展宽，对像素少的灰度级进行缩减。从而达到使图像清晰的目的。
 
-![](../_images/cnn/20200428105902971.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/20200428105902971.png)
 
 ## 特征工程
 
@@ -138,7 +138,7 @@ flowchart LR
 
 感受野是指神经网络中神经元看到的输入区域，在卷积神经网络中，特征图上某元素的计算受输入图像上某个区域的影响，这个区域即该元素的感受野。
 
-<img src="../_images/cnn/Q4wXPf.png" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/Q4wXPf.png" style="zoom:67%;" />
 
 一般使用小的卷积核来代替大的卷积核
 
@@ -154,7 +154,7 @@ flowchart LR
 
 池化层最大池化、平均池化
 
-![](../_images/cnn/avgpooling_maxpooling.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/avgpooling_maxpooling.png)
 
 ### 激活层
 
@@ -169,15 +169,15 @@ flowchart LR
 
 ### 经典的神经网络结构
 
-![](../_images/cnn/20190716171704843.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/20190716171704843.png)
 
 #### Resnet
 
-![](../_images/cnn/v2-6fc1664743c9b73501d059a9010bc6e2_720w.jpg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/v2-6fc1664743c9b73501d059a9010bc6e2_720w.jpg)
 
 #### inception net
 
-![](../_images/cnn/1*iBkUmf7IEF7BeH1WX7_fTw.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/1*iBkUmf7IEF7BeH1WX7_fTw.png)
 
 ## CIFAR-10数据集
 
@@ -191,4 +191,4 @@ from keras.datasets import cifar10
 (train_images, train_labels), (test_images, test_labels) = cifar10.load_data()
 ```
 
-![](../_images/cnn/4fdf2b82-2bc3-4f97-ba51-400322b228b1.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/4fdf2b82-2bc3-4f97-ba51-400322b228b1.png)
