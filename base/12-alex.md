@@ -9,7 +9,7 @@
 5. 使用CUDA加速深度卷积网络的训练。
 6. 数据增强，随机从256$\times$256的原始图像中截取224$\times$​224大小的区域，以及水平翻转的镜像，相当于增加了256-224倍的数据量。没有数据增强，紧靠元素的数据量，参数众多的CNN会陷入过拟合。
 
-![](../_images/cnn/v2-0fba09821e3fcca52d611c88d3b6b011_1440w.webp)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/v2-0fba09821e3fcca52d611c88d3b6b011_1440w.webp)
 
 ```python
 
@@ -64,7 +64,7 @@ print(f'Test accuracy: {test_acc}')
 3.  参数数量控制， 虽然网络更深，但通过使用小卷积核控制了参数数量。
 4. 使用ReLU激活函数，但去除了LRN层。
 
-![](../_images/cnn/1*ZqkQYVB3_Gw0hjrAMzi6_A.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cnn/1*ZqkQYVB3_Gw0hjrAMzi6_A.png)
 
 ```python
 import tensorflow as tf
