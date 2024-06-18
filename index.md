@@ -48,7 +48,7 @@
 >
 > 如何将垃圾邮件进行分类？
 
-<img src="_images/base/Xnip2024-06-18_23-18-37.jpg" style="zoom: 45%;" />
+<img src="./_images/base/Xnip2024-06-18_23-18-37.jpg" style="zoom: 45%;" />
 
 传统的计算机解决问题思路：编写一个规则，定义“垃圾邮件”，让计算机执行。
 
