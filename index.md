@@ -72,7 +72,7 @@
 
 机器学习本质是从数据中自动分析获得模型，并利用模型对未知数据进行预测。
 
-<img src="./_images/base/v2-daf98d37cbf85c2b1e30c3a5d8637e3b_1440w.webp" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/v2-daf98d37cbf85c2b1e30c3a5d8637e3b_1440w.webp" style="zoom:67%;" />
 
 ## 人工智能三要素
 
@@ -115,7 +115,7 @@ flowchart LR
 
 [鸢尾花数据集](https://www.kaggle.com/datasets/uciml/iris)由Fisher收集整理，并发表在1936年的经典论文[《多重测量在分类学问题中的应用》](https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1469-1809.1936.tb02137.x)中。
 
-<img src="./_images/base/Iris-Dataset-Classification.png" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Iris-Dataset-Classification.png" style="zoom:67%;" />
 
 论文收集了三种鸢尾花，每个品种50个样本，希望找到一个判别式可以分类三种鸢尾花。
 
@@ -170,7 +170,7 @@ y^{(i)} = f(X^{(i)})
 $$
 根据鸢尾花数据的特征绘制散点图
 
-<img src="./_images/base/iris-data-show.png" style="zoom:100%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/iris-data-show.png" style="zoom:100%;" />
 
 由样本数据特征组成的空间称为特征空间（Feature Space），特征空间可以 $n$​ 维空间。
 
@@ -204,10 +204,6 @@ flowchart LR
 意义：会直接影响机器学习的效果
 
 > 数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。
-
-
-
-
 
 
 
