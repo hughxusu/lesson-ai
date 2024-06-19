@@ -88,8 +88,6 @@
 
 ## 机器学习工作流程
 
-### 工作流程
-
 ```mermaid
 flowchart LR
 		z(数据)-->a(数据预处理)-->b(特征工程)-->c(特征向量)-->d(模型训练)-->e(模型评估)
@@ -99,13 +97,13 @@ flowchart LR
 
 机器学习工作流程总结
 
-1. 获取数据
+1. 获取数据：包括样本和标签。
 
-2. 数据基本处理
+2. 数据基本处理：处理原始数据中的异常值，如：样本或标签缺失。
 
 3. 特征工程：把原始数据提炼为机器可以处理的数据。
 
-4. 机器学习（模型训练）
+4. 机器学习（模型训练）：使用特征向量和标签训练模型。
 
 5. 模型评估
 
@@ -113,7 +111,11 @@ flowchart LR
 
    - 没有达到要求，重新上面步骤
 
-#### 获取数据
+### 数据
+
+[鸢尾花数据集](https://www.kaggle.com/datasets/uciml/iris)由Fisher收集整理，并发表在1936年的经典论文《分类问题中多重测量的使用》中。
+
+![](https://media.licdn.com/dms/image/D4D12AQF5vivFTAdZjQ/article-cover_image-shrink_600_2000/0/1700911428185?e=2147483647&v=beta&t=RaJufpE5-ZMvIMZFVTy4dNtvnKHVgmThtTORx-_qu6Q)
 
 数据集一般可以看做为一个表格结构：
 
