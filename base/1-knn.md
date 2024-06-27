@@ -1,18 +1,129 @@
 # K近邻 （KNN）
 
-K近邻算法K-Nearest Neighbors（KNN），K表示最近的K个样本。
+K近邻算法K-Nearest Neighbors（KNN）
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/knn/popular-knn-metrics-0.png)
+1. 存在一定量的数据，包括特征和类别
+2. 计算未知类别的数据与所有已知数据的距离。
+3. 选择K个距离最小的样本，以最近的K个样本进行投票。
+
+![](../_images/base/popular-knn-metrics-0.png)
+
+KNN的基本思想是样本距离只够接近，样本的类型可以划分为一类。
+
+已知样本数据集如下。
+
+> [!tip]
+>
+> 根据下列样本数据实践KNN算法
+
+```python
+raw_data_x = [[1.4, 0.2],
+              [1.7, 0.4],
+              [1.5, 0.1],
+              [1.9, 0.2],
+              [1.6, 0.4],
+              [4.7, 1.4],
+              [4.9, 1.5],
+              [4.0, 1.3],
+              [4.4, 1.4],
+              [3.9, 1.1]]
+raw_data_y = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+x = [4.2, 1.5]
+```
+
+绘制上述样本数据的二维图像
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+x_train = np.array(raw_data_x)
+y_train = np.array(raw_data_y)
+t = np.array(row_text)
+
+plt.scatter(x_train[y_train == 0, 0], x_train[y_train == 0, 1], color='g')
+plt.scatter(x_train[y_train == 1, 0], x_train[y_train == 1, 1], color='r')
+plt.scatter(t[0], t[1], color='b')
+plt.show()
+```
+
+使用欧拉距离来表示两个样本点之间的差异，对于 $n$ 维向量 $x$​ 其距离公式为，欧拉距离为：
+$$
+\sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2}
+$$
+
+1. 计算样本间所有距离
+
+```python
+from math import sqrt
+
+distances = []
+for x_i in x_train:
+    d = sqrt(np.sum((x_i - t) ** 2))
+    distances.append(d)
+    
+# 使用列表生成式来计算全部距离
+distances = [sqrt(np.sum((x_i - t) ** 2)) for x_i in x_train]
+```
+
+2. 对全部距离进行排序
+
+```python
+nearest = np.argsort(distances)
+```
+
+3. 选择最近的K个样本，并获取相应的标签
+
+```python
+k = 7
+top_k_y = [y_train[i] for i in nearest[:k]]
+```
+
+4. 统计标签结果
+
+```python
+from collections import Counter
+votes = Counter(top_k_y)
+most = votes.most_common(1)
+predict = most[0][0]
+```
+
+[`Counter`类是一个，用于数据统计](https://docs.python.org/zh-cn/3.9/library/collections.html?highlight=collections#counter-objects)
+
+将上述算法过程封装成为一个函数
+
+```python
+import numpy as np
+from math import sqrt
+from collections import Counter
+
+def knn_classify(k, x_train, y_train, x):
+    assert 1 <= k <= x_train.shape[0], 'k must be valid'
+    assert x_train.shape[0] == y_train.shape[0], 'the size of x_train must be equal to the size of y_train'
+    assert x_train.shape[1] == x.shape[0], 'the feature number of x must be equal to x_train'
+    
+    distances = [sqrt(np.sum((x_i - x) ** 2)) for x_i in x_train]
+    nearest = np.argsort(distances)
+    
+    top_k_y = [y_train[i] for i in nearest[:k]]
+    votes = Counter(top_k_y)
+    
+    return votes.most_common(1)[0][0]
+```
 
 
 
-KNN 的基本思想是样本距离只够接近，样本的类型可以划分为一类。
+
+
+
 
 > [!warning]
 >
 > K 值的取值一般基于经验。
 
-对于 $n$ 维向量 $x$ 其距离公式为，欧拉距离。
+
+
+
 $$
 \sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2}
 $$
