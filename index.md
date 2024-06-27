@@ -228,7 +228,7 @@ $$
 
 ## 机器学习的任务分类
 
-<img src="./_images/base/ml-kind.png" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/ml-kind.png" style="zoom: 50%;" />
 
 ### 监督学习
 
@@ -263,7 +263,7 @@ $$
 
 通过与环境的交互学习最佳策略，以最大化累积的奖励。增强学习非常适合自动驾驶和机器人类任务。
 
-<img src="./_images/base/rl.png" style="zoom:60%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/rl.png" style="zoom:60%;" />
 
 ## 机器学习的本质
 
@@ -275,7 +275,7 @@ $$
 
 [Scaling to Very Very Large Corpora for Natural Language Disambiguation](https://aclanthology.org/P01-1005.pdf)
 
-<img src="./_images/base/Xnip2024-06-27_11-45-12.jpg" style="zoom: 30%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Xnip2024-06-27_11-45-12.jpg" style="zoom: 30%;" />
 
 不同类型的算法随着数据量的增加，性能都得到显著的提升，绝大多数算法最终的结果趋同。
 
