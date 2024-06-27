@@ -226,6 +226,10 @@ $$
 
 模型评估是指导模型优化的重要手段。
 
+> [!attention]
+>
+> 在后面的章节中不会再明确的区分数据和特征的区别，提到数据也指数据的特征。
+
 ## 机器学习的任务分类
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/ml-kind.png" style="zoom: 50%;" />
@@ -273,7 +277,7 @@ $$
 >
 > 机器学习的结果真的可靠么？它在多大程度上能反应真实结果。
 
-[Scaling to Very Very Large Corpora for Natural Language Disambiguation](https://aclanthology.org/P01-1005.pdf)
+2001年，Michele Banko的论文[Scaling to Very Very Large Corpora for Natural Language Disambiguation](https://aclanthology.org/P01-1005.pdf)
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Xnip2024-06-27_11-45-12.jpg" style="zoom: 30%;" />
 
