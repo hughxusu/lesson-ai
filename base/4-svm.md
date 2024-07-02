@@ -282,34 +282,3 @@ score_poly = clf_poly.score(x_test, y_test)
 print("The score of poly is : %f" % score_poly)
 ```
 
-## sk-learn 数据集
-
- [`sklearn.datasets`](https://scikit-learn.org/stable/datasets.html) 中嵌入了一些小型数据集用于实验。
-
-* `loaders` 用来加载小型测试数据集。
-* `fetchers` 用来下载并加载大的真实数据集
-
-两类函数都返回一个字典一样的对象
-
-```python
-from sklearn import datasets
-
-iris = datasets.load_iris()
-iris.keys()
-print(iris.DESCR)
-print(iris.data[:5, :])
-```
-
-肺癌数据集
-
-```python
-cancer = datasets.load_breast_cancer()
-```
-
-### 划分数据集
-
-```python
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(cancer.data, cancer.target, test_size=0.2, random_state=666)
-```
-
