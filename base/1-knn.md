@@ -377,7 +377,7 @@ print(y[:70])
 print(x[:1])
 ```
 
-绘制其中一个元素的图像
+绘制其中一个元素的图像，使用[`imshow`](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.imshow.html)可以绘制图像
 
 ```python
 import matplotlib
@@ -469,17 +469,21 @@ print('best_score =', best_score)
 
 对于一般KNN算法，预测的点属于蓝色类。但是一般KNN算法忽略了，样本点之间的距离的影响。
 
-<img src="../_images/base/1681090-20230523083454966-1157335194.png" style="zoom: 67%;" />
+<img src="../_images/base/1681090-20230523083454966-1157335194.png" style="zoom: 50%;" />
 
-
-
-考虑到距离对，增加了距离权重的参数，权重等于距离的倒数。
+考虑到距离对预测样本的影响，增加了距离权重的参数，权重等于距离的倒数（距离越近对位置样本的影响越大，距离越远对未知样本的影响越小）。
 $$
 \text{Red}=1\\
 \text{Blue}=\frac{1}{3}+\frac{1}{4}=\frac{7}{12}
 $$
 
+计算距离权重之后，样本预测点属于红色。
 
+<img src="../_images/base/20180716163638442.jpeg" style="zoom: 23%;" />
+
+使用距离权重后，可以有效的解决多分类数据中平票的情况。
+
+在`KNeighborsClassifier`中通过参数`weights`可以选择是否计算权重。
 
 ```python
 best_method = ''
@@ -502,28 +506,34 @@ print('best_method =', best_method)
 
 ### 距离类型
 
-1. 欧拉距离与曼哈顿距离
+评价两个向量的相似程度有多种标准，前面只用了简单的欧式距离。
 
 ![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/knn/1541640266.png)
+
+1. 曼哈顿距离
+
 $$
-d=\sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2} \\
 d=\sum_{i=1}^N|x_i-y_i|
 $$
 
-2. 明可夫斯基距离
+2. 欧拉距离
+
+$$
+d=\sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2}
+$$
+
+3. 明可夫斯基距离
 
 $$
 d=\left(\sum_{i=1}^N|x_i-y_i|^p\right)^{\frac{1}{p}}
 $$
 
-> [!warning]
->
-> $p$ 可以认为是一个超参数
+这里就获得了，距离计算的超参数 $p$，用来选择不同距离的标准。
 
 ```python
 best_p = -1
-best_score = 0.0
 best_k = -1
+best_score = 0.0
 
 for k in range(1, 11):
     for p in range(1, 6):
@@ -536,49 +546,217 @@ for k in range(1, 11):
             best_p = p
             
 print('best_k =', best_k)
-print('best_score =', best_score)
 print('best_p =', best_p)
+print('best_score =', best_score)
 ```
 
-3. 其他距离
-   * 向量空间余弦相似度 Cosine Similarity
-   * 调整余弦相似度 Adjust Cosine Similarity
-   * 皮尔逊相关系数 Pearson Correlation Coefficient
-   * Jaccard相似系数 Jaccard Coefficient
+对超参数  $p$​ 和 K 进行了搜索。
+
+> [!attention]
+>
+> 只有计算距离权重的情况下才会引入超参数 $p$​。
+
+4. 其他距离
+
+* 向量空间余弦相似度 Cosine Similarity
+* 调整余弦相似度 Adjust Cosine Similarity
+* 皮尔逊相关系数 Pearson Correlation Coefficient
+* Jaccard相似系数 Jaccard Coefficient
 
 ### 网格搜索
 
-使用sklearn的网格搜索来选择最优参数
+使用sklearn的网格搜索工具[`GridSearchCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)，可以更便捷的进行参数搜索。
 
 ```python
+%%time
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=100)
 param_grid = [
-    {
-        'weights': ['uniform'],
-        'n_neighbors': [i for i in range(1, 11)]
-    },
     {
         'weights': ['distance'],
         'n_neighbors': [i for i in range(1, 11)],
         'p': [i for i in range(1, 6)]
-    }
+    },
+    {
+        'weights': ['uniform'],
+        'n_neighbors': [i for i in range(1, 11)]
+    },
 ]
 
 knn_clf = KNeighborsClassifier()
 
 from sklearn.model_selection import GridSearchCV
 grid_search = GridSearchCV(knn_clf, param_grid)
-grid_search.fit(x_train, y_train)
 
+grid_search.fit(x_train, y_train)
 print(grid_search.best_estimator_)
 print(grid_search.best_score_)
 print(grid_search.best_params_)
+```
 
+1. `grid_search.best_estimator_`最佳分类器，返回一个输入的分类器。
+2. `grid_search.best_score_`最佳分类器的准确率。
+3. `grid_search.best_params_`最佳分类器的相关参数。
+
+`GridSearchCV`的参数搜索是采用交叉验证的方式进行的，参数预测结果和简单的变量会有出入。
+
+使用最佳模型对测试集进行预测
+
+```python
 knn_clf = grid_search.best_estimator_
 knn_clf.score(x_test, y_test)
+```
 
-grid_search = GridSearchCV(knn_clf, param_grid, n_jobs=-1, verbose=2) # n_jobs多核运行 verbose打印搜索信息
+`GridSearchCV`中两个常用的参数
+
+1. `n_jobs`设置参数搜索是使用的CPU核心数量，值为-1时使用全部处理器。
+2. `verbose`打印搜索过程中的信息，值越大信息越详细。
+
+```python
+%%time
+grid_search = GridSearchCV(knn_clf, param_grid, n_jobs=-1, verbose=2)
 grid_search.fit(x_train, y_train)
 ```
+
+## 特征归一化
+
+判断肿瘤是良性还是恶性
+
+|       | 肿瘤大小（厘米） | 发现时间（天） | 发现时间（年） |
+| ----- | ---------------- | -------------- | -------------- |
+| 样本1 | 1                | 200            | 0.55年         |
+| 样本2 | 5                | 100            | 0.27年         |
+
+1. 当发现时间的单位为天时，样本间的距离被发现时间所主导。
+2. 当发现时间的单位为年时，样本间的距离被肿瘤大小所主导。
+
+> [!warning]
+>
+> 数据不同维度的量纲不同，会直接影响数据距离的计算。
+
+数据归一化是将所有不同量纲的数据，映射在一个尺度下。
+
+### 最值归一化
+
+把所有的数据映射到0~1之间
+$$
+x_{\text{sacle}}=\frac{x-x_{\min}}{x_{\max}-x_{\min}}
+$$
+适用于分布有明显边界特征，受异常值影响比较大，如：数据集 $1,2,3, 1000, …$
+
+* 学生考试成绩 $[0, 100]$
+* 图像像素点 $[0, 255]$​
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.random.randint(0, 100, size=20)
+print((x - np.min(x)) / (np.max(x) - np.min(x)))
+```
+
+### 均值方差归一化
+
+把所有的数据归一到平均值为0方差为1的分布中，适用于数据分布没有明显边界
+$$
+x_{\text{sacle}}=\frac{x-\mu}{\sigma}
+$$
+
+> [!warning]
+>
+> 如果数据没有明显的边界，一般都采用均值方差归一化方法。
+
+```python
+x = np.random.randint(0, 100, size=20)
+print((x - np.mean(x)) / np.std(x))
+```
+
+### `Scaler`归一化工具
+
+<img src="../_images/base/原始数据.png" style="zoom: 50%;" />
+
+1. 真实数据无法获得均值和方差。
+2. 采用均值方差归一化是要保留测试数据的均值和方差，用于处理预测数据。预测时，预测数据同样需要归一化。对数据的归一化也可以理解为算法的一部分。
+
+> [!warning]
+>
+> 理论上可以证明，归一化数据不影响分类结果，但可以加快学习速率。
+
+在scikit-learn中可以借助`Scaler`工具完成特征值归一化和均值方差保存的工作。
+
+1. `StandardScaler`均值方差归一化
+
+```python
+# 导入鸢尾花数据集
+import numpy as np
+from sklearn import datasets
+iris = datasets.load_iris()
+x = iris.data
+y = iris.target
+print(x[:5])
+
+from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=666)
+
+# 对数据进行归一化处理
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=666)
+standardScaler = StandardScaler()
+standardScaler.fit(x_train)
+print(standardScaler.mean_)
+print(standardScaler.scale_)
+
+x_train = standardScaler.transform(x_train)
+x_test = standardScaler.transform(x_test)
+print(x_train[:5])
+```
+
+1. `standardScaler.fit`函数可以对数据进行规划化，计算出均值和方差。
+2. `standardScaler.mean_`和`standardScaler.scale_`计算出的均值和方差。
+3. `standardScaler.transform`对训练数据和测试数据进行规一化处理。
+
+绘制归一化后的鸢尾花数据图像
+
+```python
+import matplotlib.pyplot as plt
+
+name = ['Setosa', 'Versicolour', 'Virginica']
+
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+for target in set(y_train):
+    subset = x_train[y_train == target]
+    plt.scatter(subset[:, 2], subset[:, 3], label=f'{name[target]}')
+    
+plt.xlabel('petal length (cm)')
+plt.ylabel('petal width (cm)')
+plt.legend()
+
+plt.subplot(1, 2, 2)
+for target in set(y_train):
+    subset = train_scale[y_train == target]
+    plt.scatter(subset[:, 2], subset[:, 3], label=f'{name[target]}')
+    
+plt.xlabel('petal length (cm)')
+plt.ylabel('petal width (cm)')
+plt.legend()
+plt.show()
+```
+
+使用归一化后的特征进行模型训练和预测
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+
+knn_clf = KNeighborsClassifier(n_neighbors=3)
+knn_clf.fit(train_scale, y_train)
+print(knn_clf.score(test_scale, y_test))
+```
+
+> [!tip]
+>
+> scikit-learn的最值归一化封装在[`MinMaxScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html)中，使用最值归一化处理手写数字识别数据，并测试KNN模型的性能。
 
 ## KNN算法特点
 

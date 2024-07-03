@@ -284,3 +284,5 @@ $$
 不同类型的算法随着数据量的增加，性能都得到显著的提升，绝大多数算法最终的结果趋同。
 
 > 机器学习的当前发展阶段是以大数据驱动的。
+
+[本课程工具包的虚拟环境文件](https://github.com/hughxusu/lesson-ai/blob/developing/_examples/deep-learning.yml)
