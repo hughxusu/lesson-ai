@@ -197,7 +197,7 @@ flowchart LR
 
 将鸢尾花的特征绘制在二维平面上
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/iris-data-show.png" style="zoom:100%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/iris-data-show.png" style="zoom: 75%;" />
 
 由样本数据特征组成的空间称为特征空间（Feature Space），特征空间可以 $n$​ 维空间。
 
