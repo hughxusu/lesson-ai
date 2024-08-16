@@ -14,10 +14,20 @@
 * 掌握机器学习的工作流程
 * 了解机器学习的相关概念
 
-## 参考书籍
+## 参考资料
 
-* [模式分类](https://book.douban.com/subject/1138189/)
-* [深度学习](https://book.douban.com/subject/27087503/)
-* [统计学习方法 ](https://book.douban.com/subject/33437381/)
-* [机器学习](https://book.douban.com/subject/26708119/)
-* [深度学习入门](https://book.douban.com/subject/30270959/)
+### 学习网站
+
+* [动手学深度学习](https://zh.d2l.ai/index.html)
+
+### 参考书
+
+| 书名                                                        | 图书馆索书号    |
+| ----------------------------------------------------------- | --------------- |
+| [模式分类](https://book.douban.com/subject/35902334/)       | O235/42         |
+| [深度学习](https://book.douban.com/subject/35472370/)       | TP181/59=2      |
+| [统计学习方法 ](https://book.douban.com/subject/33437381/)  | TP181/11=2      |
+| [机器学习](https://book.douban.com/subject/26708119/)       | TP181/25        |
+| [深度学习入门](https://book.douban.com/subject/30270959/)   | TP311.561/75    |
+| [Python深度学习](https://book.douban.com/subject/36078304/) | TP311.561/101=2 |
+
