@@ -186,7 +186,7 @@ class KNNClassifier:
         votes = Counter(top_k_y)
         return votes.most_common(1)[0][0]
     
-    def __repr__(self):
+    def __str__(self):
         return 'KNN(k=%d)' % self.k
 ```
 
