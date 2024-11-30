@@ -502,7 +502,7 @@ print('best_method =', best_method)
 
 评价两个向量的相似程度有多种标准，前面只用了简单的欧式距离。
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/knn/1541640266.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/1541640266.png)
 
 1. 曼哈顿距离
 
