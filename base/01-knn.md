@@ -33,7 +33,7 @@ import matplotlib.pyplot as plt
 
 x_train = np.array(raw_data_x)
 y_train = np.array(raw_data_y)
-t = np.array(row_text)
+t = np.array(x)
 
 plt.scatter(x_train[y_train == 0, 0], x_train[y_train == 0, 1], color='g')
 plt.scatter(x_train[y_train == 1, 0], x_train[y_train == 1, 1], color='r')
