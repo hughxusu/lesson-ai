@@ -13,19 +13,19 @@
 
 二维特征可以绘制在如下平面
 
-![](../_images/base/96db7d87e7af97e05b630366cc02bcf1.jpg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/96db7d87e7af97e05b630366cc02bcf1.jpg)
 
 如果只保留特征1
 
-![](../_images/base/b51d7ec017736d4f47fb7e836c33f074.jpg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/b51d7ec017736d4f47fb7e836c33f074.jpg)
 
 如果只保留特征2
 
-![](../_images/base/aa709dfbb796ada2b6b6dae9d0d43d64.jpg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/aa709dfbb796ada2b6b6dae9d0d43d64.jpg)
 
 从上面的结果来看，特征1的区分度较高。如果能找到一条直线，可以拟合样本的投影
 
-![](../_images/base/0525efddb7f229a87f9b6443cd26dd8a.jpg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/0525efddb7f229a87f9b6443cd26dd8a.jpg)
 
 降维后点和点之间的区分度更接近，原来点的分布。
 
@@ -39,7 +39,7 @@ $$
 Var(x)=\frac{1}{m}\sum_{i=1}^m(x_i-\bar{x})^2，\bar{x}=0 \Rightarrow Var(x)=\frac{1}{m}\sum_i^mx_i^2
 $$
 
-<img src="../_images/base/format.jpg" style="zoom:65%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/format.jpg" style="zoom:65%;" />
 
 2. 找到投影轴的方向$w=\left( w_1, w_2  \right)$，使得所有样本映射到新的坐标轴有
 
@@ -53,7 +53,7 @@ Var(X_{project})=\frac{1}{m}\sum_{i}^{m}\left \|X_{project}^{(i)}\right\|^2 \tag
 $$
 最大。投影计算如下
 
-<img src="../_images/base/pca-project.jpg" style="zoom:85%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/pca-project.jpg" style="zoom:85%;" />
 
 上面的映射计算，就是
 $$
@@ -235,7 +235,7 @@ plt.show()
 
 PCA的本质是对特征空间的坐标轴重新排列，在样本的原始特征空间内寻找一套新的坐标轴替换掉样本的原始坐标轴；在这套新的坐标轴里，第一主成分轴捕获了样本最大的方差，第二主成分轴轴次之，第三主成分轴再次之，以此类推；
 
-<img src="../_images/base/project-abc.png" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/project-abc.png" style="zoom:50%;" />
 
 上面例子中样本数据，在二维空间表示为$\vec{c}$，主成分分析看作是将横坐标轴旋转到$w=\left( w_1, w_2  \right)$，而向量$\vec{b}$可以看做第一主成分，是在$w$上的投影。另外一个分量$\vec{a}$垂直于$\vec{b}$向量。
 $$
