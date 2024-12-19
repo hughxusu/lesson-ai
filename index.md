@@ -72,6 +72,14 @@
 1. 依赖大量标记数据。
 2. 计算资源需求大。
 
+> [!note]
+>
+> 
+
+
+
+
+
 机器学习本质是从数据中自动分析获得模型，并利用模型对未知数据进行预测。
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/v2-daf98d37cbf85c2b1e30c3a5d8637e3b_1440w.webp" style="zoom:67%;" />
