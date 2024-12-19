@@ -72,6 +72,14 @@
 1. 依赖大量标记数据。
 2. 计算资源需求大。
 
+> [!note]
+>
+> 
+
+
+
+
+
 机器学习本质是从数据中自动分析获得模型，并利用模型对未知数据进行预测。
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/v2-daf98d37cbf85c2b1e30c3a5d8637e3b_1440w.webp" style="zoom:67%;" />
@@ -284,5 +292,7 @@ $$
 不同类型的算法随着数据量的增加，性能都得到显著的提升，绝大多数算法最终的结果趋同。
 
 > 机器学习的当前发展阶段是以大数据驱动的。
+
+### 课程使用的软件包
 
 [本课程工具包的虚拟环境文件](https://github.com/hughxusu/lesson-ai/blob/developing/_examples/deep-learning.yml)

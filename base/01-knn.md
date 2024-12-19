@@ -66,14 +66,14 @@ distances = [sqrt(np.sum((x_i - t) ** 2)) for x_i in x_train]
 nearest = np.argsort(distances)
 ```
 
-3. 选择最近的K个样本，并获取相应的标签
+3. 选择最近的K个样本，并获取相应的监督数据
 
 ```python
 k = 7
 top_k_y = [y_train[i] for i in nearest[:k]]
 ```
 
-4. 统计标签结果
+4. 统计监督数据结果
 
 ```python
 from collections import Counter
@@ -243,7 +243,7 @@ print(iris.data[:5, :])
 print(iris.target[:5])
 ```
 
-`data`保存了数据的特征，`target`保存了数据标签值。
+`data`保存了数据的特征，`target`保存了监督数据的值。
 
 ### 划分数据集
 
@@ -422,7 +422,7 @@ y_predict = knn_clf.predict(x_test)
 print(accuracy_score(y_test, y_predict))
 ```
 
-`accuracy_score`函数可以根据测试集标签和测试结果，计算准确率。`KNeighborsClassifier`也有`score`函数可以直接计算准确率。
+`accuracy_score`函数可以根据测试集标的监督数据和预测结果，计算准确率。`KNeighborsClassifier`也有`score`函数可以直接计算准确率。
 
 ## 超参数
 
