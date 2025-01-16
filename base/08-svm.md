@@ -2,7 +2,7 @@
 
 对于线性可分的两类数据有如下图的分布
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/svm/pF70P6x.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/pF70P6x.png)
 
 > [!warning]
 >
@@ -61,7 +61,7 @@ $$
 >
 > 支持向量机的最优化是有条件的最优化问题。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/svm/pFh239A.jpg" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/pFh239A.jpg" style="zoom:50%;" />
 
 > [!warning]
 >
@@ -97,7 +97,7 @@ $$
 
 ## 线性不可分
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/svm/pF7kub4.png" style="zoom: 40%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/pF7kub4.png" style="zoom: 40%;" />
 
 对于线性不可分情况SVM分类器无法使得所有的 $i\in N$ 满足下列公式
 $$
@@ -115,7 +115,7 @@ $$
 (wx_i+w_0)\cdot y_i>1-\epsilon_i
 $$
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/svm/1_LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/1_LPHJnXPMSzAstBnHaSKmhA.png" style="zoom:80%;" />
 
 对于上述算式中的 $\epsilon_i$ 不是一个固定的值，对于每一个支持向量都有一个 $\epsilon_i$，对其求和得
 $$
@@ -218,7 +218,7 @@ $$
 $$
 上面公式可以理解为 `正则项+损失函数`
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/svm/Loss-functions-for-commonly-used-classifier-hinge-loss-SVM-cross-entropy-loss.png" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Loss-functions-for-commonly-used-classifier-hinge-loss-SVM-cross-entropy-loss.png" style="zoom: 67%;" />
 
 ## 核函数
 
@@ -226,7 +226,7 @@ $$
 >
 > 对于线性不可分文可以使用升维的方式实现数据的线性可分。
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/svm/pFreb0e.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/pFreb0e.png)
 $$
 (x_1, x_2)\rightarrow(x_1, x_2, x_1\cdot x_2)
 $$
