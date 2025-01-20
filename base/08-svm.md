@@ -8,60 +8,96 @@
 >
 > 当两类数据间可以选择多条分类边界时，称为不适定问题。
 
-对于逻辑回归获得最优边界使用KL距离度量。
+支持向量机的算法的本质是找到一个在两类样本中间位置的分界线。
 
-点到直线的距离公式
-$$
-d=\frac{|wx+w_0|}{||w||}
-$$
-两个边距的距离可以表示为
-$$
-d=\frac{|wx_1+w_0|}{||w||}+\frac{|wx_2+w_0|}{||w||}=\frac{d_1}{||w||}+\frac{d_2}{||w||}
-$$
-当分界线在两个边界中间时 $d_1=d_2$，上面的公式可以化简为
-$$
-d=\frac{2|wx_1+w_0|}{||w||}
-$$
-对于同一条直线可以存在无数成比例的 $(w,w_0)$，可以成比例的缩放 $(w,w_0)$，找到一条直线使得 $|wx_1+w_0|=1$，上面的公式可以化简为
-$$
-d=\frac{2}{||w||}
-$$
-对于上图中的数据分布，$d$​​ 越大分类间隔越宽，分类效果越好。
+* 等价于两个类别距离分界线最近的点，到分界线的距离相等。
+* 两个类别距离分界线最近的点，构成一个区域，理想条件下，这个区域内没有样本点。
+* 两个类别距离分界线最近的点，被称为支撑向量。
 
-> [!attention]
->
-> 支持向量机的优化目标就是最大化 $d$ 表示为margin边界。
+支撑向量机算法：
 
-$d$ 取得最大值，需要 $||w||$​ 最小。
+1. 找到这些支撑向量。
+2. 最大化margin。
 
-> [!attention]
->
-> 这里的 $||w||$ 最小表示分类器泛化能力更好，类似于逻辑回归中的正则项。
+如果数据是线性可分，或者在高维度线性可分，称为Hard Margin SVM。如数据线性不可分，找到分线或分界面称为Soft Margin SVM。
 
-假设分类器形式为如下
+## Margin的数学表达
+
+如果支撑向量，到分界线的距离定义为$d$，则两类支持向量间的距离$\text{margin}=2d$。
+
+在$n$维空间中直线方程可以表示为$w^Tx+b=0$，也可以表示为$\theta^Tx_b=0$。点到直线的距离公式
 $$
-\begin{cases}
-wx + w_0 > 1, \quad y=1\\
-wx + w_0 < -1, \quad y=-1 \\
-\end{cases}
+d=\frac{|w^Tx+b|}{||w||}
+$$
+其中$||w||=\sqrt{w_1^2+w_2^2+…+w_n^2}$。假设存在上述决策边界，则有
+$$
+\left\{\begin{matrix}
+\frac{w^Tx^{(i)}+b}{||w||} \ge d & \forall y^{(i)}=1 \\
+\frac{w^Tx^{(i)}+b}{||w||} \le -d  & \forall y^{(i)}=-1
+\end{matrix}\right.
+\Rightarrow
+\left\{\begin{matrix}
+\frac{w^Tx^{(i)}+b}{||w||d} \ge 1 & \forall y^{(i)}=1 \\
+\frac{w^Tx^{(i)}+b}{||w||d} \le -1  & \forall y^{(i)}=-1
+\end{matrix}\right.
+$$
+其中正样本是$1$，负样本是$-1$。上述式子可以化简为
+$$
+\left\{\begin{matrix}
+w_d^Tx^{(i)}+b_d \ge 1 & \forall y^{(i)}=1 \\
+w_d^Tx^{(i)}+b_d \le -1  & \forall y^{(i)}=-1
+\end{matrix}\right.
+$$
+对于$w^Tx+b=0$两侧同时除$||w||d$，所以中间分界线的方程为
+$$
+w_d^Tx^{(i)}+b_d = 0
+$$
+重新定义直线的参数这有
+$$
+w^Tx+b = 1 \\
+w^Tx+b = 0 \\
+w^Tx+b = -1
+$$
+直线的示意图如下
+
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/pFh239A.jpg" style="zoom:50%;" />
+
+支持向量机公式表示为
+$$
+\left\{\begin{matrix}
+w^Tx^{(i)}+b \ge 1 & \forall y^{(i)}=1 \\
+w^Tx^{(i)}+b_\le -1  & \forall y^{(i)}=-1
+\end{matrix}\right.
 $$
 所以上面的分类器可以统一为
 $$
-(wx_i+w_0)\cdot y_i>1
+y^{(i)}(w^Tx^{(i)}+b) \ge 1
 $$
-所以分类器的训练的最终目的是找到满足上式的 $w$ 且使得 $||w||$​​ 最小，所以SVM的优化目标为：
+支持向量机的算法目标是最大化$d$。等价于
+$$
+\max \frac{|w^Tx+b|}{||w||}
+$$
+由于所有的$x$都是支撑向量，所以$|w^Tx+b|=1$，所以等价于
+$$
+\max \frac{1}{||w||}\Rightarrow \min||w|| \Rightarrow \min \frac{1}{2}||w||^2
+$$
+所以SVM的优化目标为
 $$
 \begin{cases}
-(wx_i+w_0)\cdot y_i>1\\
-\min{||w||} \\
+y^{(i)}(w^Tx^{(i)}+b) \ge 1\\
+\min \frac{1}{2}||w||^2 \\
 \end{cases}
 $$
 
-> [!attention]
+> [!warning]
 >
 > 支持向量机的最优化是有条件的最优化问题。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/pFh239A.jpg" style="zoom:50%;" />
+
+
+
+
+
 
 > [!warning]
 >
