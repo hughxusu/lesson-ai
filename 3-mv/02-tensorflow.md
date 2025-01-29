@@ -2,7 +2,7 @@
 
 2015年11月9日，Google发布深度学习框架[TensorFlow](https://www.tensorflow.org/?hl=zh-cn)并宣布开源，并迅速得到广泛关注，在图形分类、音频处理、推荐系统和自然语言处理等场景下都被大面积推广。支持Python和C++接口，目前到2.x版本。
 
-![](../_images/mv/logo_icon.jpeg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/logo_icon.jpeg)
 
 * TF托管在github平台，有google groups和contributors共同维护。
 * TF提供了丰富的深度学习相关的API，支持Python和C/C++接口。
@@ -11,7 +11,7 @@
 
 TensorFlow 2.x版本，将专注于简单性和易用性
 
-<img src="../_images/mv/tf_arch_logic_architecture.png" style="zoom:85%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/tf_arch_logic_architecture.png" style="zoom:85%;" />
 
 训练过程
 
