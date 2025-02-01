@@ -34,3 +34,26 @@ TensorFlow 2.x版本，将专注于简单性和易用性
 * TensorFlow Lite，即TensorFlow针对移动和嵌入式设备提供了轻量级的解决方案
 * TensorFlow.js，即TensorFlow支持在 JavaScript 环境中部署模型
 * TensorFlow 还支持其他语言 包括 C, Java, Go, C#, Rust 等
+
+TensorFlow的安装
+
+1. 安装没有GPU版本
+
+```shell
+pip install tensorflow
+```
+
+2. 安装GPU版本
+
+```shell
+pip install tensorflow-gpu
+```
+
+> [!attention]
+>
+> GPU版本只有windows和linux版本。
+
+
+
+
+
