@@ -32,7 +32,7 @@ plt.show()
 
 ### 数据处理
 
-<img src="../_images/mv/c41429c8bfa5f1aad08b3a18aaf41f01.png" style="zoom:55%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/c41429c8bfa5f1aad08b3a18aaf41f01.png" style="zoom:55%;" />
 
 keras中的mnist数据是28$\times$28的矩阵形式，在神经网络中需要转换成一个向量，同时进行归一化。
 
