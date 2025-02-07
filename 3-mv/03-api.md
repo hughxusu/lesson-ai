@@ -221,7 +221,7 @@ $$
 
 函图像为
 
-<img src="../_images/mv/a352281be9094b22e2ce8f2f101830b0.png" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/a352281be9094b22e2ce8f2f101830b0.png" style="zoom:50%;" />
 
 ```python
 y_true = tf.constant([[0.], [1.]])
