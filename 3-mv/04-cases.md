@@ -186,7 +186,7 @@ model = tf.keras.models.load_model('my_model.h5')
 
 构建LeNet-5
 
-![](../_images/mv/V0L3hpYW93ZWl0ZTE.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/V0L3hpYW93ZWl0ZTE.png)
 
 * f=5表示卷积核大小为$5\times5$。
 * s=1表示步长为1。
