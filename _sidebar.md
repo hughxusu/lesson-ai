@@ -21,7 +21,7 @@
   * [卷积神经网络](2-dnn/06-卷积神经网络.md)
   * [深度学习](2-dnn/07-深度学习.md)
 
-* 机器视觉的应用
+* 机器视觉
   * [简介](3-mv/01-简介.md)
   * [tensorflow](3-mv/02-tensorflow.md)
   * [TensorFlow常用API](3-mv/03-api.md)
