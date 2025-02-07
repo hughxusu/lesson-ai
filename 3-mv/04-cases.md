@@ -182,3 +182,142 @@ model.save('my_model.h5')
 model = tf.keras.models.load_model('my_model.h5')
 ```
 
+## CNN网络
+
+构建LeNet-5
+
+![](../_images/mv/V0L3hpYW93ZWl0ZTE.png)
+
+* f=5表示卷积核大小为$5\times5$。
+* s=1表示步长为1。
+* n=6表示卷积核为6个。
+* 激活函数为sigmod的函数。
+
+### 卷积API
+
+1. 卷积层。
+
+```python
+keras.layers.Conv2D(filters, 
+                    kernel_size, 
+                    strides=(1, 1), 
+                    padding='valid', 
+                    activation=None)
+```
+
+* `filters`卷积核数量，对应输出特征图的通道数。
+* `kernel_size`滤波器的大小。
+* `strides`步长。
+* `padding=valid`不进行padding；`padding=same`保证输入特征图和输出特征图大小相等。
+* `activation`激活函数。
+
+2. 最大池化。
+
+```python
+keras.layers.MaxPool2D(
+    pool_size=(2, 2), strides=None, padding='valid'
+)
+```
+
+* `pool_size`池化层大小。
+* `strides`窗口移动的步长，默认为1。
+* `padding`是否进行填充，默认是不进行填充的
+
+3. 平均池化。
+
+```python
+keras.layers.AveragePooling2D(
+    pool_size=(2, 2), strides=None, padding='valid'
+)
+```
+
+### 数据加载
+
+```python
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+```
+
+### 数据处理
+
+卷积神经网络的输入要求是：
+
+* N图片数量
+* H图片高度
+* W图片宽度
+* C图片的通道，因为是灰度图，通道为1。
+
+```python
+import tensorflow as tf
+
+train_images = tf.reshape(train_images, 
+                          (train_images.shape[0], train_images.shape[1], train_images.shape[2], 1))
+
+test_images = tf.reshape(test_images, 
+                         (test_images.shape[0], test_images.shape[1], test_images.shape[2], 1))
+
+print(train_images.shape)
+print(test_images.shape)
+```
+
+### 模型构建
+
+```python
+net = keras.models.Sequential([
+    # 卷积层1，激活sigmoid
+    keras.layers.Conv2D(filters=6, kernel_size=5, activation='sigmoid', input_shape=(28,28,1)),
+    keras.layers.MaxPool2D(pool_size=2, strides=2),
+    # 卷积层2，激活sigmoid
+    keras.layers.Conv2D(filters=16, kernel_size=5, activation='sigmoid'),
+    keras.layers.MaxPool2D(pool_size=2, strides=2),
+    # 维度调整为1维数据
+    keras.layers.Flatten(),
+    # 全连接层1，激活sigmoid
+    keras.layers.Dense(120, activation='sigmoid'),
+    # 全连接层1，激活sigmoid
+    keras.layers.Dense(84, activation='sigmoid'),
+    # 输出层，激活softmax
+    keras.layers.Dense(10, activation='softmax')
+])
+print(net.summary())
+```
+
+* `keras.layers.Flatten()`专门用于卷积层展开。
+
+### 模型编译
+
+```python
+optimizer = keras.optimizers.SGD(learning_rate=0.9)
+net.compile(optimizer=optimizer,
+            loss='sparse_categorical_crossentropy',
+            metrics=['accuracy'])
+```
+
+* `keras.optimizers.SGD`使用随机梯度下降优化器。
+* `loss='sparse_categorical_crossentropy'`标签没有one-hot编码使用的损失函数。
+
+### 模型训练
+
+```python
+history = net.fit(train_images, train_labels, epochs=10, validation_split=0.1)
+```
+
+* `validation_split=0.1`使用训练集的$10\%$，进行验证。
+
+绘制训练过程曲线
+
+```python
+plt.figure()
+plt.plot(history.history["accuracy"], label="train_acc")
+plt.plot(history.history["val_accuracy"], label="val_acc")
+plt.legend()
+plt.grid()
+plt.show()
+```
+
+### 模型评估
+
+```python
+score = net.evaluate(test_images, test_labels, verbose=1)
+print('Test accuracy:', score[1])
+```
+
