@@ -25,3 +25,4 @@
   * [简介](3-mv/01-简介.md)
   * [tensorflow](3-mv/02-tensorflow.md)
   * [TensorFlow常用API](3-mv/03-api.md)
+  * [实践案例](3-mv/04-cases.md)
