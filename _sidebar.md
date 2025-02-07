@@ -26,3 +26,5 @@
   * [tensorflow](3-mv/02-tensorflow.md)
   * [TensorFlow常用API](3-mv/03-api.md)
   * [实践案例](3-mv/04-cases.md)
+  * 图像分类
+    * [图像分类简介](3-mv/05-分类-1.md)
