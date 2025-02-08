@@ -440,3 +440,11 @@ BN层（Batch Normalization）属于网络中的一层。
 * `scale=True`是否缩放
 * `beta_initializer` $\beta$权重初始值
 * `gamma_initializer`$\gamma$权重初始值
+
+$$
+f(x) = \begin{cases}
+0.5x^2 \cdot \text{sign}(x), & |x| < 1 \\
+(|x| - 0.5) \cdot \text{sign}(x), & |x| \geq 1
+\end{cases}
+$$
+

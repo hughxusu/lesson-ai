@@ -259,6 +259,10 @@ print(train_images.shape)
 print(test_images.shape)
 ```
 
+> [!warning]
+>
+> 数据没有归一化，标签也没有转化成one-hot编码。
+
 ### 模型构建
 
 ```python
