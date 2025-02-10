@@ -205,7 +205,10 @@ keras.layers.Conv2D(filters,
                     activation=None)
 ```
 
-* `filters`卷积核数量，对应输出特征图的通道数。
+* `filters`卷积核数量，对应输出特征图的通道数。`Conv2D`会根据图像的输入通道数自动调整卷积核。当`filters=3`时：
+  * 当输入是一通道图像时，`Conv2D` 会创建3个卷积核。每个卷积核的形状为 `(kernel_height, kernel_width, 1)`。
+  * 当输入是三通道图像时，`Conv2D` 会创建3个卷积核，但每个卷积核的形状为 `(kernel_height, kernel_width, 3)`。这意味着每个卷积核都会考虑所有三个通道的信息。
+
 * `kernel_size`滤波器的大小。
 * `strides`步长。
 * `padding=valid`不进行padding；`padding=same`保证输入特征图和输出特征图大小相等。
@@ -325,3 +328,112 @@ score = net.evaluate(test_images, test_labels, verbose=1)
 print('Test accuracy:', score[1])
 ```
 
+## Colab的使用
+
+Google Colab（Colaboratory）是一个由Google提供的云端Jupyter笔记本服务，主要用于机器学习、数据分析和教育等领域。
+
+* 用户可以在浏览器中直接使用，无需在本地安装任何软件。
+* Colab提供免费的GPU和TPU支持，适合进行深度学习训练。
+* 可以直接从Google Drive导入和导出文件，方便数据管理（免费15G数据存储）。
+* 自带许多常用的Python库，如TensorFlow、Keras、Pandas等，方便进行数据科学和机器学习项目。
+* 支持Matplotlib、Seaborn等可视化库，便于数据展示。
+
+[Colab首页](https://colab.research.google.com/)
+
+### Colab基本使用
+
+登陆Colab需要使用Google账户
+
+<img src="../_images/mv/Xnip2025-02-08_15-38-23.jpg" style="zoom:40%;" />
+
+Google硬盘功能
+
+<img src="../_images/mv/Xnip2025-02-08_15-45-25.jpg" style="zoom:40%;" />
+
+新建文件
+
+<img src="../_images/mv/Xnip2025-02-08_15-49-59.jpg" style="zoom:40%;" />
+
+* 需要手动链接一下Google的云端硬盘。
+
+测试程序执行
+
+```python
+import sys
+import tensorflow as tf
+print(sys.version)
+print(tf.__version__)
+```
+
+打印当前路径
+
+```python
+pwd
+```
+
+创建文件夹
+
+```python
+!mkdir data
+```
+
+切换文件夹
+
+```python
+cd /content/data
+cd ..
+```
+
+> [!warning]
+>
+> 在编辑器里使用命令行时，Windows命令直接使用，linux命令前面需要使用`!`。
+
+可以使用git命令克隆github上的项目。
+
+```python
+!git clone https://github.com/jwyang/faster-rcnn.pytorch.git
+```
+
+设置GPU执行程序
+
+<img src="../_images/mv/Xnip2025-02-08_15-57-20.jpg" style="zoom:40%;" />
+
+> [!warning]
+>
+> GPU一般可以连续运行10小时左右，运行时保存模型。
+
+检查GPU是否可用
+
+```python
+import tensorflow as tf
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+```
+
+查看GPU信息
+
+```shell
+!nvidia-smi
+```
+
+> [!warning]
+>
+> 当训练Keras模型时，TensorFlow会默认检查可用的GPU。如果系统中有GPU，TensorFlow会优先使用它。
+
+常见问题：
+
+1. colab运行的文件夹叫`/content`。
+   * `/content`文件夹是Colab分配给你的虚拟机实例的临时文件系统。
+   * 可以将文件上传到`/content`文件夹，或者在 Colab 中创建新的文件和文件夹。
+   * `/content`文件夹中的数据仅在当前会话期间有效。当会话结束或超时时，`/content`文件夹中的所有数据都将被删除。
+
+2. `/content/drive`文件夹是 Google Drive挂载到Colab虚拟机实例上的目录。
+   * 通过挂载Google Drive，可以像访问本地文件一样访问Google Drive中的文件和文件夹。
+   * 使用`!cp`命令将`/content`文件夹中的文件复制到`/content/drive`文件夹中，从而将数据保存到你的Google Drive中。
+
+3. 删除文件夹可以使用命令`!rm -r /content/your_folder_name`。
+
+## 其它免费GPU
+
+[kaggle](https://www.kaggle.com/) 每周30个小时
+
+[阿里云天池](https://tianchi.aliyun.com/notebook-ai/) 一共60个小时
