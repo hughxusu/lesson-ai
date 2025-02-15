@@ -13,6 +13,11 @@ TensorFlow 2.x版本，将专注于简单性和易用性
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/tf_arch_logic_architecture.png" style="zoom:85%;" />
 
+自动微分
+
+* 只要使用TensorFlow提供的运算操作，TensorFlow就够自动地计算出模型中每个操作的梯度。
+* 在自定义的神经元和激活函数中，只需要根据设计使用TensorFlow运算完成前向传播即可。
+
 训练过程
 
 - `tf.data`用于加载训练用的原始数据，数据可以是公开数据集，也可以是私有数据集，数据格式为TF Datasets
