@@ -23,7 +23,9 @@
 
 * 机器视觉
   * [简介](d-mv/01-简介.md)
-  * [Pytorch入门](d-mv/02-torch.md)
+  * PyTorch
+    * [PyTorch入门](d-mv/02-torch.md)
+    * [PyTorch常用API](d-mv/03-api.md)
 
   * 图像分类
     * [图像分类简介](d-mv/05-分类-1.md)
@@ -36,6 +38,7 @@
     * [YOLO系列算法](d-mv/11-检测-4.md)
 
 * 其他
-  * [Tensorflow基础](z-others/02-tensorflow.md)
-  * [TensorFlow常用API](z-others/03-api.md)
-  * [实践案例](z-others/04-cases.md)
+  * Tensorflow
+    * [Tensorflow基础](z-others/02-tensorflow.md)
+    * [TensorFlow常用API](z-others/03-api.md)
+    * [实践案例](z-others/04-cases.md)
