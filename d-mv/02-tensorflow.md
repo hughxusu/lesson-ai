@@ -42,7 +42,7 @@ TensorFlow 2.x版本，将专注于简单性和易用性
 
 TensorFlow的安装
 
-1. 安装没有GPU版本
+1. 安装标准版本
 
 ```shell
 pip install tensorflow
@@ -56,7 +56,7 @@ pip install tensorflow-gpu
 
 > [!attention]
 >
-> GPU版本只有windows和linux版本。
+> GPU版本只有windows和linux版本，从2.12版本后Tensorflow不再区分CPU版和GPU版。
 
 ## 张量及其操作
 
