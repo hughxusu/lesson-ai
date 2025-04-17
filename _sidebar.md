@@ -23,9 +23,8 @@
 
 * 机器视觉
   * [简介](d-mv/01-简介.md)
-  * [tensorflow](d-mv/02-tensorflow.md)
-  * [TensorFlow常用API](d-mv/03-api.md)
-  * [实践案例](d-mv/04-cases.md)
+  * [Pytorch入门](d-mv/02-torch.md)
+
   * 图像分类
     * [图像分类简介](d-mv/05-分类-1.md)
     * [几种经典的分类模型](d-mv/06-分类-2.md)
@@ -35,3 +34,8 @@
     * [R-CNN网络](d-mv/09-检测-2.md)
     * [Faster-RCNN网络](d-mv/10-检测-3.md)
     * [YOLO系列算法](d-mv/11-检测-4.md)
+
+* 其他
+  * [Tensorflow基础](z-others/02-tensorflow.md)
+  * [TensorFlow常用API](z-others/03-api.md)
+  * [实践案例](z-others/04-cases.md)
