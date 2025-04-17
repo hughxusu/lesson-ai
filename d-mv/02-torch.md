@@ -11,6 +11,10 @@
 * FaceFusion高度真实感的换脸工具。
 * LLM-Driver结合了大型语言模型（LLM）与自动驾驶任务。
 
+> [!warning]
+>
+> 目前知名的开源项目，大多是基于PyTorch开发。
+
 核心特点
 
 * 动态计算图：计算图，在代码运行时动态构建，灵活性高，适合调试和研究。对比 TensorFlow 1.x 的静态图（Define-and-Run），PyTorch 更直观，适合快速实验。
@@ -45,6 +49,14 @@
 PyTorch的安装
 
 * [安装命令](https://pytorch.org/get-started/locally/)
+  * `torch`为PyTorch的核心包。
+  * `torchvision`专为计算机视觉任务设计的扩展库。
+  * `torchaudio`音频处理库。
+
+
+模型的转换
+
+* ONNX可以对不同框架模型进行转换，可以将Tensorflow模型转换为PyTorch模型。
 
 ## PyTorch基本语法
 
@@ -219,3 +231,6 @@ print(b)
 > [!warning]
 >
 > 所有在CPU上的`tensor`，除了CharTensor，都可以转换为`ndarray`并可以反向转换。
+
+## 模型搭建
+

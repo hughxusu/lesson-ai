@@ -26,6 +26,7 @@
   * PyTorch
     * [PyTorch入门](d-mv/02-torch.md)
     * [PyTorch常用API](d-mv/03-api.md)
+    * [实践案例](d-mv/04-cases.md)
 
   * 图像分类
     * [图像分类简介](d-mv/05-分类-1.md)
