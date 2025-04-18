@@ -278,7 +278,7 @@ model = keras.models.load_model('my_model.h5')
 
 鸢尾花分类
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Iris-Dataset-Classification.png" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Iris-Dataset-Classification.png" style="zoom:50%;" />
 
 读取数据集
 
