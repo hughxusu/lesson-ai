@@ -22,9 +22,10 @@ import matplotlib.pyplot as plt
 
 plt.figure(figsize=(8, 8))
 for i in range(9):
+    image, label = train[i]
     plt.subplot(3, 3, i+1)
-    plt.imshow(X_train[i], cmap='gray', interpolation='none')
-    plt.title("number {}".format(y_train[i]))
+    plt.imshow(image[0], cmap='gray', interpolation='none')
+    plt.title("number {}".format(label))
     
 plt.tight_layout()
 plt.show()

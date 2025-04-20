@@ -130,6 +130,36 @@ a, b = x.size()
 print(a, b)
 ```
 
+创建数字、向量和矩阵
+
+```python
+rank_0_tensor = torch.tensor(4)
+print(rank_0_tensor)
+
+rank_1_tensor = torch.tensor([2.0, 3.0, 4.0])
+print(rank_1_tensor)
+
+rank_2_tensor = torch.tensor([[1, 2], [3, 4], [5, 6]], dtype=torch.float16)
+print(rank_2_tensor)
+```
+
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/98602c4fbd104a9a91a9eba0b7099fb7.png" style="zoom:55%;" />
+
+创建3维张量
+
+```python
+rank_3_tensor = torch.tensor([
+    [[0, 1, 2, 3, 4],
+     [5, 6, 7, 8, 9]],
+    [[10, 11, 12, 13, 14],
+     [15, 16, 17, 18, 19]],
+    [[20, 21, 22, 23, 24],
+     [25, 26, 27, 28, 29]],])
+print(rank_3_tensor)
+```
+
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/6206db46441e4f10b33bd752d7892b41.png" style="zoom:55%;" />
+
 ### 张量的运算
 
 [加法操作](https://pytorch.org/docs/stable/generated/torch.add.html)
@@ -282,10 +312,10 @@ print(lr.score(x_test, y_test))
 
 其中两隐层为10个神经元。
 
-1. 导入`nn`包，其包含了专门用于构建神经网络的模块。
+1. PyTorch来构建神经网络，主要工具都在`torch.nn`包中
 
 ```python
-import torch.nn as nn
+from torch import nn
 ```
 
 2. 使用`nn.Sequential`创建模型，模型是层的线性堆叠，该模型的构造函数会采用一系列层实例。
