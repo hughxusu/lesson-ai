@@ -312,13 +312,22 @@ print(lr.score(x_test, y_test))
 
 其中两隐层为10个神经元。
 
-1. PyTorch来构建神经网络，主要工具都在`torch.nn`包中
+1. 准备数据，将数据转换为张量形式。
+
+```python
+x_train_tensor = torch.FloatTensor(x_train)
+y_train_tensor = torch.LongTensor(y_train)
+x_test_tensor = torch.FloatTensor(x_test)
+y_test_tensor = torch.LongTensor(y_test)
+```
+
+2. PyTorch来构建神经网络，主要工具都在`torch.nn`包中
 
 ```python
 from torch import nn
 ```
 
-2. 使用`nn.Sequential`创建模型，模型是层的线性堆叠，该模型的构造函数会采用一系列层实例。
+3. 使用`nn.Sequential`创建模型，模型是层的线性堆叠，该模型的构造函数会采用一系列层实例。
 
 ```python
 model = nn.Sequential(
@@ -331,14 +340,14 @@ model = nn.Sequential(
 )
 ```
 
-3. 安装`pip install torchsummary`，打印网络信息。
+4. 安装`pip install torchsummary`，打印网络信息。
 
 ```python
 from torchsummary import summary
 summary(model, input_size=(4,))
 ```
 
-4. 训练模型，PyTorch需要手动编写训练循环。
+5. 训练模型，PyTorch需要手动编写训练循环。
 
 ```python
 ```

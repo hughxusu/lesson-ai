@@ -9,19 +9,24 @@
 ```python
 from torchvision import datasets, transforms
 
+transform = transforms.Compose([
+    transforms.ToTensor(),          
+    transforms.Lambda(lambda x: x.view(-1)) 
+])
+
 train = datasets.MNIST(root='./data', 
                        train=True, 
                        download=True,
-                       transform=transforms.ToTensor())
+                       transform=transform)
 test = datasets.MNIST(root='./data', 
                       train=False, 
                       download=True, 
-                      transform=transforms.ToTensor())
+                      transform=transform)
 ```
 
 * 分别读取训练数据了测试数据`train`和`test`。
 * `root='./data'`指定下载路径。
-* `transform=transforms.ToTensor()`下载的数据转换为`tensor`类型，并归一化到0~1之间。
+* `transform`读取数据转换为`tensor`类型，并归一化到0~1之间，784维。
 
 打印数据信息
 
@@ -40,36 +45,29 @@ import matplotlib.pyplot as plt
 plt.figure(figsize=(8, 8))
 for i in range(9):
     image, label = train[i]
+    image = image.view(28, 28)  
     plt.subplot(3, 3, i+1)
-    plt.imshow(image[0], cmap='gray', interpolation='none')
+    plt.imshow(image, cmap='gray', interpolation='none')
     plt.title("number {}".format(label))
     
 plt.tight_layout()
 plt.show()
 ```
 
-将图像数据转换成一维向量
+将数据包装成`DataLoader`形式才可以进行训练
 
 ```python
-print(train.data.size())
-print(train.targets.size())
-print(test.data.size())
-print(test.targets.size())
+from torch.utils.data import DataLoader
 
-print(50*'*')
+batch_size = 100 
+# 训练集需要打乱
+train_loader = DataLoader(train, batch_size=batch_size, shuffle=True) 
+test_loader = DataLoader(test, batch_size=batch_size, shuffle=False)
 
-def dataset_to_matrix(dataset):
-    return dataset.view(len(dataset), -1)
-
-x_train = dataset_to_matrix(train.data)
-x_test = dataset_to_matrix(test.data)
-y_train = train.targets
-y_test = test.targets
-
-print(x_train.shape)
-print(y_train.shape)
-print(x_test.shape)
-print(y_test.shape)
+data_iter = iter(train_loader)
+image, label = next(data_iter)
+print(image.shape)
+print(label.shape)
 ```
 
 ### 构建网络
@@ -95,16 +93,35 @@ print(summary(model, input_size=(784,)))
 * 使用`Sequential`构建网络
 * `Dropout`放在每层的激活函数之后
 
+打印模型参数`model.named_parameters()`
+
 ```python
+for name, param in model.named_parameters():
+    print(name, param.size())
 ```
-
-
 
 ### 损失函数
 
-关于方向传播的链条，如果我们跟踪loss反向传播的方向，使用`grad_fn`属性打印, 将可以看到一张完整的计算。
+定义交叉熵损失函数，
 
+```python
+from torch import optim
 
+loss = nn.CrossEntropyLoss()
+optimizer = optim.SGD(model.parameters(), lr=0.001)
+```
+
+跟踪loss反向传播的方向，使用`grad_fn`属性打印，查看反向传播的路径。
+
+```python
+outputs = model(image)
+loss = loss_fn(outputs, label)
+
+node = loss.grad_fn
+while node is not None:
+    print(f"→ {str(node)}")  # 截断输出避免过长
+    node = node.next_functions[0][0] if node.next_functions else None
+```
 
 ### 模型训练
 
