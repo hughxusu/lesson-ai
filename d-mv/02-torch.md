@@ -347,12 +347,53 @@ from torchsummary import summary
 summary(model, input_size=(4,))
 ```
 
-5. 训练模型，PyTorch需要手动编写训练循环。
+5. 创建损失函数和优化器
 
 ```python
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+```
+
+6. 训练模型，PyTorch需要手动编写训练循环。
+
+```python
+num_epochs = 500
+
+model.train()
+for epoch in range(num_epochs):
+    # 前向传播
+    outputs = model(x_train_tensor)
+    loss = criterion(outputs, y_train_tensor)
+    
+    # 反向传播和优化
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+    _, train_predicted = torch.max(outputs.data, 1)
+    train_accuracy = (train_predicted == y_train_tensor).sum().item() / y_train_tensor.size(0)
+    if (epoch + 1) % 10 == 0:
+        print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}, 训练集准确率: {train_accuracy:.4f}')
 ```
 
 > [!warning]
 >
 > PyTorch的设计哲学更倾向于灵活性和显式控制训练过程，而TensorFlow的`compile()`提供了更高层次的抽象。
+
+修改优化器为`Adam`
+
+```python
+optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+num_epochs = 100
+```
+
+7. 评价模型性能
+
+```python
+model.eval()
+with torch.no_grad():
+    outputs = model(x_test_tensor)
+    _, predicted = torch.max(outputs.data, 1)
+    accuracy = (predicted == y_test_tensor).sum().item() / y_test_tensor.size(0)
+    print(f'测试集准确率: {accuracy:.4f}')
+```
 
