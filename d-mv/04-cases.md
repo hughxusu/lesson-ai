@@ -93,13 +93,6 @@ print(summary(model, input_size=(784,)))
 * 使用`Sequential`构建网络
 * `Dropout`放在每层的激活函数之后
 
-打印模型参数`model.named_parameters()`
-
-```python
-for name, param in model.named_parameters():
-    print(name, param.size())
-```
-
 ### 损失函数
 
 定义交叉熵损失函数，
@@ -286,8 +279,6 @@ test_accuracy = evaluate_model(model, test_loader)
 ```shell
 pip install --upgrade torch torchvision torchaudio
 ```
-
-
 
 ## CNN网络
 
