@@ -26,7 +26,7 @@
 
 工作流
 
-<img src="../_images/mv/01_a_pytorch_workflow.png" style="zoom:75%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/01_a_pytorch_workflow.png" style="zoom:75%;" />
 
 可视化
 

@@ -263,23 +263,23 @@ test_accuracy = evaluate_model(model, test_loader)
 
 可以使用微信登录账号
 
-<img src="../_images/mv/Xnip2025-04-22_11-11-23.jpg" style="zoom:45%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-11-23.jpg" style="zoom:45%;" />
 
 选择AI模板
 
-![](../_images/mv/Xnip2025-04-22_11-19-47.jpg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-19-47.jpg)
 
 选择PyTorch模板创建开发环境
 
-<img src="../_images/mv/Xnip2025-04-22_11-25-47.jpg" style="zoom:45%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-25-47.jpg" style="zoom:45%;" />
 
 选择已创建过的服务器
 
-<img src="../_images/mv/Xnip2025-04-22_11-30-35.jpg" style="zoom:45%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-30-35.jpg" style="zoom:45%;" />
 
 进入开发服务器
 
-<img src="../_images/mv/Xnip2025-04-22_11-40-45.jpg" style="zoom:45%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-40-45.jpg" style="zoom:45%;" />
 
 默认的PyTorch环境是2.0版本，可以升级最新版本
 
