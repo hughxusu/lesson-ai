@@ -356,6 +356,10 @@ for i in range(10):
 optimizer = optim.Adam(model.parameters(), lr=0.01, weight_decay=1e-5) 
 ```
 
+> [!warning]
+>
+> PyTroch可以实现，部分参数正则化或不同参数正则化不同值。
+
 ### Dropout
 
 ```python

@@ -282,9 +282,41 @@ pip install --upgrade torch torchvision torchaudio
 
 ## CNN网络
 
-### 数据处理
+### 数据加载
 
-卷积神经网络的输入要求是：
+```python
+from torchvision import datasets, transforms
+
+train = datasets.MNIST(root='./data', 
+                       train=True, 
+                       download=True,
+                       transform=transforms.ToTensor())
+test = datasets.MNIST(root='./data', 
+                      train=False, 
+                      download=True, 
+                      transform=transforms.ToTensor())
+
+image, label = train[0]
+print(image.shape) 
+print(label)
+```
+
+使用`DataLoader`加载数据
+
+```python
+from torch.utils.data import DataLoader
+
+batch_size = 128  
+train_loader = DataLoader(train, batch_size=batch_size, shuffle=True)
+test_loader = DataLoader(test, batch_size=batch_size, shuffle=False)
+
+data_iter = iter(train_loader)
+image, label = next(data_iter)
+print(image.shape)
+print(label.shape)
+```
+
+卷积神经网络的输入要求是
 
 * N图片数量
 
@@ -293,3 +325,40 @@ pip install --upgrade torch torchvision torchaudio
 * H图片高度
 
 * W图片宽度
+
+### 构建模型
+
+```python
+import torch.nn as nn
+from torchsummary import summary
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(1, 6, 3, padding='same')
+        self.pool1 = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 3, padding='same')
+        self.pool2 = nn.MaxPool2d(2, 2)
+        self.flatten = nn.Flatten()
+        self.fc1 = nn.Linear(16 * 7 * 7, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 10)
+        self.relu = nn.ReLU()
+        self.dropout = nn.Dropout(p=0.5)
+        self.softmax = nn.Softmax(dim=1)
+        
+    def forward(self, x):
+        x = self.pool1(self.relu(self.conv1(x)))
+        x = self.pool2(self.relu(self.conv2(x)))
+        x = self.flatten(x)
+        x = self.relu(self.fc1(x))
+        x = self.dropout(x) 
+        x = self.relu(self.fc2(x))
+        x = self.dropout(x) 
+        x = self.softmax(self.fc3(x))
+        return x
+
+model = Net()
+summary(model, input_size=(1, 28, 28))
+```
+
