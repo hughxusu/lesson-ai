@@ -379,14 +379,14 @@ for epoch in range(num_epochs):
 >
 > PyTorch的设计哲学更倾向于灵活性和显式控制训练过程，而TensorFlow的`compile()`提供了更高层次的抽象。
 
-修改优化器为`Adam`
+`model.train()`设置为训练模式，不同层状态可能不同。修改优化器为`Adam`
 
 ```python
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
 num_epochs = 100
 ```
 
-7. 评价模型性能
+7. 评价模型性能。`model.eval()`设置为验证模式，`with torch.no_grad()`不需要反向传播运算。
 
 ```python
 model.eval()

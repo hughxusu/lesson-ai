@@ -280,6 +280,23 @@ test_accuracy = evaluate_model(model, test_loader)
 pip install --upgrade torch torchvision torchaudio
 ```
 
+查看GPU配置
+
+```python
+import torch
+
+if torch.cuda.is_available():
+    gpu_count = torch.cuda.device_count()
+    print(f"可用的GPU数量: {gpu_count}")
+    
+    for i in range(gpu_count):
+        gpu_name = torch.cuda.get_device_name(i)
+        print(f"GPU {i}: {gpu_name}")
+else:
+    print("没有可用的GPU")
+
+```
+
 ## CNN网络
 
 ### 数据加载
@@ -306,7 +323,7 @@ print(label)
 ```python
 from torch.utils.data import DataLoader
 
-batch_size = 128  
+batch_size = 256  
 train_loader = DataLoader(train, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test, batch_size=batch_size, shuffle=False)
 
@@ -340,11 +357,10 @@ class Net(nn.Module):
         self.conv2 = nn.Conv2d(6, 16, 3, padding='same')
         self.pool2 = nn.MaxPool2d(2, 2)
         self.flatten = nn.Flatten()
-        self.fc1 = nn.Linear(16 * 7 * 7, 120)
-        self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10)
+        self.fc1 = nn.Linear(16 * 7 * 7, 84)
+        self.fc2 = nn.Linear(84, 10)
         self.relu = nn.ReLU()
-        self.dropout = nn.Dropout(p=0.5)
+        self.dropout = nn.Dropout(p=0.2)
         self.softmax = nn.Softmax(dim=1)
         
     def forward(self, x):
@@ -352,13 +368,132 @@ class Net(nn.Module):
         x = self.pool2(self.relu(self.conv2(x)))
         x = self.flatten(x)
         x = self.relu(self.fc1(x))
-        x = self.dropout(x) 
-        x = self.relu(self.fc2(x))
-        x = self.dropout(x) 
-        x = self.softmax(self.fc3(x))
+        x = self.dropout(x)
+        x = self.softmax(self.fc2(x))
         return x
+```
 
+自动匹配GPU
+
+```python
+import torch
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = Net()
+model.to(device)
 summary(model, input_size=(1, 28, 28))
+```
+
+### 定义损失函数
+
+```python
+from torch import optim
+
+loss_fn = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01, weight_decay=1e-4) 
+```
+
+### 模型训练
+
+```python
+epochs = 50
+
+# 记录训练过程中的损失和准确率
+train_losses = []
+train_accuracies = []
+test_losses = []
+test_accuracies = []
+
+for epoch in range(epochs):
+    # 训练阶段
+    model.train()
+    running_loss = 0.0
+    correct = 0
+    total = 0
+    
+    for images, labels in train_loader:
+        images = images.to(device)
+        labels = labels.to(device)
+        outputs = model(images)
+        loss = loss_fn(outputs, labels)
+        
+        # 反向传播和优化
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        
+        # 统计
+        running_loss += loss.item()
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+    
+    # 计算训练指标
+    train_loss = running_loss / len(train_loader)
+    train_accuracy = 100 * correct / total
+    train_losses.append(train_loss)
+    train_accuracies.append(train_accuracy)
+    
+    # 验证阶段
+    model.eval()
+    test_loss = 0.0
+    correct = 0
+    total = 0
+    
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images = images.to(device)
+            labels = labels.to(device)
+            outputs = model(images)
+            loss = loss_fn(outputs, labels)
+            
+            test_loss += loss.item()
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+    
+    # 计算验证指标
+    test_loss = test_loss / len(test_loader)
+    test_accuracy = 100 * correct / total
+    test_losses.append(test_loss)
+    test_accuracies.append(test_accuracy)
+    
+    # 打印每个epoch的结果
+    print(f"Epoch {epoch+1} / {epochs}: "
+          f"Train Loss: {train_loss:.4f}, Train Acc: {train_accuracy:.2f}%, "
+          f"Test Loss: {test_loss:.4f}, Test Acc: {test_accuracy:.2f}%")
+
+# 打印最终结果
+print("\nTraining complete!")
+print(f"Best Test Accuracy: {max(test_accuracies):.2f}% at epoch {test_accuracies.index(max(test_accuracies))+1}")
+```
+
+绘制训练过程曲线
+
+```python
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.plot(train_accuracies, label='Train Accuracy', color='blue', marker='o')
+plt.plot(test_accuracies, label='Test Accuracy', color='green', marker='o')
+plt.title('Accuracy vs. Epochs')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy (%)')
+plt.legend()
+plt.grid(True)
+
+plt.subplot(1, 2, 2)
+plt.plot(train_losses, label='Train Loss', color='red', marker='o')
+plt.plot(test_losses, label='Test Loss', color='orange', marker='o')
+plt.title('Loss vs. Epochs')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
 ```
 
