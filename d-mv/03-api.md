@@ -184,7 +184,7 @@ nn.MaxPool2d(kernel_size, stride)
 nn.MaxPool2d(2, 1)
 ```
 
-* `kernel_size``池化层大小。
+* `kernel_size`池化层大小。
 * `stride`窗口移动的步长。
 
 平均池化
