@@ -2,7 +2,9 @@
 
 **本站网址**  https://hughxusu.github.io/lesson-ai/#/
 
-**[课程演示代码](https://gitee.com/hughxusu/lesson-ai-code)** 
+**[课程演示代码仓库](https://gitee.com/hughxusu/lesson-ai-code)**
+
+[![Cloud Studio Template](https://cs-res.codehub.cn/common/assets/icon-badge.svg)](https://cloudstudio.net/a/26642494188605440?channel=share&sharetype=Markdown)
 
 ## 课程目标
 
