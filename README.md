@@ -2,7 +2,7 @@
 
 **本站网址**  https://hughxusu.github.io/lesson-ai/#/
 
-**[代码仓库](https://github.com/hughxusu/lesson-ai)**
+**[课程演示代码](https://gitee.com/hughxusu/lesson-ai-code)** 
 
 ## 课程目标
 

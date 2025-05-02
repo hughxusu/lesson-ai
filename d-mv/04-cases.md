@@ -256,29 +256,23 @@ test_accuracy = evaluate_model(model, test_loader)
 
 可以使用微信登录账号
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-11-23.jpg" style="zoom:45%;" />
+<img src="../_images/mv/Xnip2025-05-02_11-21-06.jpg" style="zoom:40%;" />
 
-选择AI模板
+选择模板
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-19-47.jpg)
+<img src="../_images/mv/Xnip2025-05-02_11-26-03.jpg" style="zoom:40%;" />
 
-选择PyTorch模板创建开发环境
+选择以创建过的应用
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-25-47.jpg" style="zoom:45%;" />
+<img src="../_images/mv/Xnip2025-05-02_11-29-58.jpg" style="zoom:40%;" />
 
-选择已创建过的服务器
+进入开发
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-30-35.jpg" style="zoom:45%;" />
+<img src="../_images/mv/Xnip2025-05-02_11-33-06.jpg" style="zoom:40%;" />
 
-进入开发服务器
+代码编辑机器类似于VSCode
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/Xnip2025-04-22_11-40-45.jpg" style="zoom:45%;" />
-
-默认的PyTorch环境是2.0版本，可以升级最新版本
-
-```shell
-pip install --upgrade torch torchvision torchaudio
-```
+<img src="../_images/mv/Xnip2025-05-02_11-38-02.jpg" style="zoom:40%;" />
 
 查看GPU配置
 
