@@ -28,16 +28,17 @@ x = [4.2, 1.5]
 绘制上述样本数据的二维图像
 
 ```python
-import numpy as np
-import matplotlib.pyplot as plt
-
 x_train = np.array(raw_data_x)
 y_train = np.array(raw_data_y)
 t = np.array(x)
 
-plt.scatter(x_train[y_train == 0, 0], x_train[y_train == 0, 1], color='g')
-plt.scatter(x_train[y_train == 1, 0], x_train[y_train == 1, 1], color='r')
-plt.scatter(t[0], t[1], color='b')
+plt.figure(figsize=(10, 8))
+plt.scatter(x_train[y_train == 0, 0], x_train[y_train == 0, 1], 
+            color='g', s=120, label='A')
+plt.scatter(x_train[y_train == 1, 0], x_train[y_train == 1, 1], 
+            color='r', s=120, label='B')
+plt.scatter(t[0], t[1], color='b', s=120, label='Test Point')
+plt.legend()
 plt.show()
 ```
 
