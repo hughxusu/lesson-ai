@@ -2,7 +2,7 @@
 
 2015年11月9日，Google发布深度学习框架[TensorFlow](https://www.tensorflow.org/?hl=zh-cn)并宣布开源，并迅速得到广泛关注，在图形分类、音频处理、推荐系统和自然语言处理等场景下都被大面积推广。支持Python和C++接口，目前到2.x版本。
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/logo_icon.jpeg)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/logo_icon.jpeg)
 
 * TF托管在github平台，有google groups和contributors共同维护。
 * TF提供了丰富的深度学习相关的API，支持Python和C/C++接口。
@@ -11,7 +11,7 @@
 
 TensorFlow 2.x版本，将专注于简单性和易用性
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/tf_arch_logic_architecture.png" style="zoom:85%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/tf_arch_logic_architecture.png" style="zoom:85%;" />
 
 自动微分
 
@@ -62,11 +62,11 @@ pip install tensorflow-gpu
 
 张量是一种多为数组，它可以看做是矩阵和向量的推广。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/0ca2fd5a6590d22027e3058b497fdff1.jpeg" style="zoom:55%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/0ca2fd5a6590d22027e3058b497fdff1.jpeg" style="zoom:55%;" />
 
 在tensorflow中，用`tf.Tensor`对象表示，与Numpy ndarray对象类似，`tf.Tensor`对象也具有数据类型和形状。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/656a769280b04c.jpg" style="zoom:75%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/656a769280b04c.jpg" style="zoom:75%;" />
 
 `tf.Tensor`可以驻留在加速器内存（例如 GPU）中。TensorFlow提供了丰富的运算库（`tf.math.add`、`tf.linalg.matmul` 和 `tf.linalg.inv` 等），这些运算使用和生成`tf.Tensor`。在进行张量操作之前需先导入相应的工具包。
 
@@ -90,7 +90,7 @@ rank_2_tensor = tf.constant([[1, 2], [3, 4], [5, 6]], dtype=tf.float16)
 print(rank_2_tensor)
 ```
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/98602c4fbd104a9a91a9eba0b7099fb7.png" style="zoom:55%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/98602c4fbd104a9a91a9eba0b7099fb7.png" style="zoom:55%;" />
 
 默认创建张量时，整形默认是`int32`，浮点型默认是`float32`。创建3维张量
 
@@ -105,7 +105,7 @@ rank_3_tensor = tf.constant([
 print(rank_3_tensor)
 ```
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/6206db46441e4f10b33bd752d7892b41.png" style="zoom:55%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/6206db46441e4f10b33bd752d7892b41.png" style="zoom:55%;" />
 
 > [!attention]
 >
@@ -182,7 +182,7 @@ my_variable.assign([2.0, 3.0])
 
 `tf.keras`是TensorFlow 2.x高阶API接口，为TensorFlow的代码提供了新的风格和设计模式，提升了TF代码的简洁性和复用性，官方也推荐使用`tf.keras`来进行模型设计和开发。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/20220212105648110.png" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/20220212105648110.png" style="zoom:50%;" />
 
 ### 常用模块
 
@@ -329,7 +329,7 @@ print(y_train_one_hot.shape, y_test_one_hot.shape)
 
 3. 设计网络模型
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/51c3298d5b3f85b7b51530b6fb30ef02.png" style="zoom:65%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/51c3298d5b3f85b7b51530b6fb30ef02.png" style="zoom:65%;" />
 
 使用`tf.keras.Sequential`创建模型，模型是层的线性堆叠，该模型的构造函数会采用一系列层实例。
 

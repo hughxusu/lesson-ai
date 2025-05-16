@@ -26,7 +26,7 @@
 
 工作流
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/01_a_pytorch_workflow.png" style="zoom:75%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/01_a_pytorch_workflow.png" style="zoom:75%;" />
 
 可视化
 
@@ -64,11 +64,11 @@ PyTorch的安装
 
 张量（Tensors）是一种多为数组，它可以看做是矩阵和向量的推广。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/0ca2fd5a6590d22027e3058b497fdff1.jpeg" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/0ca2fd5a6590d22027e3058b497fdff1.jpeg" style="zoom:50%;" />
 
 在PyTorch中，张量的概念类似于Numpy中的`ndarray`数据结构，最大的区别在于Tensor可以利用GPU的加速功能。张量的类型为`tensor`，具有数据类型和形状。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/656a769280b04c.jpg" style="zoom:75%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/656a769280b04c.jpg" style="zoom:75%;" />
 
 使用PyTorch前，需要引入相关包
 
@@ -143,7 +143,7 @@ rank_2_tensor = torch.tensor([[1, 2], [3, 4], [5, 6]], dtype=torch.float16)
 print(rank_2_tensor)
 ```
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/98602c4fbd104a9a91a9eba0b7099fb7.png" style="zoom:55%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/98602c4fbd104a9a91a9eba0b7099fb7.png" style="zoom:55%;" />
 
 创建3维张量
 
@@ -158,7 +158,7 @@ rank_3_tensor = torch.tensor([
 print(rank_3_tensor)
 ```
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/6206db46441e4f10b33bd752d7892b41.png" style="zoom:55%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/6206db46441e4f10b33bd752d7892b41.png" style="zoom:55%;" />
 
 ### 张量的运算
 
@@ -308,7 +308,7 @@ print(lr.score(x_test, y_test))
 
 鸢尾花的分类网络如下
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/mv/51c3298d5b3f85b7b51530b6fb30ef02.png" style="zoom:65%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/cv/51c3298d5b3f85b7b51530b6fb30ef02.png" style="zoom:65%;" />
 
 其中两隐层为10个神经元。
 

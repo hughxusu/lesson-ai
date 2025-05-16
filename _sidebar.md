@@ -22,21 +22,21 @@
   * [深度学习](c-dnn/07-深度学习.md)
 
 * 机器视觉
-  * [简介](d-mv/01-简介.md)
+  * [简介](d-cv/01-简介.md)
   * PyTorch
-    * [PyTorch入门](d-mv/02-torch.md)
-    * [PyTorch常用API](d-mv/03-api.md)
-    * [实践案例](d-mv/04-cases.md)
+    * [PyTorch入门](d-cv/02-torch.md)
+    * [PyTorch常用API](d-cv/03-api.md)
+    * [实践案例](d-cv/04-cases.md)
 
   * 图像分类
-    * [图像分类简介](d-mv/05-分类-1.md)
-    * [几种经典的分类模型](d-mv/06-分类-2.md)
-    * [残差网络与模型微调](d-mv/07-分类-3.md)
+    * [图像分类简介](d-cv/05-分类-1.md)
+    * [几种经典的分类模型](d-cv/06-分类-2.md)
+    * [残差网络与模型微调](d-cv/07-分类-3.md)
   * 图像检测
-    * [图像检测](d-mv/08-检测-1.md)
-    * [R-CNN网络](d-mv/09-检测-2.md)
-    * [Faster-RCNN网络](d-mv/10-检测-3.md)
-    * [YOLO系列算法](d-mv/11-检测-4.md)
+    * [图像检测](d-cv/08-检测-1.md)
+    * [R-CNN网络](d-cv/09-检测-2.md)
+    * [Faster-RCNN网络](d-cv/10-检测-3.md)
+    * [YOLO系列算法](d-cv/11-检测-4.md)
 
 * 其他
   * Tensorflow
