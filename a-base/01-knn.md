@@ -219,8 +219,11 @@ graph LR
 
 * `loaders`用来加载小型测试数据集。
 * `fetchers`用来下载并加载大的真实数据集
+  * 参数`data_home`可以控制下载的位置。
+  * `subset`可以控制下载训练集或测试集。
+* [`fetch_openml`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html)从[OpenML](https://www.openml.org/)平台下载真实数据集。
 
-两类函数都返回，类似字典的对象。加载完成的鸢尾花数据，`keys()`包含了数据集的所有属性
+两类函数都返回，类似字典的对象。加载完成的鸢尾花数据，`keys()`包含了数据集的所有属性。使用前面介绍的鸢尾花数据。
 
 ```python
 from sklearn import datasets
@@ -278,7 +281,7 @@ print(y_predict)
 print(f'score: {sum(y_predict == y_test) / len(y_test)}')
 ```
 
-`accuracy_score`函数可以根据测试集标的监督数据和预测结果，计算准确率。
+[`accuracy_score`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score)函数可以根据测试集标的监督数据和预测结果，计算准确率。
 
 ```python
 from sklearn.metrics import accuracy_score
@@ -317,6 +320,9 @@ for k in range(1, 11):
 print('best_k =', best_k)
 print('best_score =', best_score)
 ```
+
+* K值过小：容易受到异常点的影响。
+* K值过大：受到样本均衡问题的影响。
 
 ### 距离权重
 
@@ -358,6 +364,13 @@ print('best_method =', best_method)
 ```
 
 ### 距离类型
+
+距离度量（distance measure），需满足如下基本性质：
+
+1. 非负性：$\text{Dist}(X_i,X_j) \ge 0$；
+2. 同一性：$\text{Dist}(X_i,X_j) = 0$。当且仅当$X_i=X_j$。
+3. 对称性：$\text{Dist}(X_i,X_j) = \text{Dist}(X_j,X_i)$。
+4. 三角不等式：$\text{Dist}(X_i,X_j) \le \text{Dist}(X_j,X_k) + \text{Dist}(X_k,X_j)$
 
 评价两个向量的相似程度有多种标准，前面只用了简单的欧式距离。
 
@@ -443,13 +456,12 @@ print(grid_search.best_score_)
 print(grid_search.best_params_)
 ```
 
-1. `grid_search.best_estimator_`最佳分类器，返回一个输入的分类器。
-2. `grid_search.best_score_`最佳分类器的准确率。
-3. `grid_search.best_params_`最佳分类器的相关参数。
+1. `param_grid`中的参数名称应该与函数名称一致，值是一个列表。
+2. `grid_search.best_estimator_`最佳分类器，返回一个输入的分类器。
+3. `grid_search.best_score_`最佳分类器的准确率。
+4. `grid_search.best_params_`最佳分类器的相关参数。
 
-`GridSearchCV`的参数搜索是采用交叉验证的方式进行的，参数预测结果和简单的变量会有出入。
-
-使用最佳模型对测试集进行预测
+`GridSearchCV`的参数搜索是采用**交叉验证**的方式进行的，参数预测结果和简单的变量会有出入。使用最佳模型对测试集进行预测
 
 ```python
 knn_clf = grid_search.best_estimator_
@@ -467,6 +479,14 @@ grid_search = GridSearchCV(knn_clf, param_grid, n_jobs=-1, verbose=2)
 grid_search.fit(x_train, y_train)
 ```
 
+## KD树
+
+KNN每次需要预测一个点时，都需要计算训练数据集里每个点到这个点的距离，然后选出距离最近的K个点进行投票。当数据集很大时，这个计算成本非常高。
+
+为了避免每次都重新计算一遍距离，算法会把距离信息保存在一棵树里，这样在计算之前从树里查询距离信息，尽量避免重新计算。构造的这个树叫KD树。
+
+[KD树详解](https://blog.csdn.net/weixin_39910711/article/details/114447104)
+
 ## KNN算法特点
 
 K近邻算法的优点：
@@ -479,17 +499,14 @@ K近邻算法的优点：
 
 K近邻算法的缺点：
 
-* K近邻算法的计算效率低。
-
-  * 如果训练集有 $m$ 个样本，$n$ 维特征，每预测一个新样本需要 $O(m\times n )$​ 的时间复杂度。
+* K近邻算法的计算效率低。如果训练集有 $m$ 个样本，$n$ 维特征，每预测一个新样本需要 $O(m\times n )$​ 的时间复杂度。
 
 * K紧邻算法对异常点过于敏感。
 
 * K近邻算法预测结果不具有可解释性。
 
-* k近邻算法容易陷入位数灾难。
+* k近邻算法容易陷入位数灾难。维数灾难的一个特点是，随着维度的增加，数据点之间的距离也会变得越来越大。
 
-  * 维数灾难的一个特点是，随着维度的增加，数据点之间的距离也会变得越来越大。
 
 
 | 维度    | 点                         | 距离值 |
