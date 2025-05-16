@@ -38,8 +38,13 @@
     * [Faster-RCNN网络](d-cv/10-检测-3.md)
     * [YOLO系列算法](d-cv/11-检测-4.md)
 
-* 其他
+* 自然语言处理
+  * [简介](e-nlp/01-简介.md)
+  * [文本预处理](e-nlp/02-处理.md)
+
+* 附录
   * Tensorflow
     * [Tensorflow基础](z-others/02-tensorflow.md)
     * [TensorFlow常用API](z-others/03-api.md)
     * [实践案例](z-others/04-cases.md)
+  * [自然语言处理](z-others/05-nlp.md)

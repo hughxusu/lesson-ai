@@ -140,7 +140,7 @@ print(y_predict)
 
 ```mermaid
 graph LR
-a(训练数据\nx_train\ny_train)-->b(机器学习算法)--fit-->c(模型)
+a(训练数据\n x_train \n y_train)-->b(机器学习算法)--fit-->c(模型)
 d(输入数据)-->c--predict-->e(预测结果)
 ```
 
