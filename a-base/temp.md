@@ -181,3 +181,19 @@ print(knn_clf.score(test_scale, y_test))
 > [!tip]
 >
 > scikit-learn的最值归一化封装在[`MinMaxScaler`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html)中，使用最值归一化处理手写数字识别数据，并测试KNN模型的性能。
+
+
+
+
+
+
+
+[!warning]
+
+理论上可以证明，归一化数据不影响分类结果，但可以加快学习速率。
+
+
+
+
+
+

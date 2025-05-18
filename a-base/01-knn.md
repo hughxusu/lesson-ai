@@ -148,9 +148,9 @@ d(输入数据)-->c--predict-->e(预测结果)
 2. `predict`是预测函数，可以同时预测多个结果，传入数据必须为矩阵。`t.reshape`就是将预测数据转换为矩阵形式。
 3. 预测结果也为二维矩阵。
 
-### 模仿scikit-learn的KNN工具
+### 模仿sklearn的KNN工具
 
-根据scikit-learn的处理流程，完成一个类似的工具类。
+根据sklearn的处理流程，完成一个类似的工具类。
 
 ```python
 class KNNClassifier:
@@ -213,7 +213,7 @@ graph LR
 
 使用测试数据解可以客观的评价算法和模型的性能。
 
-#### scikit-learn中的数据集
+#### sklearn中的数据集
 
  [`sklearn.datasets`](https://scikit-learn.org/stable/datasets.html) 中嵌入了一些小型数据集用于实验。
 
