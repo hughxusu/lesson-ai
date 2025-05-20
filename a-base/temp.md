@@ -197,3 +197,26 @@ print(knn_clf.score(test_scale, y_test))
 
 
 
+
+> [!attention]
+>
+> 使用梯度下降法前，数据最好归一化。
+
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/1*dGXqtJOKa_Tbvt9nL3H7KQ.jpeg" style="zoom:65%;" />
+
+对特征进行归一化处理
+
+```python
+from sklearn.preprocessing import StandardScaler
+
+standardScaler = StandardScaler()
+standardScaler.fit(x_train)
+x_train_standard = standardScaler.transform(x_train)
+x_test_standard = standardScaler.transform(x_test)
+theta = fit_gd(x_train_standard, y_train)
+print(fit_gd_r2_score(x_test_standard, theta)
+```
+
+> [!warning]
+>
+> 梯度下降法对大数据量的训练有速度优势。
