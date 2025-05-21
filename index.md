@@ -168,17 +168,10 @@ flowchart LR
 
 特征是数据的不同属性或测量值，可以反映数据集的某些现象。特征工程是指从原始数据中提取、转换和选择特征，以便于更好的反映数据集中的现象。
 
-<div style="width: 800px; height: 450px; margin: 0 auto;">
-  <iframe 
-    style="width: 100%; height: 100%; left: 0; top: 0;" 
-  	src="//player.bilibili.com/player.html?isOutside=true&aid=114237791802919&bvid=BV1bfoQYCEHC&cid=29106113058&p=1&autoplay=0" 
-    scrolling="no" 
-    border="0"
-    frameborder="no" 
-   	framespacing="0" 
-    allowfullscreen="true">
-  </iframe>
-</div>
+> [!note]
+>
+> [大模型靠啥理解文字？通俗解释：词嵌入embedding]( https://www.bilibili.com/video/BV1bfoQYCEHC/?share_source=copy_web&vd_source=aa661569ff3138d0b604d53a96184bf2)
+
 
 如果想用一个判别式来对鸢尾花数据集进行分类，首先应该把数据集数字化。对于鸢尾花数据集，分别测量了两种特征花瓣（petal）和萼片（sepal）的数据。
 
