@@ -41,6 +41,8 @@
 * 自然语言处理
   * [简介](e-nlp/01-简介.md)
   * [文本预处理](e-nlp/02-处理.md)
+  * [循环神经网络](e-nlp/03-rnn.md)
+  * [RNN结构变体](e-nlp/04-rnn-2.md)
 
 * 附录
   * Tensorflow
