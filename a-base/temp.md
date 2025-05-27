@@ -159,5 +159,14 @@ print(best_knn_clf.score(X_test, y_test))
 
 
 
+# 模型的保存和加载
+
+安装joblib `pip install joblib`
+
+```python
+joblib.dump(estimator, 'test.pkl')
+estimator = joblib.load('test.pkl')
+```
+
 
 
