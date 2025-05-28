@@ -157,16 +157,124 @@ print(best_knn_clf.score(X_test, y_test))
 
 
 
+## 决策边界
 
-
-# 模型的保存和加载
-
-安装joblib `pip install joblib`
+打印模型参数
 
 ```python
-joblib.dump(estimator, 'test.pkl')
-estimator = joblib.load('test.pkl')
+print(log_reg.coef_)
+print(log_reg.interception_)
 ```
 
+对于逻辑回归有分类函数表示为
+$$
+\hat{p}=
+\sigma \left( \theta^{T}\cdot x_b \right)=\frac{1}{1+e^{\theta^{T}\cdot x_b}} \qquad
+\hat{y}=
+\begin{cases}
+ 1, & \hat{p}\ge 0.5 \Rightarrow \theta^{T}\cdot x_b \ge 0\\
+ 0, & \hat{p}< 0.5 \Rightarrow \theta^{T}\cdot x_b < 0 \\
+\end{cases}
+$$
+所以
+$$
+\theta^{T}\cdot x_b = 0
+$$
+称为决策边界。当特征维度为2时，决策边界可以表示为
+$$
+\theta_0+\theta_1x_1+\theta_2x_2=0
+$$
+绘制上面模型的决策边界如下
+
+```python
+def x2(x1):
+    return (-log_reg.coef_[0] * x1 - log_reg.interception_) / log_reg.coef_[1]
+
+x1_plot = np.linspace(4, 8, 1000)
+x2_plot = x2(x1_plot)
+
+plt.scatter(X[y==0, 0], X[y==0, 1], color='red')
+plt.scatter(X[y==1, 0], X[y==1, 1], color='blue')
+plt.plot(x1_plot, x2_plot)
+plt.show()
+```
+
+> [!warning]
+>
+> 逻辑回归可以看做预测一个点相对于一条直线的位置。
+
+根据模型绘制决策边界（该函数仅了解即可）
+
+```python
+def plot_decision_boundary(model, axis):
+    x0, x1 = np.meshgrid(
+        np.linspace(axis[0], axis[1], int((axis[1]-axis[0])*100)).reshape(-1, 1),
+        np.linspace(axis[2], axis[3], int((axis[3]-axis[2])*100)).reshape(-1, 1),
+    )
+    X_new = np.c_[x0.ravel(), x1.ravel()]
+    y_predict = model.predict(X_new)
+    zz = y_predict.reshape(x0.shape)
+    
+    from matplotlib.colors import ListedColormap
+    custom_cmap = ListedColormap(['#EF9A9A', '#FFF59D', '#90CAF9'])
+    
+    plt.contourf(x0, x1, zz, linewidth=5, cmap=custom_cmap)
+```
+
+调用上述函数绘制线性回归的决策边界
+
+```python
+plot_decision_boundary(log_reg, axis=[4, 7.5, 1.5, 4.5])
+plt.scatter(X[y==0, 0], X[y==0, 1], color='red')
+plt.scatter(X[y==1, 0], X[y==1, 1], color='blue')
+plt.show()
+```
+
+### 验证KNN算法的决策边界
+
+使用KNN分类器分类上面的数据并绘制决策边界
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+
+knn_clf = KNeighborsClassifier()
+knn_clf.fit(X_train, y_train)
+print(knn_clf.score(X_test, y_test))
+
+plot_decision_boundary(knn_clf, axis=[4, 7.5, 1.5, 4.5])
+plt.scatter(X[y==0, 0], X[y==0, 1], color='red')
+plt.scatter(X[y==1, 0], X[y==1, 1], color='blue')
+plt.show()
+```
+
+绘制3类的分类边界
+
+```python
+knn_clf_all = KNeighborsClassifier()
+knn_clf_all.fit(iris.data[:, :2], iris.target)
+plot_decision_boundary(knn_clf_all, axis=[4, 8, 1.5, 4.5])
+plt.scatter(iris.data[iris.target==0, 0], iris.data[iris.target==0, 1], color='red')
+plt.scatter(iris.data[iris.target==1, 0], iris.data[iris.target==1, 1], color='blue')
+plt.scatter(iris.data[iris.target==2, 0], iris.data[iris.target==2, 1], color='green')
+plt.show()
+```
+
+当`n_neighbors=50`绘制决策边界
+
+```python
+knn_clf_all = KNeighborsClassifier(n_neighbors=50)
+knn_clf_all.fit(iris.data[:, :2], iris.target)
+plot_decision_boundary(knn_clf_all, axis=[4, 8, 1.5, 4.5])
+plt.scatter(iris.data[iris.target==0, 0], iris.data[iris.target==0, 1], color='red')
+plt.scatter(iris.data[iris.target==1, 0], iris.data[iris.target==1, 1], color='blue')
+plt.scatter(iris.data[iris.target==2, 0], iris.data[iris.target==2, 1], color='green')
+plt.show()
+```
+
+> [!warning]
+>
+> 在KNN算法中，当面模型的`n_neighbors`参数越大模型越简单，在分类边界中表现为边界越规整。
 
 
+
+上面的逻辑回归本质上是找到一条直线，用直线来分割样本的类别。通过对数据添加多项式向，可以使得逻辑回归对非线性的数据同时起作用。
