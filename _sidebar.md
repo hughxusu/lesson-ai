@@ -42,6 +42,8 @@
   * [简介](e-nlp/01-简介.md)
   * [文本预处理](e-nlp/02-处理.md)
   * [循环神经网络](e-nlp/03-rnn.md)
+  * [Transformer](e-nlp/05-transformer.md)
+
 
 * 附录
   * Tensorflow
