@@ -1,4 +1,4 @@
-# 机器学习基础
+# 机器学习
 
 **本站网址**  https://hughxusu.github.io/lesson-ai/#/
 
