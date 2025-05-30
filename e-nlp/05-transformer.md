@@ -188,9 +188,51 @@ $$
 
 <img src="../_images/nlp/qkv.jpg" style="zoom:35%;" />
 
+自注意力机制就是$Q,K,V$的值全部来自于同一个序列，自注意力机制确实代替了 RNN 的序列性，并且能够同时关注到当前词前面和后面的所有词。以下面的句子为例
 
-
-
-
+```
 她把水从水壶倒进杯子里，直到它满了。
 她把水从水壶倒进杯子里，直到它空了。
+```
+
+* $Q$表示每个词向量的查询，当分析到“它”字时，与查询矩阵$W_Q$相乘进行计算，得到查询$Q$。
+* “它”字意思的估计需要结合“水壶”、“杯子”、“满了”或“空了”等上下文进行分析。在RNN中只能连接到上文，不能连接下文，而在自注意力机制中可以，结合下文词汇“满了”或“空了”进行分析。句子中全部词向量与$W_K$相乘得到索引$K$。
+* $K$是句子中词汇”她“、”把“、“水壶”……等内容和当前查询（Query）的相关度（或理解为“摘要”或“元数据”）。
+* $Q$与$K$计算得到一个权重值。
+* 矩阵中的所有词汇向量都与$W_V$相乘到内容本身$V$。
+* 将权重和内容本身相乘，得到的就是分析的结果。
+* 在例子中”她“、”把“、”直到“等词汇对”它“意思的分析显然权重较小。
+
+$W_Q,W_K,W_V$三个矩阵在训练中学习到将高维词向量压缩到更小的“注意力子空间”的能力：
+
+1. 投影去冗余：它们将原始高维词向量投影到维度更小的空间，保留对当前任务（如下一词预测）最关键的语义/句法特征，去除冗余信息。
+2. 训练目标驱动： 通过海量文本和预测任务（如：完形填空或下一句预测），模型根据预测误差不断调整这三个矩阵的权重。
+3. $W_Q,W_K,W_V$的梯度：某个token的表示在当前注意力头里没法很好地预测上下文，它就会被微调，以降低损失。
+4. 压缩语言规律：经过成百上千个epoch后，这些矩阵最终将语料中的语言规律（如句法模式、语义关联、指代关系）高效地“压缩”到其固定的权重模式里。
+
+注意力机制的实现，其中使用了`tesnor`的[`masked_fill`](https://docs.pytorch.org/docs/stable/generated/torch.Tensor.masked_fill.html#torch.Tensor.masked_fill)函数
+
+```python
+import torch.nn.functional as F
+
+def attention(query, key, value, mask=None, dropout=None):
+    d_k = query.size(-1)
+    scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)
+
+    if mask is not None:
+        scores = scores.masked_fill(mask == 0, -1e9)
+
+    p_attn = F.softmax(scores, dim = -1)
+    if dropout is not None:
+        p_attn = dropout(p_attn)
+
+    return torch.matmul(p_attn, value), p_attn
+
+
+query = key = value = pe_result
+mask = torch.zeros(2, 4, 4)
+attn, p_attn = attention(query, key, value, mask=mask)
+print("attn:", attn)
+print("p_attn:", p_attn)
+```
+
