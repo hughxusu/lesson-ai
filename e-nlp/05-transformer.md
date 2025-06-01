@@ -92,7 +92,22 @@ print(torch.unsqueeze(x, 0))
 print(torch.unsqueeze(x, 1))
 ```
 
-位置编码的计算利用了正弦和余弦函数的周期性，能够让模型轻松学习到相对位置信息。位置编码的实现
+位置编码的计算利用了正弦和余弦函数的周期性，能够让模型轻松学习到相对位置信息。
+$$
+\left\{\begin{matrix}
+\text{PE}_{\left(pos,i\right)}=\sin{\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)} \\
+\text{PE}_{\left(pos,i+1\right)}=\cos{\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)}
+\end{matrix}\right.
+$$
+其中10000是一个经验值的超参数。位置编码第$i$个维度使用的频率是不同：
+
+* 位置编码是有多个正余弦函数组成的。
+* 在位置编码中，维度索引$i$越接近0，对应的频率越高。反之，频率越低。
+* 因为维度足够多，所以各个频率组合在一起，形成了一种唯一指纹式的编码。
+
+![](../_images/nlp/transformer-pos.png)
+
+位置编码的实现
 
 ```python
 class PositionalEncoding(nn.Module):
@@ -122,8 +137,11 @@ pe_result = pe(x)
 print("pe_result:", pe_result)
 ```
 
-* `pe`是一个`max_len`$\times$`d_model`的矩阵，偶数行呗$\sin$值填充，奇数行被$\cos$值填充。
-
+`pe`是一个`max_len`$\times$`d_model`的矩阵，偶数行被$\sin$值填充，奇数行被$\cos$值填充。`div_term`的计算公式
+$$
+w_k=\exp\left(2k \cdot \left(-\frac{\ln(1000)}{d_{\text{model}}} \right)\right)
+=1000^{-\frac{2k}{d_{model}}}
+$$
 绘制词向量中特征的分布曲线
 
 ```python
@@ -137,10 +155,6 @@ plt.plot(np.arange(100), y[0, :, 4:8].data.numpy(), linewidth=2)
 plt.legend(["dim %d"%p for p in [4,5,6,7]], fontsize=15)
 plt.show()
 ```
-
-- 每条颜色的曲线代表某一个词汇中的特征在不同位置的含义。
-- 保证同一词汇随着所在位置不同，它对应位置嵌入向量会发生变化。
-- 正弦波和余弦波的值域范围都是1到-1，这又很好的控制了嵌入数值的大小，有助于梯度的快速计算。
 
 ## 编码器部分
 
@@ -234,6 +248,24 @@ print("attn:", attn)
 print("p_attn:", p_attn)
 ```
 
+#### 注意力的计算
+
+$Q$与$K$计算得到一个权重值，有不同的计算方式
+
+1. 加性注意力（Additive Attention），也常被称为[Bahdanau Attention](https://arxiv.org/pdf/1409.0473)
+
+$$
+\text{Attention}\left(Q,K,V\right)
+=\text{softmax}\left(\text{Linear}\left(\left[Q,K\right]\right)\right)\cdot V
+$$
+
+2. 加性注意力的另一种形式
+
+$$
+\text{Attention}\left(Q,K,V\right)
+=\text{softmax}\left(\text{sum}\left(\tanh\left(\text{Linear}\left(\left[Q,K\right]\right)\right)\right)\right)
+$$
+
 ### 多头注意力机制
 
 多头注意力机制就是通过并行地执行多个注意力计算，每个计算关注不同的信息方面，然后将这些独立的信息整合起来，以获得对输入序列更全面、更丰富的理解。结构图如下
@@ -253,3 +285,49 @@ print("p_attn:", p_attn)
 * 再一个头可能关注指代关系（发现“它”与“杯子”和“水壶”的联系）
 
 这种多样性使得模型能够更全面地理解文本的复杂性。
+
+多头注意力机制的实现
+
+```python
+import copy
+
+def clones(module, N):
+    return nn.ModuleList([copy.deepcopy(module) for _ in range(N)])
+
+class MultiHeadedAttention(nn.Module):
+    def __init__(self, head, embedding_dim, dropout=0.1):
+        super(MultiHeadedAttention, self).__init__()
+        assert embedding_dim % head == 0
+        self.d_k = embedding_dim // head
+        self.head = head
+        self.linears = clones(nn.Linear(embedding_dim, embedding_dim), 4)
+        self.attn = None
+        self.dropout = nn.Dropout(p=dropout)
+
+    def forward(self, query, key, value, mask=None):
+        if mask is not None:
+            mask = mask.unsqueeze(0)
+        batch_size = query.size(0)
+        query, key, value = \
+           [model(x).view(batch_size, -1, self.head, self.d_k).transpose(1, 2)
+            for model, x in zip(self.linears, (query, key, value))]
+        x, self.attn = attention(query, key, value, mask=mask, dropout=self.dropout)
+        x = x.transpose(1, 2).contiguous().view(batch_size, -1, self.head * self.d_k)
+        return self.linears[-1](x)
+```
+
+调用多头注意力机制计算
+
+```python
+head = 8
+embedding_dim = 512
+dropout = 0.2
+
+query = value = key = pe_result
+mask = torch.zeros(8, 4, 4)
+
+mha = MultiHeadedAttention(head, embedding_dim, dropout)
+mha_result = mha(query, key, value, mask)
+print(mha_result)
+```
+
