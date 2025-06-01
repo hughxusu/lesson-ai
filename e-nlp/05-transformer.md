@@ -150,7 +150,7 @@ plt.show()
 
 掩码张量（Mask Tensor）主要作用是控制模型在计算注意力时对序列中某些位置的“可见性”或“关注度”。它告诉模型哪些部分应该被“看到”并参与注意力计算，哪些部分应该被“忽略”。
 
-<img src="../_images/nlp/Xnip2025-05-29_14-39-39.jpg" style="zoom:45%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/nlp/Xnip2025-05-29_14-39-39.jpg" style="zoom:45%;" />
 
 使用[`np.triu`](https://numpy.org/doc/stable/reference/generated/numpy.triu.html#numpy.triu)来实现掩码功能
 
@@ -184,7 +184,7 @@ $$
 $$
 注意力机制在网络中表示为
 
-<img src="../_images/nlp/qkv.jpg" style="zoom:35%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/nlp/qkv.jpg" style="zoom:35%;" />
 
 自注意力机制就是$Q,K,V$的值全部来自于同一个序列，自注意力机制确实代替了 RNN 的序列性，并且能够同时关注到当前词前面和后面的所有词。下面的例子中判断“它”指代的内容
 
