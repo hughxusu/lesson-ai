@@ -105,7 +105,7 @@ $$
 * 在位置编码中，维度索引$i$越接近0，对应的频率越高。反之，频率越低。
 * 因为维度足够多，所以各个频率组合在一起，形成了一种唯一指纹式的编码。
 
-![](../_images/nlp/transformer-pos.png)
+![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/nlp/transformer-pos.png)
 
 位置编码的实现
 
@@ -270,7 +270,7 @@ $$
 
 多头注意力机制就是通过并行地执行多个注意力计算，每个计算关注不同的信息方面，然后将这些独立的信息整合起来，以获得对输入序列更全面、更丰富的理解。结构图如下
 
-<img src="../_images/nlp/13.jpg" style="zoom:70%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/nlp/13.jpg" style="zoom:70%;" />
 
 假设输入的词嵌入向量是1000维，包含4个头：
 
