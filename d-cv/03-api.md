@@ -93,62 +93,6 @@ print(y.requires_grad)
 print(x.eq(y).all())
 ```
 
-## 激活函数
-
-### Sigmoid
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-x = torch.tensor(np.linspace(-10, 10, 100)) 
-y = nn.Sigmoid()(x)
-
-plt.figure(figsize=(10, 5))
-plt.plot(x, y) 
-plt.grid()
-plt.xlabel('x')
-plt.ylabel('sigmoid(x)')
-plt.show()
-```
-
-### Tanh
-
-```python
-x = torch.tensor(np.linspace(-10, 10, 100)) 
-y = nn.Tanh()(x)
-
-plt.figure(figsize=(10, 5))
-plt.plot(x, y) 
-plt.grid()
-plt.xlabel('x')
-plt.ylabel('tanh(x)')
-plt.show()
-```
-
-### Relu
-
-```python
-x = torch.tensor(np.linspace(-10, 10, 100)) 
-y = nn.ReLU()(x)
-
-plt.figure(figsize=(10, 5))
-plt.plot(x, y) 
-plt.grid()
-plt.xlabel('x')
-plt.ylabel('relu(x)')
-plt.show()
-```
-
-### Softmax
-
-```python
-x = torch.tensor([0.2, 0.02, 0.15, 1.3, 0.5, 0.06, 1.1, 0.05, 3.75])
-y = nn.Softmax(dim=0)(x)
-print(y)
-print(torch.sum(y))
-```
-
 ## 连接层
 
 ### 全连接层
