@@ -20,13 +20,13 @@ Transformer总体架构包括：
 * 编码器
   * 由N个编码器层堆叠而成
   * 每个编码器层由两个子层连接结构组成
-  * 第一个子层包括：一个多头自注意力子层和规范化层以及一个残差连接
+  * 第一个子层包括：一个多头**自注意力**子层和规范化层以及一个残差连接
   * 第二个子层包括：一个前馈全连接子层和规范化层以及一个残差连接
 * 解密器
   * 由N个解码器层堆叠而成
   * 每个解码器层由三个子层连接结构组成
   * 第一个子包括：一个多头**自注意力**子层和规范化层以及一个残差连接
-  * 第二个子包括：一个多头注意力子层和规范化层以及一个残差连接
+  * 第二个子包括：一个多头**注意力**子层和规范化层以及一个残差连接
   * 第三个子包括：一个前馈全连接子层和规范化层以及一个残差连接
 
 ## 输入部分
@@ -329,5 +329,327 @@ mask = torch.zeros(8, 4, 4)
 mha = MultiHeadedAttention(head, embedding_dim, dropout)
 mha_result = mha(query, key, value, mask)
 print(mha_result)
+```
+
+###  前馈全连接层
+
+具有两层线性层的全连接网络，通过增加两层网络来增强模型的能力，使用Rule激活函数。 前馈全连接层实现为
+
+```python
+class PositionwiseFeedForward(nn.Module):
+    def __init__(self, d_model, d_ff, dropout=0.1):
+        super(PositionwiseFeedForward, self).__init__()
+        self.w1 = nn.Linear(d_model, d_ff)
+        self.w2 = nn.Linear(d_ff, d_model)
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x):
+        return self.w2(self.dropout(F.relu(self.w1(x))))
+    
+    
+d_model = 512
+d_ff = 64
+dropout = 0.2
+x = mha_result
+ff = PositionwiseFeedForward(d_model, d_ff, dropout)
+ff_result = ff(x)
+print(ff_result)
+```
+
+### 规范化层
+
+随着网络层数的增加，通过多层的计算后参数可能开始出现过大或过小的情况，模型可能收敛非常的慢。通过数值的规范化，使其特征数值在合理范围内，从而增加速度，这就是规范化层。规范化层的实现
+
+```python
+class LayerNorm(nn.Module):
+    def __init__(self, features, eps=1e-6):
+        super(LayerNorm, self).__init__()
+        self.a2 = nn.Parameter(torch.ones(features))
+        self.b2 = nn.Parameter(torch.zeros(features))
+        self.eps = eps
+
+    def forward(self, x):
+        mean = x.mean(-1, keepdim=True)
+        std = x.std(-1, keepdim=True)
+        return self.a2 * (x - mean) / (std + self.eps) + self.b2
+    
+features = d_model = 512
+eps = 1e-6
+ln = LayerNorm(features, eps)
+ln_result = ln(x)
+print(ln_result)
+```
+
+### 子层连接结构
+
+将注意力层或前馈全连接层，与规范化层结合起来，并加上残差结构的网络。代码实现如下
+
+```python
+class SublayerConnection(nn.Module):
+    def __init__(self, size, dropout=0.1):
+        super(SublayerConnection, self).__init__()
+        self.norm = LayerNorm(size)
+        self.dropout = nn.Dropout(p=dropout)
+
+    def forward(self, x, sublayer):
+        return x + self.dropout(sublayer(self.norm(x)))
+    
+size = 512
+dropout = 0.2
+head = 8
+d_model = 512
+x = pe_result
+mask = torch.zeros(8, 4, 4)
+self_attn =  MultiHeadedAttention(head, d_model)
+sublayer = lambda x: self_attn(x, x, x, mask)
+
+sc = SublayerConnection(size, dropout)
+sc_result = sc(x, sublayer)
+print(sc_result)
+print(sc_result.shape)
+```
+
+### 编码器层
+
+组合了多头注意力机制和前馈全连接层。代码实现如下
+
+```python
+class EncoderLayer(nn.Module):
+    def __init__(self, size, self_attn, feed_forward, dropout):
+        super(EncoderLayer, self).__init__()
+
+        self.self_attn = self_attn
+        self.feed_forward = feed_forward
+        self.sublayer = clones(SublayerConnection(size, dropout), 2)
+        self.size = size
+
+    def forward(self, x, mask):
+        x = self.sublayer[0](x, lambda x: self.self_attn(x, x, x, mask))
+        return self.sublayer[1](x, self.feed_forward)
+    
+size = 512
+head = 8
+d_model = 512
+d_ff = 64
+x = pe_result
+dropout = 0.2
+self_attn = MultiHeadedAttention(head, d_model)
+ff = PositionwiseFeedForward(d_model, d_ff, dropout)
+mask = torch.zeros(8, 4, 4)
+el = EncoderLayer(size, self_attn, ff, dropout)
+el_result = el(x, mask)
+
+print(el_result)
+print(el_result.shape)
+```
+
+### 编码器
+
+一个编码器由N个编码器层堆叠而成。代码实现如下
+
+```python
+class Encoder(nn.Module):
+    def __init__(self, layer, N):
+        super(Encoder, self).__init__()
+        self.layers = clones(layer, N)
+        self.norm = LayerNorm(layer.size)
+
+    def forward(self, x, mask):
+        for layer in self.layers:
+            x = layer(x, mask)
+        return self.norm(x)
+    
+size = 512
+head = 8
+d_model = 512
+d_ff = 64
+c = copy.deepcopy
+attn = MultiHeadedAttention(head, d_model)
+ff = PositionwiseFeedForward(d_model, d_ff, dropout)
+dropout = 0.2
+layer = EncoderLayer(size, c(attn), c(ff), dropout)
+N = 8
+mask = torch.zeros(8, 4, 4)
+en = Encoder(layer, N)
+en_result = en(x, mask)
+
+print(en_result)
+print(en_result.shape)
+```
+
+## 解码器部分
+
+### 解码器层
+
+在解码器层中，交叉注意力机制中
+
+* Q（Query）：来自于解码器在前一个时间步的输出。
+* K（Key）和V（Value）：来自于编码器的输出。
+
+其他的组件与编码器一致。代码实现如下
+
+```python
+class DecoderLayer(nn.Module):
+    def __init__(self, size, self_attn, src_attn, feed_forward, dropout):
+        super(DecoderLayer, self).__init__()
+        self.size = size
+        self.self_attn = self_attn
+        self.src_attn = src_attn
+        self.feed_forward = feed_forward
+        self.sublayer = clones(SublayerConnection(size, dropout), 3)
+
+    def forward(self, x, memory, source_mask, target_mask):
+        m = memory
+        x = self.sublayer[0](x, lambda x: self.self_attn(x, x, x, target_mask))
+        x = self.sublayer[1](x, lambda x: self.src_attn(x, m, m, source_mask))
+        return self.sublayer[2](x, self.feed_forward)
+    
+head = 8
+size = 512
+d_model = 512
+d_ff = 64
+dropout = 0.2
+self_attn = src_attn = MultiHeadedAttention(head, d_model, dropout)
+ff = PositionwiseFeedForward(d_model, d_ff, dropout)
+x = pe_result
+memory = en_result
+mask = torch.zeros(8, 4, 4)
+source_mask = target_mask = mask
+dl = DecoderLayer(size, self_attn, src_attn, ff, dropout)
+dl_result = dl(x, memory, source_mask, target_mask)
+
+print(dl_result)
+print(dl_result.shape)
+```
+
+### 解码器
+
+一个解码器由N个解码器层堆叠而成。代码实现如下
+
+```python
+class Decoder(nn.Module):
+    def __init__(self, layer, N):
+        super(Decoder, self).__init__()
+        self.layers = clones(layer, N)
+        self.norm = LayerNorm(layer.size)
+
+    def forward(self, x, memory, source_mask, target_mask): 
+        for layer in self.layers:
+            x = layer(x, memory, source_mask, target_mask)
+        return self.norm(x)
+    
+size = 512
+d_model = 512
+head = 8
+d_ff = 64
+dropout = 0.2
+c = copy.deepcopy
+attn = MultiHeadedAttention(head, d_model)
+ff = PositionwiseFeedForward(d_model, d_ff, dropout)
+layer = DecoderLayer(d_model, c(attn), c(attn), c(ff), dropout)
+N = 8
+x = pe_result
+memory = en_result
+mask = torch.zeros(8, 4, 4)
+source_mask = target_mask = mask
+de = Decoder(layer, N)
+de_result = de(x, memory, source_mask, target_mask)
+
+print(de_result)
+print(de_result.shape)
+```
+
+## 输出部分
+
+由线性层和softmax层组成。代码实现如下
+
+```
+class Generator(nn.Module):
+    def __init__(self, d_model, vocab_size):
+        super(Generator, self).__init__()
+        self.project = nn.Linear(d_model, vocab_size)
+
+    def forward(self, x):
+        return F.log_softmax(self.project(x), dim=-1)
+    
+d_model = 512
+vocab_size = 1000
+x = de_result
+gen = Generator(d_model, vocab_size)
+gen_result = gen(x)
+
+print(gen_result)
+print(gen_result.shape)
+```
+
+## 模型构建
+
+### 编解码器的实现
+
+```python
+class EncoderDecoder(nn.Module):
+    def __init__(self, encoder, decoder, source_embed, target_embed, generator):
+        super(EncoderDecoder, self).__init__()
+        self.encoder = encoder
+        self.decoder = decoder
+        self.src_embed = source_embed
+        self.tgt_embed = target_embed
+        self.generator = generator
+
+    def forward(self, source, target, source_mask, target_mask):
+        return self.decode(self.encode(source, source_mask), 
+                           source_mask, target, target_mask)
+
+    def encode(self, source, source_mask):
+        return self.encoder(self.src_embed(source), 
+                            source_mask)
+
+    def decode(self, memory, source_mask, target, target_mask):
+        return self.decoder(self.tgt_embed(target), 
+                            memory, source_mask, target_mask)
+    
+vocab_size = 1000
+d_model = 512
+encoder = en
+decoder = de
+source_embed = nn.Embedding(vocab_size, d_model)
+target_embed = nn.Embedding(vocab_size, d_model)
+generator = gen
+source = target = torch.LongTensor([[100, 2, 421, 508], [491, 998, 1, 221]])
+source_mask = target_mask = torch.zeros(8, 4, 4)
+ed = EncoderDecoder(encoder, decoder, source_embed, target_embed, generator)
+ed_result = ed(source, target, source_mask, target_mask)
+print(ed_result)
+print(ed_result.shape)
+```
+
+### Tansformer构建
+
+```python
+def make_model(source_vocab, target_vocab, 
+               N=6, d_model=512, d_ff=2048, head=8, dropout=0.1):
+    c = copy.deepcopy
+    attn = MultiHeadedAttention(head, d_model)
+    ff = PositionwiseFeedForward(d_model, d_ff, dropout)
+    position = PositionalEncoding(d_model, dropout)
+    model = EncoderDecoder(
+        Encoder(EncoderLayer(d_model, c(attn), c(ff), dropout), 
+                N),
+        Decoder(DecoderLayer(d_model, c(attn), c(attn), c(ff), dropout), 
+                N),
+        nn.Sequential(Embeddings(d_model, source_vocab), c(position)),
+        nn.Sequential(Embeddings(d_model, target_vocab), c(position)),
+        Generator(d_model, target_vocab))
+
+    for p in model.parameters():
+        if p.dim() > 1:
+            nn.init.xavier_uniform_(p)
+    return model
+
+source_vocab = 11
+target_vocab = 11 
+N = 6
+res = make_model(source_vocab, target_vocab, N)
+print(res)
 ```
 
