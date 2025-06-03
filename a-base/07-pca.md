@@ -110,9 +110,139 @@ print(log_reg.score(x_train, y_train))
 print(log_reg.score(x_test, y_test))
 ```
 
+> [!note]
+>
+> PCA降维中降维后的维度$k$应该如何选择？
+
+sklearn的PCA提供了一个方法就是可以计算出每个主成分代表的方差比率
+
+```python
+print(pca.explained_variance_ratio_)
+```
+
+使用PCA计算出全部主成分，然后看看每个主成分的方差比率是如何变化。
+
+```python
+pca = PCA(n_components=x_std.shape[1])
+pca.fit(x_std)
+print(pca.explained_variance_ratio_)
+```
+
+绘制上述方差的累计曲线
+
+```python
+import numpy as np
+
+plt.figure(figsize=(10, 8))
+plt.plot([i for i in range(x_std.shape[1])], 
+         [np.sum(pca.explained_variance_ratio_[:i+1]) for i in range(x_std.shape[1])], 
+         linewidth=3)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.show()
+```
+
+sklearn的PCA初始化时提供了一个参数，表示期望达到的总方差率为多少，然后会帮我们自动计算出主成分个数
+
+```python
+pca = PCA(0.95)
+pca.fit(x_std)
+print(pca.n_components_)
+```
+
+重新划分训练集和测试集
+
+```python
+x_reduction = pca.transform(x_std)
+x_train, x_test, y_train, y_test = train_test_split(x_reduction, y, random_state=42)
+print(x_train.shape)
+print(x_test.shape)
+```
+
+使用逻辑回归对数据进行分类
+
+```python
+from sklearn.linear_model import LogisticRegression
+
+log_reg = LogisticRegression()
+log_reg.fit(x_train, y_train)
+print(log_reg.score(x_train, y_train))
+print(log_reg.score(x_test, y_test))
+```
+
 > [!warning]
 >
 > 某些情况下，PCA降维后的数据，分类性能有所提升，这是在降维的过程中对数据进行了降噪。
+
+## 决策边界
+
+将癌症分类数据压缩为2维，打印模型参数
+
+```python
+pca = PCA(n_components=2)
+pca.fit(x_std)
+x_reduction = pca.transform(x_std)
+log_reg = LogisticRegression()
+log_reg.fit(x_reduction, y)
+
+print(log_reg.coef_)
+print(log_reg.intercept_)
+```
+
+对于逻辑回归有分类函数表示为
+$$
+\hat{p}=
+\sigma \left( \theta^{T}\cdot x_b \right)=\frac{1}{1+e^{\theta^{T}\cdot x_b}} \qquad
+\hat{y}=
+\begin{cases}
+ 1, & \hat{p}\ge 0.5 \Rightarrow \theta^{T}\cdot x_b \ge 0\\
+ 0, & \hat{p}< 0.5 \Rightarrow \theta^{T}\cdot x_b < 0 \\
+\end{cases}
+$$
+所以
+$$
+\theta^{T}\cdot x_b = 0
+$$
+称为决策边界。当特征维度为2时，决策边界可以表示为
+$$
+\theta_0+\theta_1x_1+\theta_2x_2=0
+$$
+绘制上面模型的决策边界如下
+
+```python
+def x2(x1):
+    return (-log_reg.coef_[0][0] * x1 - log_reg.intercept_) / log_reg.coef_[0][1]
+
+x1_plot = np.linspace(-5, 15, 1000)
+x2_plot = x2(x1_plot)
+
+plt.figure(figsize=(10, 8))
+plt.scatter(x_reduction[y==0, 0], x_reduction[y==0, 1], color='red')
+plt.scatter(x_reduction[y==1, 0], x_reduction[y==1, 1], color='blue')
+plt.plot(x1_plot, x2_plot)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.show()
+```
+
+> [!warning]
+>
+> 在二维平面上，逻辑回归可以看做预测一个点相对于一条直线的位置。
+
+[DecisionBoundaryDisplay.from_estimator](https://scikit-learn.org/stable/modules/generated/sklearn.inspection.DecisionBoundaryDisplay.html)给定一个估计量，绘制决策边界。
+
+```python
+from sklearn.inspection import DecisionBoundaryDisplay
+
+plt.figure(figsize=(10, 8))
+DecisionBoundaryDisplay.from_estimator(
+    log_reg, x_reduction, cmap=plt.cm.Paired, response_method="predict", ax=plt.gca()
+)
+plt.scatter(x_reduction[:, 0], x_reduction[:, 1], c=y, s=100)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.show()
+```
 
 
 
