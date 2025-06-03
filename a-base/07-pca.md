@@ -9,7 +9,7 @@
 
 主成分分析并不只应用在机器学习领域，也是**统计分析领域**的重要方法。
 
-<img src="../_images/base/Xnip2025-06-03_18-12-33.jpg" style="zoom:85%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Xnip2025-06-03_18-12-33.jpg" style="zoom:85%;" />
 
 > [!warning]
 >
