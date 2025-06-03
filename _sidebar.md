@@ -43,6 +43,7 @@
   * [文本预处理](e-nlp/02-处理.md)
   * [循环神经网络](e-nlp/03-rnn.md)
   * [Transformer](e-nlp/05-transformer.md)
+  * [fasttext工具](e-nlp/06-fasttext.md)
 
 
 * 附录
