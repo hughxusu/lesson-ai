@@ -204,19 +204,6 @@ for name, param in model.named_parameters():
 
 ## 损失函数
 
-MSE损失函数`nn.MSELoss`
-
-```python
-import torch
-from torch import nn
-
-y_true = torch.tensor([[0.], [1.]])
-y_pred = torch.tensor([[1.], [1.]], requires_grad=True)
-
-mse = nn.MSELoss()
-loss = mse(y_true, y_pred)
-```
-
 在PyTorch中执行反向传播，调用`loss.backward()`：
 
 1. 整张计算图将对损失函数进行自动求导；
@@ -228,17 +215,6 @@ loss.backward()
 print(loss)
 print(y_pred.grad)
 print(y_true.grad)
-```
-
-交叉熵损失函数
-
-```python
-y_true = torch.tensor([1, 2])
-y_pred = torch.tensor([[0.05, 0.95, 0], [0.1, 0.8, 0.1]])
-
-loss = nn.CrossEntropyLoss()
-loss_value = loss(y_pred, y_true)
-print(loss_value)
 ```
 
 ## 网络优化
