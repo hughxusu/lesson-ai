@@ -132,3 +132,86 @@ print("Accuracy:" + str(float(accuracy_cnt) / len(x)))
 ```
 
 创建`utils.py`将`load_mnist`等函数写入其中，后面的常用函数，也包含在这个文件中。
+
+
+
+
+
+
+
+### 神经网络的梯度
+
+神经网络的训练过程也是用梯度下降法，使用损失函数关于权重参数的梯度。假设神经网络中的一层参数如下
+
+$$
+W=
+\begin{pmatrix}
+ w_{11} & w_{21} & w_{31}\\
+ w_{12} & w_{22} & w_{32}
+\end{pmatrix}
+$$
+参数的梯度计算如下
+$$
+\frac{\partial L}{\partial W} =
+\begin{pmatrix}
+\frac{\partial L}{\partial w_{11}}  & \frac{\partial L}{\partial w_{12}} & \frac{\partial L}{\partial w_{13}} \\
+\frac{\partial L}{\partial w_{21}}  & \frac{\partial L}{\partial w_{22}} & \frac{\partial L}{\partial w_{23}}
+\end{pmatrix}
+$$
+定义一个简单的神经网络代码如下
+
+```python
+from utils import softmax, cross_entropy_error
+
+class SimpleNet:
+    def __init__(self):
+        np.random.seed(666)
+        self.W = np.random.randn(2, 3)
+
+    def predict(self, x):
+        return np.dot(x, self.W)
+
+    def loss(self, x, t):
+        z = self.predict(x)
+        y = softmax(z)
+        loss = cross_entropy_error(y, t)
+        return loss
+```
+
+* 神经网络只有一层神经元，输入是2个神经元，输入是3个类别；随机初始化$W$的值。
+* `predict`预测输出结果；`loss`是计算损失函数。
+* `softmax`函数用于计算神经网络的输出。
+* `cross_entropy_error`函数用于计算交叉熵，标签数据可以是one-hot编码也可以是单标签。
+
+1. 定义神经网络，初始化参数
+
+```python
+net = SimpleNet()
+print(net.W)
+```
+
+2. 多数据进行预测，并打印输出最大的索引
+
+```python
+x = np.array([0.6, 0.9])
+p = net.predict(x)
+print(p)
+print(np.argmax(p))
+```
+
+3. 最大值的索引为0，假设正确标签即为0号标签，并计算损失函数。
+
+```python
+t = np.array([1, 0, 0])
+print(net.loss(x, t))
+```
+
+4. 计算$W$的梯度
+
+```python
+f = lambda w: net.loss(x, t)
+dW = numerical_gradient(f, net.W)
+print(dW)
+```
+
+### 
