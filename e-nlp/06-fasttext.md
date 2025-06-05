@@ -124,7 +124,6 @@ model.save_model(model_path)
 ### 读取模型
 
 ```python
-#%%
 loaded_model = fasttext.load_model(model_path)
 text = "This movie was a brilliant portrayal of human resilience"
 labels, probs = loaded_model.predict(text, k=2)  # k=2返回前2个预测
