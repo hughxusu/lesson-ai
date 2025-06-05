@@ -136,5 +136,76 @@ print(f"预测: {labels[0]} (置信度: {probs[0]:.2f})")
 2. 选择不同的超参数进行实验。
 3. `autotuneValidationFile='valid_file', autotuneDuration=600`自动超参数调优。
 
+## 训练词向量
+
+使用[`fasttext.train_unsupervised`](https://fasttext.cc/docs/en/unsupervised-tutorial.html)可以训练词向量，词向量的模式包括skipgram和cbow两种模式。
+
+### 下载数据集
+
+训练词向量的数据集选用[THUCNews](https://www.kaggle.com/datasets/trumanjagan/thucnews)数据集。THUCNews数据集包含多个类别，总体数量比较大，选用其中的娱乐类数据训练验证词向量的数据。由于该数据是原始新闻，针对词向量的训练需要预处理，包括：去掉标点符号和分词等。处理后的数据保存在[THUCNewsYuleTrainingWords](https://www.kaggle.com/datasets/hughxusu/thucnewsyuletrainingwords)中。
+
+```python
+os.environ["KAGGLEHUB_CACHE"] = "./data/"
+path = kagglehub.dataset_download("hughxusu/thucnewsyuletrainingwords")
+
+print("Path to dataset files:", path)
+```
+
+### 训练词向量
+
+```python
+import fasttext
+
+input_file = f"{path}/THUCNews_yule.txt"
+model = fasttext.train_unsupervised(
+    input=input_file,
+    model='skipgram',  # 可以是'skipgram'或'cbow'
+    dim=300,           # 词向量维度
+    ws=5,              # 上下文窗口大小
+    epoch=5,           # 训练轮数
+    minCount=5,        # 最小词频
+)
+```
+
+### 模型的保存和加载
+
+```python
+output_model = "./data/THUCNews_yule.bin"
+model.save_model(output_model)
+loaded_word_model = fasttext.load_model("./data/THUCNews_yule.bin")
+```
+
+### 测试模型
+
+```python
+loaded_word_model.get_nearest_neighbors("演唱会")
+loaded_word_model.get_nearest_neighbors("粉丝")
+loaded_word_model.get_nearest_neighbors("周杰伦")
+```
+
+## 预训练词向量
+
+在大型语料库上已经进行训练完成的词向量模型
+
+* [157种语言的词向量](https://fasttext.cc/docs/en/crawl-vectors.html)
+* [294种语言的词向量](https://fasttext.cc/docs/en/pretrained-vectors.html)
+
+下载词向量
+
+```python
+from fasttext import util
+util.download_model('zh', if_exists='ignore')
+```
+
+加载模型文件
+
+```python
+model = fasttext.load_model("cc.zh.300.bin")
+model.words[:100]
+loaded_word_model.get_nearest_neighbors("演唱会")
+loaded_word_model.get_nearest_neighbors("粉丝")
+loaded_word_model.get_nearest_neighbors("周杰伦")
+```
+
 
 

@@ -41,9 +41,10 @@
 * 自然语言处理
   * [简介](e-nlp/01-简介.md)
   * [文本预处理](e-nlp/02-处理.md)
-  * [循环神经网络](e-nlp/03-rnn.md)
-  * [Transformer](e-nlp/05-transformer.md)
-  * [fasttext工具](e-nlp/06-fasttext.md)
+  * [fasttext工具](e-nlp/03-fasttext.md)
+  * [循环神经网络](e-nlp/04-rnn.md)
+  * [Transformer](e-nlp/06-transformer.md)
+  
 
 
 * 附录
