@@ -94,11 +94,11 @@ print(torch.unsqueeze(x, 1))
 
 位置编码的计算利用了正弦和余弦函数的周期性，能够让模型轻松学习到相对位置信息。
 $$
-\left\{\begin{matrix}
+\begin{array}{lll} 
 \text{PE}_{\left(pos,i\right)}=\sin{\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)} \\
 \text{PE}_{\left(pos,i+1\right)}=\cos{\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)}
-\end{matrix}\right.
-$$
+\end{array}
+$$ {\begin{array}{lll} \text{PE}_{\left(pos,i\right)}=\sin{\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)} \\\text{PE}_{\left(pos,i+1\right)}=\cos{\left(\frac{pos}{10000^{\frac{2i}{d}}}\right)}\end{array}
 其中10000是一个经验值的超参数。位置编码第$i$个维度使用的频率是不同：
 
 * 位置编码是有多个正余弦函数组成的。
@@ -268,7 +268,22 @@ $$
 
 ### 多头注意力机制
 
-多头注意力机制就是通过并行地执行多个注意力计算，每个计算关注不同的信息方面，然后将这些独立的信息整合起来，以获得对输入序列更全面、更丰富的理解。结构图如下
+多头注意力机制就是通过并行地执行多个注意力计算，每个计算关注不同的信息方面，然后将这些独立的信息整合起来，以获得对输入序列更全面、更丰富的理解。
+$$
+\begin{array}{lll} 
+\text{MultiHead}\left(Q,K,V\right)=\text{Concat}\left( 
+\text{head}_1, \cdots ,\text{head}_h
+\right)W^O \\
+\text{where} \quad \text{Attention}\left(QW_i^Q, KW_i^K, VW_i^V\right) 
+\\ 
+\text{where} \quad
+W_i^Q\in R^{d_{\text{model}}\times d_k},
+W_i^K\in R^{d_{\text{model}}\times d_k},
+W_i^V\in R^{d_{\text{model}}\times d_v},
+W_i^O\in R^{d_{\text{hd}_v}\times d_{model}}
+\end{array}
+$$
+结构图如下
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/nlp/13.jpg" style="zoom:70%;" />
 
@@ -355,6 +370,8 @@ ff = PositionwiseFeedForward(d_model, d_ff, dropout)
 ff_result = ff(x)
 print(ff_result)
 ```
+
+* 原论文中的前馈全连接层，输入和输出的维度`d_model=512`，层内的连接维度`d_ff = 2048`
 
 ### 规范化层
 
@@ -477,6 +494,8 @@ print(en_result)
 print(en_result.shape)
 ```
 
+* 原论文的编码器模块，包含6个编码器。
+
 ## 解码器部分
 
 ### 解码器层
@@ -558,6 +577,8 @@ de_result = de(x, memory, source_mask, target_mask)
 print(de_result)
 print(de_result.shape)
 ```
+
+* 原论文的解码器模块，包含6个解码器。
 
 ## 输出部分
 

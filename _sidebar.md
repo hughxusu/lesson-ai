@@ -44,6 +44,7 @@
   * [fasttext工具](e-nlp/03-fasttext.md)
   * [循环神经网络](e-nlp/04-rnn.md)
   * [Transformer](e-nlp/06-transformer.md)
+  * [Bert](e-nlp/07-bert.md)
   
 
 
