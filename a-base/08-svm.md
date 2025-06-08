@@ -1,25 +1,31 @@
 # 支持向量机
 
-对于线性可分的两类数据有如下图的分布
-
 ![](https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/pF70P6x.png)
 
-> [!warning]
->
-> 当两类数据间可以选择多条分类边界时，称为不适定问题。
-
-支持向量机的算法的本质是找到一个在两类样本中间位置的分界线。
+支持向量机（supported vector machine，简称：SVM）的算法的本质是找到一个在两类样本中间位置的分界线。
 
 * 等价于两个类别距离分界线最近的点，到分界线的距离相等。
 * 两个类别距离分界线最近的点，构成一个区域，理想条件下，这个区域内没有样本点。
 * 两个类别距离分界线最近的点，被称为支撑向量。
+* SVM特别适用于中小型复杂数据集的分类。
+
+<img src="../_images/base/svm-compare.png" style="zoom:65%;" />
 
 支撑向量机算法：
 
 1. 找到这些支撑向量。
 2. 最大化margin。
 
-如果数据是线性可分，或者在高维度线性可分，称为Hard Margin SVM。如数据线性不可分，找到分线或分界面称为Soft Margin SVM。
+间隔的分类：
+
+* 硬边界分类 ：所有样本均归类于虚线之外。
+* 软边缘分类：目标是尽可能在保持最大间隔，和限制间隔违例之间找到平衡。
+
+<img src="../_images/base/svm-margin.png" style="zoom:50%;" />
+
+> [!warning]
+>
+> 当两类数据间可以选择多条分类边界时，称为不适定问题。
 
 ## Margin的数学表达
 
