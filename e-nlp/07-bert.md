@@ -84,3 +84,71 @@ ELMo分三个主要模块：
 * 最上层绿色标记的词向量表征模块。
 
 ELMo模型的预训练任务：基于传统的语言模型任务，通过预测单词在上下文中的出现概率来学习语言的统计规律，是一种自回归（auto - regression）的方式。
+
+## GPT系列模型
+
+GPT系列模型是OpenAI公司提出的一种语言预训练模型，GPT模型是在Bert模型之前提出的。
+
+### GPT 1
+
+相关论文：[Improving Language Understanding by Generative Pre-Training](https://www.mikecaptain.com/resources/pdf/GPT-1.pdf)
+
+<img src="../_images/nlp/mathematics-11-02320-g001.png" style="zoom:45%;" />
+
+* Bert采用了Transformer的Encoder模块，而GPT采用了Transformer的Decoder模块。
+* GPT采用Decoder模块中去掉了，交叉注意力模块。
+*  GPT的架构中采用了12个Decoder Block。
+* 使用了masked self-attention代替了一般的self-attention。
+* Bert会同时利用上下文的信息，GPT采用的是单向Transformer模型。
+
+<img src="../_images/nlp/picture_42.png" style="zoom:45%;" />
+
+使用Mask矩阵可以实现，后向预测
+
+<img src="../_images/nlp/gpt-mask.jpg" style="zoom: 45%;" />
+
+GPT 1的预训练任务是：因果语言建模（Causal Language Modeling, CLM）。给定一段文本序列，模型需要根据序列中前面的单词预测下一个单词。
+
+### GPT 2
+
+相关论文：[Language Models are Unsupervised Multitask Learners](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)
+
+![](../_images/nlp/34524abee27c4f3e240b357ab07e47e5.gif)
+
+在GPT 2中模型优化：
+
+* 更大的模型参数
+* 改进的 LayerNorm 位置
+
+| 维度         | GPT-1                       | GPT-2                              |
+| ------------ | --------------------------- | ---------------------------------- |
+| **模型规模** | 1.17亿参数，12层Transformer | 15亿参数，48层Transformer          |
+| **训练数据** | 5GB BooksCorpus             | 40GB WebText，更丰富的互联网文本   |
+| **任务模式** | 依赖微调解决特定任务        | 零样本学习，仅通过 Prompt 实现泛化 |
+| **能力边界** | 单一语言建模                | 通用语言理解、生成多种内容         |
+
+GPT-1 的词汇表大小约为40000，GPT-2 的词汇表大小为 50257
+
+<img src="../_images/nlp/gpt-embeding.jpg" style="zoom:65%;" />
+
+输入到transformer模块中的张量就是，词嵌入矩阵与位置编码矩阵加和结果。
+
+### GPT模型的输出
+
+当输入序列通过Transformer的所有层后，最后一个Transformer模块会输出一个形状为`[batch_size, seq_len, hidden_dim]`的张量
+
+<img src="../_images/nlp/v2-9a3481e04cf692858ae9d167b15ccaa4_1440w.jpg" style="zoom:65%;" />
+
+将Transformer的输出张量$H$与词嵌入矩阵的转置$W_e^T$相乘，得到形状为`[batch_size, seq_len, vocab_size]`的张量。
+
+<img src="../_images/nlp/v2-097ccca213e80e435b1cdf50df0ff5ac_1440w.jpg" style="zoom:57%;" />
+
+计算的数学公式为
+$$
+\begin{array}{lll} 
+\left[\text{batch-size}, \text{seq-len}, \text{hidde-dim}\right]  
+\times \left[ \text{hidden-dim}, \text{vocab-size}\right] \\
+\to \left[1, 1024, 1024\right] \times \left[1024, 50257\right]=\left[1, 1024, 50257\right]
+\end{array}
+$$
+模型完成了一个时间步的迭代，输出了一个单词.。接下来模型会不断的迭代,，直至生成完整的序列（序列长度达到1024的上限，或者序列的某一个时间步生成了结束符）。
