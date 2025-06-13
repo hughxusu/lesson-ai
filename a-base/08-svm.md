@@ -7,7 +7,7 @@
 * 两个类别距离分界线最近的点，被称为支撑向量。
 * SVM特别适用于中小型复杂数据集的分类。
 
-<img src="../_images/base/svm-compare.png" style="zoom:65%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/svm-compare.png" style="zoom:65%;" />
 
 支撑向量机算法：
 
@@ -21,7 +21,7 @@
 * 硬边界分类 ：所有样本均归类于虚线之外。
 * 软边缘分类：目标是尽可能在保持最大间隔，和限制间隔违例之间找到平衡。
 
-<img src="../_images/base/svm-margin.png" style="zoom:50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/svm-margin.png" style="zoom:50%;" />
 
 > [!warning]
 >
@@ -48,7 +48,7 @@ w^Tx+b = -1
 $$
 直线的示意图如下
 
-<img src="../_images/base/image-20190814141836897.png" style="zoom:80%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/image-20190814141836897.png" style="zoom:80%;" />
 
 支持向量机公式表示为
 $$
@@ -126,7 +126,7 @@ y^{(i)}(w^Tx^{(i)}+b) \ge 1-\zeta_i, \quad \zeta_i>0\\
 \end{cases}
 $$
 
-<img src="../_images/base/image.png" style="zoom:70%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/image.png" style="zoom:70%;" />
 
 * C值低，间隔较大，分类的错误样本较多；间隔小，更容易出现欠拟合现象。
 * C值高，间隔较小，分类的错误样本较少；间隔小，更容易出现过拟合现象。
@@ -296,7 +296,7 @@ plot_svm_boundary(poly_svc, x, y)
 
 核函数的作用就是一个从低维空间到高维空间的映射，而这个映射可以把低维空间中线性不可分的两类点变成线性可分的。
 
-<img src="../_images/base/up-dim.jpg" style="zoom:55%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/up-dim.jpg" style="zoom:55%;" />
 
 > [!warning]
 >
@@ -395,7 +395,7 @@ plot_svm_boundary(rbf_svc, x, y)
 
 SVM解决回归问题的思路和解决分类问题的思路正好是相反的。找到一条拟合直线，使得这条直线的Margin区域中的样本点越多，说明拟合的越好，反之依然。Margin边界到拟合直线的距离称为$\epsilon$是SVM解决回归问题的一个超参数。
 
-<img src="../_images/base/svm-ress.png" style="zoom:75%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/svm-ress.png" style="zoom:75%;" />
 
 导入糖尿病数据集
 
