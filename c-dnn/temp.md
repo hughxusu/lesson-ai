@@ -214,4 +214,11 @@ dW = numerical_gradient(f, net.W)
 print(dW)
 ```
 
-### 
+
+
+
+
+
+
+
+

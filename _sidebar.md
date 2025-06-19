@@ -23,10 +23,6 @@
 
 * 机器视觉
   * [简介](d-cv/01-简介.md)
-  * PyTorch
-    * [PyTorch入门](d-cv/02-torch.md)
-    * [PyTorch常用API](d-cv/03-api.md)
-    * [实践案例](d-cv/04-cases.md)
 
   * 图像分类
     * [图像分类简介](d-cv/05-分类-1.md)
