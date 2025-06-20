@@ -74,24 +74,5 @@ for name, param in model.named_parameters():
     print(name, param.size())
 ```
 
-## 网络优化
 
-优化器直接内置L2正则化（模型参数添加正则化） 
-
-> [!warning]
->
-> PyTroch可以实现，部分参数正则化或不同参数正则化不同值。
-
-### Dropout
-
-```python
-data = np.arange(1, 11).reshape(5, 2).astype(np.float32)
-data_tensor = torch.from_numpy(data)  
-print("输入数据:\n", data_tensor)
-
-dropout_layer = torch.nn.Dropout(p=0.5)
-dropout_layer.train()  # 设置为训练模式
-outputs = dropout_layer(data_tensor)
-print("Dropout输出:\n", outputs)
-```
 
