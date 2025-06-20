@@ -2,36 +2,7 @@
 
 ## 连接层
 
-### 卷积层
 
-```python
-nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding)
-nn.Conv2d(1, 6, 3, 1, 'same')
-```
-
-* `in_channels`输入图像的通道数量。
-* `out_channels`输出图像的通道数量（卷积核的数量）。
-* `kernel_size`卷积核的大小。
-* `stride`卷积核的步长。
-* `padding`边界填充值，`padding='same'`卷积后保持图像大小。
-
-### 池化层
-
-最大池化
-
-```python
-nn.MaxPool2d(kernel_size, stride)
-nn.MaxPool2d(2, 1)
-```
-
-* `kernel_size`池化层大小。
-* `stride`窗口移动的步长。
-
-平均池化
-
-```python
-nn.AvgPool2d(2, 2)
-```
 
 ## 网络构建
 
