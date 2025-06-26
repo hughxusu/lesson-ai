@@ -28,11 +28,11 @@
 
 1956年8月，在美国达特茅斯学院举办了“人工智能研究夏季项目”的会议，提出了人工智能（AI）这一概念，此次会议被广泛认为是人工智能领域的起点。自1956年以来，人工智能技术发展虽经历了一些挑战，但仍取得了显著的进展。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/20210507170608896.png" style="zoom:85%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/20210507170608896.png" style="zoom:85%;" />
 
 ### 图灵测试（Turing Test）
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/20160623140127087.png" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/20160623140127087.png" style="zoom:67%;" />
 
 由英国计算机科学家图灵提出的一种测试方法，用于判断机器是否具有智能。如果一台机器能够通过自然语言与人类进行对话，使对话的另一方无法辨别出其是机器还是人类，那么这台机器就被认为具有智能。
 
@@ -78,7 +78,7 @@
 
 ## 人工智能、机器学习和深度学习
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/v2-82c86787816a40184af016238fce03db_1440w.avis.png" style="zoom:60%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/v2-82c86787816a40184af016238fce03db_1440w.avis.png" style="zoom:60%;" />
 
 人工智能、机器学习和深度学习的关系：
 
@@ -93,7 +93,7 @@
 >
 > 如何将垃圾邮件进行分类？
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Xnip2024-06-18_23-18-37.jpg" style="zoom: 45%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/Xnip2024-06-18_23-18-37.jpg" style="zoom: 45%;" />
 
 传统的计算机解决问题思路：编写一个规则，定义“垃圾邮件”，让计算机执行。
 
@@ -117,11 +117,11 @@
 
 机器学习本质是从数据中自动分析获得模型，并利用模型对未知数据进行预测。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/v2-daf98d37cbf85c2b1e30c3a5d8637e3b_1440w.webp" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/v2-daf98d37cbf85c2b1e30c3a5d8637e3b_1440w.webp" style="zoom:67%;" />
 
 ## 人工智能三要素
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/a285cb124b36e4f15403c04b6c321392.png" style="zoom:60%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/a285cb124b36e4f15403c04b6c321392.png" style="zoom:60%;" />
 
 * 算法：定义了机器如何处理信息、学习模式、进行推理和决策。
 * 数据：可以理解为人工智能的“燃料”，是算法训练、测试和验证的基础。
@@ -158,7 +158,7 @@ flowchart LR
 
 [鸢尾花数据集](https://www.kaggle.com/datasets/uciml/iris)由Fisher收集整理，并发表在1936年的经典论文[《多重测量在分类学问题中的应用》](https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1469-1809.1936.tb02137.x)中。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Iris-Dataset-Classification.png" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/Iris-Dataset-Classification.png" style="zoom:67%;" />
 
 论文收集了三种鸢尾花，每个品种50个样本，希望找到一个判别式可以分类三种鸢尾花。
 
@@ -241,7 +241,7 @@ flowchart LR
 
 将鸢尾花的特征绘制在二维平面上
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/iris-data-show.png" style="zoom: 75%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/iris-data-show.png" style="zoom: 75%;" />
 
 由样本数据特征组成的空间称为特征空间（Feature Space），特征空间可以 $n$​ 维空间。
 
@@ -272,7 +272,7 @@ $$
 
 ## 机器学习的任务分类
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/ml-kind.png" style="zoom: 50%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/ml-kind.png" style="zoom: 50%;" />
 
 ### 监督学习
 
@@ -311,7 +311,7 @@ $$
 
 通过与环境的交互学习最佳策略，以最大化累积的奖励。增强学习非常适合自动驾驶和机器人类任务。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/rl.png" style="zoom:60%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/rl.png" style="zoom:60%;" />
 
 ## 机器学习的本质
 
@@ -323,7 +323,7 @@ $$
 
 2001年，Michele Banko的论文[Scaling to Very Very Large Corpora for Natural Language Disambiguation](https://aclanthology.org/P01-1005.pdf)
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Xnip2024-06-27_11-45-12.jpg" style="zoom: 30%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/Xnip2024-06-27_11-45-12.jpg" style="zoom: 30%;" />
 
 不同类型的算法随着数据量的增加，性能都得到显著的提升，绝大多数算法最终的结果趋同。
 

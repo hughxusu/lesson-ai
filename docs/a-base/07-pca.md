@@ -9,7 +9,7 @@
 
 主成分分析并不只应用在机器学习领域，也是**统计分析领域**的重要方法。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/Xnip2025-06-03_18-12-33.jpg" style="zoom:85%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/Xnip2025-06-03_18-12-33.jpg" style="zoom:85%;" />
 
 > [!warning]
 >
@@ -70,7 +70,7 @@ plot_pca(x_reduction, y)
 
 比较原始数据的特征组合与降维数据的对比
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/developing/_images/base/iris-data-show.png" style="zoom: 75%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/iris-data-show.png" style="zoom: 75%;" />
 
 ### 使用降维数据分类
 
