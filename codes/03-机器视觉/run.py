@@ -1,16 +1,25 @@
 from torchvision import datasets, transforms
 from utils import train_val_split
-from utils import PackDataset, ConvRelu, LinerRelu, control_callbacks
+from utils import PackDataset, ConvRelu, LinerRelu, control_callbacks, RandomRotateExpandTransform
 from torch import nn
 import torch
 from skorch import NeuralNetClassifier
 
 full = datasets.FashionMNIST(root='./data', train=True, download=True)
 test = datasets.FashionMNIST(root='./data', train=False, download=True)
+
+trans_list = [
+    transforms.RandomHorizontalFlip(0.3),
+    transforms.RandomVerticalFlip(0.3),
+    RandomRotateExpandTransform(25),
+    transforms.RandomResizedCrop(size=67, scale=(0.8, 1), ratio=(1.0, 1.0)),
+    transforms.ToTensor()
+]
 train, valid = train_val_split(full)
 
 trans = transforms.Compose([transforms.Resize(size=67), transforms.ToTensor()])
-train_data = PackDataset(train, transform=trans)
+trans_train = transforms.Compose(trans_list)
+train_data = PackDataset(train, transform=trans_train)
 valid_data = PackDataset(valid, transform=trans)
 test_data = PackDataset(test, transform=trans)
 
@@ -38,13 +47,13 @@ class AlexNetSmall(nn.Module):
         x = self.l3(self.l2(self.l1(x)))
         return x
 
-epochs = 100
+epochs = 200
 ctrl = control_callbacks(epochs, check_dir='./data/alex-checkpoints')
 net = NeuralNetClassifier(
     AlexNetSmall,
     criterion=nn.CrossEntropyLoss,
     optimizer=torch.optim.Adam,
-    lr=0.001,
+    lr=0.005,
     batch_size=2048,
     max_epochs=epochs,
     train_split=lambda ds: (train_data, valid_data),
