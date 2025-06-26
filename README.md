@@ -4,7 +4,7 @@
 
 **[课程演示代码仓库](https://gitee.com/hughxusu/lesson-ai-code)**
 
-[![Cloud Studio Template](https://cs-res.codehub.cn/common/assets/icon-badge.svg)](https://cloudstudio.net/a/26789876259811328?channel=share&sharetype=Markdown)
+[![Cloud Studio Template](https://cs-res.codehub.cn/common/assets/icon-badge.svg)](https://cloudstudio.net/courses/27965427868606464)
 
 ## 课程目标
 
