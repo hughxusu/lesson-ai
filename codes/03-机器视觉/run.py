@@ -1,9 +1,11 @@
+import json
 from torchvision import datasets, transforms
-from utils import train_val_split
-from utils import PackDataset, ConvRelu, LinerRelu, RandomRotateExpandTransform
+from utils import train_val_split, control_callbacks, PackDataset, ConvRelu, LinerRelu, RandomRotateExpandTransform
 from torch import nn
 import torch
 from skorch import NeuralNetClassifier
+from skorch.helper import predefined_split
+from sklearn.model_selection import GridSearchCV
 
 full = datasets.FashionMNIST(root='./data', train=True, download=True)
 test = datasets.FashionMNIST(root='./data', train=False, download=True)
@@ -47,26 +49,7 @@ class AlexNetSmall(nn.Module):
         x = self.l3(self.l2(self.l1(x)))
         return x
 
-epochs = 200
-
-def control_callbacks(
-        epochs, show_bar=True,
-        model_name='best_model.pt', check_dir='./data/checkpoints'
-    ):
-    bar = ProgressBar()
-    lr_scheduler = LRScheduler(policy=CosineAnnealingLR, T_max=epochs)
-    early_stopping = EarlyStopping(monitor='valid_acc', lower_is_better=False, patience=6)
-    train_acc = EpochScoring(name='train_acc', scoring='accuracy', on_train=True)
-    check_point = Checkpoint(
-        dirname=check_dir, f_params=model_name,
-        monitor='valid_acc_best', load_best=True
-    )
-    calls = []
-    if show_bar:
-        calls.append(bar)
-    calls.extend([lr_scheduler, early_stopping, train_acc, check_point])
-    return calls
-
+epochs = 50
 ctrl = control_callbacks(epochs, check_dir='./data/alex-checkpoints')
 net = NeuralNetClassifier(
     AlexNetSmall,
@@ -75,9 +58,24 @@ net = NeuralNetClassifier(
     lr=0.005,
     batch_size=2048,
     max_epochs=epochs,
-    train_split=lambda ds: (train_data, valid_data),
+    train_split=predefined_split(valid_data),
     classes=list(range(10)),
     device='cuda' if torch.cuda.is_available() else 'cpu',
     callbacks=ctrl
 )
-net.fit(X=train_data, y=None)
+
+params = {
+    'lr': [0.01, 0.005, 0.001, 0.0005],
+    'batch_size': [512, 1024, 2048],
+    'module__dropout': [0.2, 0.3, 0.5],
+}
+
+gs = GridSearchCV(net, param_grid=params, scoring='accuracy', verbose=2)
+gs.fit(train_data, None)
+
+best_hyperparams = gs.best_params_
+print("最优超参数:", best_hyperparams)
+
+with open('./data/best_hyperparameters.json', 'w') as f:
+    json.dump(best_hyperparams, f, indent=4)
+
