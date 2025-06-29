@@ -1,6 +1,6 @@
 from torchvision import datasets, transforms
 from utils import train_val_split
-from utils import PackDataset, ConvRelu, LinerRelu, control_callbacks, RandomRotateExpandTransform
+from utils import PackDataset, ConvRelu, LinerRelu, RandomRotateExpandTransform
 from torch import nn
 import torch
 from skorch import NeuralNetClassifier
@@ -48,6 +48,25 @@ class AlexNetSmall(nn.Module):
         return x
 
 epochs = 200
+
+def control_callbacks(
+        epochs, show_bar=True,
+        model_name='best_model.pt', check_dir='./data/checkpoints'
+    ):
+    bar = ProgressBar()
+    lr_scheduler = LRScheduler(policy=CosineAnnealingLR, T_max=epochs)
+    early_stopping = EarlyStopping(monitor='valid_acc', lower_is_better=False, patience=6)
+    train_acc = EpochScoring(name='train_acc', scoring='accuracy', on_train=True)
+    check_point = Checkpoint(
+        dirname=check_dir, f_params=model_name,
+        monitor='valid_acc_best', load_best=True
+    )
+    calls = []
+    if show_bar:
+        calls.append(bar)
+    calls.extend([lr_scheduler, early_stopping, train_acc, check_point])
+    return calls
+
 ctrl = control_callbacks(epochs, check_dir='./data/alex-checkpoints')
 net = NeuralNetClassifier(
     AlexNetSmall,
