@@ -26,7 +26,7 @@
 
   * 图像分类
     * [图像分类简介](/docs/d-cv/b-分类-1.md)
-    * [几种经典的分类模型](/docs/d-cv/c-分类-2.md)
+    * [AlexNet](/docs/d-cv/c-分类-2.md)
     * [残差网络与模型微调](/docs/d-cv/d-分类-3.md)
   * 图像检测
     * [图像检测](/docs/d-cv/e-检测-1.md)
