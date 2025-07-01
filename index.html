@@ -2,21 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>机器学习</title>
+  <link rel="icon" href="images/logo_icon.jpeg" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+
+  <!-- 样式 -->
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: ''
+      name: '机器学习',
+      repo: '',
+      coverpage: true,
+      loadSidebar: true,
+      subMaxLevel: 3,
+
+      // 设置页脚
+      footer: {
+        copy: '<span>北方工业大学 &copy; 2022</span>',
+        auth: '徐夙',
+        pre: '<hr/>',
+        style: 'text-align: right;',
+        class: 'className',
+      },
+      // 设置高亮文本框样式
+      'flexible-alerts': {
+        note: {
+          label: "思考",
+          className: 'note_self'
+        },
+        tip: {
+          label: "练习",
+          className: 'tip_self'
+        },
+        warning: {
+          label: "提示",
+          className: 'warning_self'
+        },
+        attention: {
+          label: "注意",
+          className: "attention_self"
+        }
+      },
+
+      copyCode: {
+        buttonText : '复制',
+        errorText  : '错误',
+        successText: '成功'
+      },
+
+      latex: {
+        inlineMath   : [['$', '$'], ['\\(', '\\)']], // default
+        displayMath  : [['$$', '$$']],               // default
+      },
+
+      mermaidConfig: {
+        querySelector: ".mermaid"
+      }
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- mermaid插件 -->
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: true });
+    window.mermaid = mermaid;
+  </script>
+  <script src="//unpkg.com/docsify-mermaid@2.0.0/dist/docsify-mermaid.js"></script>
+  <!-- 页脚插件 -->
+  <script src="//unpkg.com/docsify-footer-enh/dist/docsify-footer-enh.min.js"></script>
+  <!-- 高亮文本框插件 -->
+  <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+  <!-- 代码复制 -->
+  <script src="https://unpkg.com/docsify-copy-code"></script>
+  <!-- 高亮代码块 -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-c.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-cpp.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-css.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-css-extras.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-less.min.js"></script>
+  <!-- 数学公式 -->
+  <!-- Docsify script Here -->
+  <script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  <script src="//cdn.jsdelivr.net/npm/docsify-latex@0"></script>
+  <!-- 返回顶部 -->
+  <script src="//unpkg.com/docsify-scroll-to-top/dist/docsify-scroll-to-top.min.js"></script>
 </body>
 </html>
