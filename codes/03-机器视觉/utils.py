@@ -260,9 +260,9 @@ def plot_history(net):
     plt.show()
 
 def check_result(net, test_data):
-    y_pred = net.predict(test_data) 
-    y_prob = net.predict_proba(test_data) 
-    y_true = np.array([y for x, y in iter(test_data)])     
+    y_pred = net.predict(test_data)
+    y_prob = net.predict_proba(test_data)
+    y_true = np.array([y for x, y in iter(test_data)])
     test_accuracy = accuracy_score(y_true, y_pred)
     print(f"Test Accuracy: {test_accuracy:.4f}")
     print('='*100)
@@ -271,9 +271,9 @@ def check_result(net, test_data):
     print("Confusion Matrix:\n", cm)
     plt.figure(figsize=(12, 10))
     sns.heatmap(
-        cm, 
-        annot=True, 
-        fmt="d", 
+        cm,
+        annot=True,
+        fmt="d",
         cmap="Blues",
         annot_kws={"size": 10},
     )
@@ -284,23 +284,17 @@ def check_result(net, test_data):
     plt.yticks(fontsize=14)
     plt.show()
     print('='*100)
-    y_hat = np.asarray(y_true)                 
+    y_hat = np.asarray(y_true)
     wrong_idx = np.where(y_pred != y_hat)[0]
     error_list = []
     for i in wrong_idx:
-        features, _ = test_data[i]                  
+        features, _ = test_data[i]
         error_list.append({
-            "features": features,              
+            "features": features,
             "true_label": int(y_hat[i]),
             "pred_label": int(y_pred[i]),
-            "probabilities": y_prob[i]      
+            "probabilities": y_prob[i]
         })
 
     print(f'error number: {len(error_list)}')
     return error_list
-
-def get_train_labels(dataset):
-    return np.array([y for x, y in iter(dataset)])
-
-def get_train_features(dataset):
-    return np.array([x[0].float() for x in dataset])

@@ -1,11 +1,11 @@
 import torch
 import json
 from torchvision import datasets, transforms
-from utils import train_val_split, control_callbacks, PackDataset, ConvRelu, LinerRelu, RandomRotateExpandTransform, get_train_labels, get_train_features
+from utils import train_val_split, control_callbacks, PackDataset, ConvRelu, LinerRelu, RandomRotateExpandTransform
 from torch import nn
 from skorch import NeuralNetClassifier
 from skorch.helper import predefined_split
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import ParameterGrid
 
 full = datasets.FashionMNIST(root='./data', train=True, download=True)
 test = datasets.FashionMNIST(root='./data', train=False, download=True)
@@ -24,6 +24,7 @@ trans_train = transforms.Compose(trans_list)
 train_data = PackDataset(train, transform=trans_train)
 valid_data = PackDataset(valid, transform=trans)
 test_data = PackDataset(test, transform=trans)
+
 
 class AlexNetSmall(nn.Module):
     def __init__(self, dropout=0.5):
@@ -49,39 +50,47 @@ class AlexNetSmall(nn.Module):
         x = self.l3(self.l2(self.l1(x)))
         return x
 
-epochs = 1
-ctrl = control_callbacks(epochs, check_dir='./data/alex-checkpoints')
-net = NeuralNetClassifier(
-    AlexNetSmall,
-    criterion=nn.CrossEntropyLoss,
-    optimizer=torch.optim.Adam,
-    lr=0.005,
-    batch_size=2048,
-    max_epochs=epochs,
-    train_split=predefined_split(valid_data),
-    device='cuda' if torch.cuda.is_available() else 'cpu',
-    callbacks=ctrl
-)
 
-# params = {
-#     'lr': [0.01, 0.005, 0.001, 0.0005],
-#     'batch_size': [512, 1024, 2048],
-#     'module__dropout': [0.2, 0.3, 0.5],
-# }
-
-params = {
-    'lr': [0.01, 0.005],
-    'batch_size': [2048],
+epochs = 30
+param_grid = {
+    'lr': [0.01, 0.005, 0.001, 0.0005],
+    'batch_size': [128, 256, 512, 1024, 2048],
+    'dropout': [0.5, 0.3, 0.2]
 }
 
-gs = GridSearchCV(net, param_grid=params, scoring='accuracy', verbose=2)
-features = get_train_features(train_data)
-labels = get_train_labels(train_data)
-gs.fit(features, labels)
+results = {
+    'best_params': None,
+    'best_acc': 0.0,
+    'all_results': []
+}
+calls = control_callbacks(epochs, check_dir='./data/alex-checkpoints', show_bar=False)
 
-best_hyperparams = gs.best_params_
-print("最优超参数:", best_hyperparams)
+for params in ParameterGrid(param_grid):
+    print(f"\nTraining with params: {params}")
+    alex = AlexNetSmall(params['dropout'])
 
-with open('./data/best_hyperparameters.json', 'w') as f:
-    json.dump(best_hyperparams, f, indent=4)
+    net = NeuralNetClassifier(
+        AlexNetSmall,
+        criterion=nn.CrossEntropyLoss,
+        optimizer=torch.optim.Adam,
+        lr=params['lr'],
+        batch_size=params['batch_size'],
+        max_epochs=epochs,
+        train_split=predefined_split(valid_data),
+        device='cuda' if torch.cuda.is_available() else 'cpu',
+        callbacks=calls,
+        classes=list(range(10)),
+    )
+    net.fit(X=train_data, y=None)
+    valid_acc = max(net.history[:, 'valid_acc'])
+    current_result = {'params': params, 'valid_acc': valid_acc}
+    results['all_results'].append(current_result)
 
+    if valid_acc > results['best_acc']:
+        results['best_acc'] = valid_acc
+        results['best_params'] = params
+
+    print(f"\nBest params: {results['best_params']}, best acc: {results['best_acc']}")
+
+with open('./data/hyperparam_results.json', 'w') as f:
+    json.dump(results, f, indent=2)
