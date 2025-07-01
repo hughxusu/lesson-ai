@@ -108,17 +108,16 @@ test_data = PackDataset(test, transform=transforms.ToTensor())
 class VggBlock(nn.Module):
     def __init__(self, conv_in, conv_out, conv_num):
         super(VggBlock, self).__init__()
-        self.layers = []
-        self.layers.append(ConvRelu(conv_in, conv_out, kernel_size=3, padding=1))
+        layers = []
+        layers.append(ConvRelu(conv_in, conv_out, kernel_size=3, padding=1))
         for i in range(conv_num - 1):
-            self.layers.append(ConvRelu(conv_out, conv_out, kernel_size=3, padding=1))
+            layers.append(ConvRelu(conv_out, conv_out, kernel_size=3, padding=1))
 
-        self.layers.append(nn.MaxPool2d(kernel_size=2, stride=2))
+        layers.append(nn.MaxPool2d(kernel_size=2, stride=2))
+        self.block = nn.Sequential(*layers)
 
     def forward(self, x):
-        for layer in self.layers:
-            x = layer(x)
-        return x
+        return self.block(x)
 
 class Vgg16(nn.Module):
     def __init__(self, dropout=0.5):
