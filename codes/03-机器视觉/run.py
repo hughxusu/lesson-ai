@@ -9,19 +9,10 @@ from sklearn.model_selection import ParameterGrid
 
 full = datasets.FashionMNIST(root='./data', train=True, download=True)
 test = datasets.FashionMNIST(root='./data', train=False, download=True)
-
-trans_list = [
-    transforms.RandomHorizontalFlip(0.3),
-    transforms.RandomVerticalFlip(0.3),
-    RandomRotateExpandTransform(25),
-    transforms.RandomResizedCrop(size=67, scale=(0.8, 1), ratio=(1.0, 1.0)),
-    transforms.ToTensor()
-]
 train, valid = train_val_split(full)
 
 trans = transforms.Compose([transforms.Resize(size=67), transforms.ToTensor()])
-trans_train = transforms.Compose(trans_list)
-train_data = PackDataset(train, transform=trans_train)
+train_data = PackDataset(train, transform=trans)
 valid_data = PackDataset(valid, transform=trans)
 test_data = PackDataset(test, transform=trans)
 
@@ -51,9 +42,9 @@ class AlexNetSmall(nn.Module):
         return x
 
 
-epochs = 30
+epochs = 20
 param_grid = {
-    'lr': [0.01, 0.005, 0.001, 0.0005],
+    'lr': [0.001, 0.0005, 0.0001],
     'batch_size': [128, 256, 512, 1024, 2048],
     'dropout': [0.5, 0.3, 0.2]
 }
