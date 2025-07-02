@@ -1,5 +1,4 @@
 * [人工智能概述](/docs/index)
-
 * 机器学习经典算法
   * [K近邻](/docs/a-base/01-knn.md)
   * [线性回归](/docs/a-base/02-线性.md)
@@ -11,7 +10,6 @@
   * [支持向量机](/docs/a-base/08-svm.md)
   * [决策树](/docs/a-base/09-决策树.md)
   * [集成学习](/docs/a-base/10-集成.md)
-  
 * 深度学习
   * [感知机](/docs/c-dnn/01-感知机.md)
   * [神经网络](/docs/c-dnn/02-神经网络.md)
@@ -20,20 +18,14 @@
   * [学习的相关技巧](/docs/c-dnn/05-学习的相关技巧.md)
   * [卷积神经网络](/docs/c-dnn/06-卷积神经网络.md)
   * [深度学习](/docs/c-dnn/07-深度学习.md)
-
 * 机器视觉
   * [简介](/docs/d-cv/a-简介.md)
-
   * 图像分类
     * [图像分类简介](/docs/d-cv/b-分类-1.md)
     * [AlexNet](/docs/d-cv/c-分类-2.md)
-    * [残差网络与模型微调](/docs/d-cv/d-分类-3.md)
-  * 图像检测
-    * [图像检测](/docs/d-cv/e-检测-1.md)
-    * [R-CNN网络](/docs/d-cv/f-检测-2.md)
-    * [Faster-RCNN网络](/docs/d-cv/g-检测-4.md)
-    * [YOLO系列算法](/docs/d-cv/h-检测-3.md)
-
+    * [VGGNet](/docs/d-cv/d-分类-3.md)
+    * [GoogLeNet](/docs/d-cv/e-分类-4.md)
+    * [残差网络](/docs/d-cv/f-分类-5.md)
 * 自然语言处理
   * [简介](/docs/e-nlp/01-简介.md)
   * [文本预处理](/docs/e-nlp/02-处理.md)
