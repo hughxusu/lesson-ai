@@ -121,9 +121,9 @@ class GoogLeNet(nn.Module):
         return x, aux1, aux2
 
 
-epochs = 15
+epochs = 20
 param_grid = {
-    'lr': [0.01, 0.005, 0.001, 0.0005, 0.0001],
+    'lr': [0.005, 0.001, 0.0005, 0.0001],
     'dropout': [0.5, 0.3, 0.2]
 }
 
@@ -135,12 +135,16 @@ results = {
 }
 
 
-def loss_with_aux(pred, target):
-    main_pred, aux1_pred, aux2_pred = pred
-    main_loss = nn.functional.cross_entropy(main_pred, target)
-    aux1_loss = nn.functional.cross_entropy(aux1_pred, target)
-    aux2_loss = nn.functional.cross_entropy(aux2_pred, target)
-    return main_loss + 0.3 * aux1_loss + 0.3 * aux2_loss
+class LossWithAux(nn.Module):
+    def __init__(self):
+        super().__init__()
+        
+    def forward(self, pred, target):
+        main_pred, aux1_pred, aux2_pred = pred
+        main_loss = nn.functional.cross_entropy(main_pred, target)
+        aux1_loss = nn.functional.cross_entropy(aux1_pred, target)
+        aux2_loss = nn.functional.cross_entropy(aux2_pred, target)
+        return main_loss + 0.3 * aux1_loss + 0.3 * aux2_loss
 
 
 calls = control_callbacks(epochs, check_dir='./data/alex-checkpoints', show_bar=False)
@@ -149,7 +153,7 @@ for params in ParameterGrid(param_grid):
     gnet = GoogLeNet(params['dropout'])
     net = NeuralNetClassifier(
         gnet,
-        criterion=loss_with_aux,
+        criterion=LossWithAux,
         optimizer=torch.optim.Adam,
         lr=params['lr'],
         batch_size=2048,

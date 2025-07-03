@@ -13,6 +13,7 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
+from torchvision import transforms
 
 def show_images(dataset):
     plt.figure(figsize=(8, 8))
@@ -298,3 +299,15 @@ def check_result(net, test_data):
 
     print(f'error number: {len(error_list)}')
     return error_list
+
+
+def trans_aug():
+    aug_list = [
+        transforms.RandomHorizontalFlip(0.5),
+        transforms.ColorJitter(brightness=0.3, contrast=0.2, saturation=0.4, hue=0.1),
+        RandomRotateExpandTransform(25),
+        transforms.RandomResizedCrop(size=32, scale=(0.7, 0.7), ratio=(1.0, 1.0)),
+        transforms.ToTensor()
+    ]
+    compose = transforms.Compose(aug_list)
+    return compose
