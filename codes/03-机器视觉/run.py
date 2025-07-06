@@ -2,7 +2,7 @@ import json
 import torch
 from torch import nn
 from torchvision import datasets, transforms
-from utils import control_callbacks, LinerRelu, ConvRelu, PackDataset, train_val_split
+from utils import control_callbacks, LinerRelu, ConvRelu, PackDataset, train_val_split, trans_aug
 from sklearn.model_selection import ParameterGrid
 from skorch import NeuralNetClassifier
 from skorch.helper import predefined_split
@@ -13,7 +13,7 @@ test = datasets.CIFAR10(root="./data", train=False, download=True)
 train, valid = train_val_split(full, seed=666)
 
 
-train_data = PackDataset(train, transform=transforms.ToTensor())
+train_data = PackDataset(train, transform=trans_aug())
 valid_data = PackDataset(valid, transform=transforms.ToTensor())
 test_data = PackDataset(test, transform=transforms.ToTensor())
 
@@ -97,3 +97,46 @@ class ResNet(nn.Module):
         return x
 
 
+epochs = 15
+param_grid = {
+    'lr': [0.01, 0.005, 0.001, 0.0005, 0.0001],
+    'decay': [1e-3, 5e-4, 2e-4, 1e-4, 5e-5]
+}
+
+results = {
+    'best_params': None,
+    'best_acc': 0.0,
+    'all_results': []
+}
+
+calls = control_callbacks(epochs, check_dir='./data/alex-checkpoints', show_bar=False)
+for params in ParameterGrid(param_grid):
+    print(f"\nTraining with params: {params}")
+    net = NeuralNetClassifier(
+        ResNet,
+        criterion=nn.CrossEntropyLoss,
+        optimizer=torch.optim.Adam,
+        lr=params['lr'],
+        optimizer__weight_decay=params['decay'],
+        batch_size=2048,
+        max_epochs=epochs,
+        train_split=predefined_split(valid_data),
+        device='cuda' if torch.cuda.is_available() else 'cpu',
+        callbacks=calls,
+        classes=list(range(10)),
+        iterator_train__num_workers=8,
+        iterator_train__pin_memory=True,
+    )
+    net.fit(X=train_data, y=None)
+    valid_acc = max(net.history[:, 'valid_acc'])
+    current_result = {'params': params, 'valid_acc': valid_acc}
+    results['all_results'].append(current_result)
+
+    if valid_acc > results['best_acc']:
+        results['best_acc'] = valid_acc
+        results['best_params'] = params
+
+    print(f"\nBest params: {results['best_params']}, best acc: {results['best_acc']}")
+
+with open('./data/hyperparam_results.json', 'w') as f:
+    json.dump(results, f, indent=2)
