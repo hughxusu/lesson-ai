@@ -200,3 +200,4 @@ cython_debug/
 # Tutorial directory
 .tutorial/
 nosleep
+.vercel
