@@ -24,9 +24,7 @@ Transformers会将将模型或其他工具保存在本地，可以在环境变�
 export TRANSFORMERS_CACHE="/new/cache/path"
 ```
 
-## 核心模块
-
-### Pipeline API
+## Pipeline API
 
 `pipeline`是使用模型进行推理的一种简单方法。这些pipelines是抽象了库中大部分复杂代码的对象，提供了一个专用于多个任务的简单API。`pipeline`的处理流程
 
@@ -39,7 +37,11 @@ a(Pre-Processing)-->b(Model)-->c(Post-Processing)
 * Model：模型识别，输出概率。
 * Post-Processing：下游任务的处理，生成结果，如：分类标签、词的概率。
 
-[`pipeline`对应的任务](https://huggingface.co/docs/transformers/zh/task_summary)
+`pipeline`支持的常见任务
+
+![](../../images/nlp/Xnip2025-07-31_11-43-08.jpg)
+
+[`pipeline`支持的完整任务列表](https://huggingface.co/docs/transformers/zh/task_summary)
 
 Transformer的模型结构
 
@@ -58,6 +60,36 @@ end
 
 * 绝大多数预训练模型Transformer Network结构相似，参数可以复用。
 * Full Model的隐藏层与Head负责下游任务如：情感分类、机器对话等。
+
+### Pipeline的基本使用
+
+手动设置transformers模型下载路径
+
+```python
+import os
+
+os.environ['HF_HOME'] = './data/hf'
+os.environ['HF_HUB_CACHE'] = './data/hf/hub'
+```
+
+进行一个文本分类任务
+
+```python
+from transformers import pipeline
+
+pipe = pipeline("sentiment-analysis")
+pipe("早餐不好,服务不到位,晚餐无西餐,早餐晚餐相同,房间条件不好,餐厅不分吸烟区.房间不分有无烟房.")
+```
+
+> [!warning]
+>
+> `sentiment-analysis`的默认模型是[DistilBERT base uncased finetuned SST-2](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english)，一般不推荐使用默认模型。默认模型并未针对中文做太多训练，中文分类效果不佳。
+
+
+
+
+
+
 
 
 
