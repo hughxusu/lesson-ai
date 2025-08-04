@@ -39,7 +39,7 @@ a(Pre-Processing)-->b(Model)-->c(Post-Processing)
 
 `pipeline`支持的常见任务
 
-<img src="../../images/nlp/Xnip2025-07-31_11-43-08.jpg" style="zoom:60%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/nlp/Xnip2025-07-31_11-43-08.jpg" style="zoom:60%;" />
 
 [`pipeline`支持的完整任务列表](https://huggingface.co/docs/transformers/zh/task_summary)
 
