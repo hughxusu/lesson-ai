@@ -43,26 +43,6 @@ a(Pre-Processing)-->b(Model)-->c(Post-Processing)
 
 [`pipeline`支持的完整任务列表](https://huggingface.co/docs/transformers/zh/task_summary)
 
-Transformer的模型结构
-
-```mermaid
-graph LR
-a(Model Input)-->b(Embedings)-->c(Layers)-->d(Hiddne-states)-->e(Head)-->f(Model Output)
-subgraph Full Model
-  subgraph Transformer Network
-  b
-  c
-  end
-d
-e
-end
-```
-
-* 绝大多数预训练模型Transformer Network结构相似，参数可以复用。
-* Full Model的隐藏层与Head负责下游任务如：情感分类、机器对话等。
-
-### Pipeline的基本使用
-
 手动设置transformers模型下载路径
 
 ```python
@@ -72,7 +52,7 @@ os.environ['HF_HOME'] = './data/hf'
 os.environ['HF_HUB_CACHE'] = './data/hf/hub'
 ```
 
-#### 文本分类任务
+### 文本分类任务
 
 ```python
 from transformers import pipeline
@@ -107,46 +87,186 @@ text_list = [
 pipe(text_list)
 ```
 
-#### Token分类
+### 分词
 
-在任何NLP任务中，文本都经过预处理，将文本序列分成单个单词或子词。这些被称为[tokens](https://huggingface.co/glossary#token)。Token分类将每个`token`分配一个来自预定义类别集的标签。两种常见的Token分类是：
-
-* 命名实体识别（NER）：根据实体类别（如组织、人员、位置或日期）对`token`进行标记。NER在生物医学设置中特别受欢迎，可以标记基因、蛋白质和药物名称。
-* 词性标注（POS）：根据其词性（如名词、动词或形容词）对标记进行标记。POS对于帮助翻译系统了解两个相同的单词如何在语法上不同很有用（作为名词的银行与作为动词的银行）。
+常见的分词任务是：命名实体识别（NER）和词性标注（POS）
 
 ```python
 sentence = "Hugging Face is a French company based in New York City."
 classifier = pipeline(task="ner")
-preds = classifier(sentence)
-print(preds)
+result = classifier(sentence)
+print(*result, sep='\n')
 ```
 
 合并实体
 
 ```python
 classifier = pipeline(task="ner", grouped_entities=True)
-preds = classifier(sentence)
-print(preds)
+result = classifier(sentence)
+print(*result, sep='\n')
 ```
 
-3. 问答任务
-   * 提取式：给定一个问题和一些上下文，答案是在上下文中查找。
-   * 抽象式：给定一个问题和一些上下文，答案根据上下文生成，并不显示存在。
+### 问答任务
+
+* 提取式：给定一个问题和一些上下文，答案是引用原文。
+* 抽象式：给定一个问题和一些上下文，答案根据上下文生成，并不显示存在。
 
 ```python
+question_answerer = pipeline(task="question-answering")
+result = question_answerer(
+    question="What is the name of the repository?",
+    context="The name of the repository is huggingface/transformers",
+)
+
+print(
+    f"score: {round(preds['score'], 4)}, start: {preds['start']}, end: {preds['end']}, answer: {preds['answer']}"
+)
 ```
 
+### 摘要
 
+摘要（summarization）从较长的文本中创建一个较短的版本，同时尽可能保留原始文档的大部分含义。摘要有两种类型：
 
+* 提取式：从原始文本中识别和提取最重要的句子。
+* 抽象式：从原始文本生成目标摘要（可能包括不在输入文档中的新单词）。
 
+```python
+summarizer = pipeline(task="summarization", model="t5-base", min_length=8, max_length=32)
+summarizer(
+    "In this work, we presented the Transformer, the first sequence transduction model based entirely on attention, replacing the recurrent layers most commonly used in encoder-decoder architectures with multi-headed self-attention. For translation tasks, the Transformer can be trained significantly faster than architectures based on recurrent or convolutional layers. On both WMT 2014 English-to-German and WMT 2014 English-to-French translation tasks, we achieve a new state of the art. In the former task our best model outperforms even all previously reported ensembles."
+)
+```
 
-### AutoClasses
+[`model="google-t5/t5-base"`](https://huggingface.co/google-t5/t5-base)指定了T5模型，可以根据[模型仓库](https://huggingface.co/models)中的列表，选择不同的模型。
 
-[AutoClasses](https://huggingface.co/docs/transformers/v4.52.3/en/model_doc/auto)是一组强大的自动化工具类。它们的核心功能是根据标识符加载模型、分词器等工具。
+> [!warning]
+>
+> `pipeline`同样支持语言与视觉模型，但所有模型都是基于Transformer，在语音和视频领域同样有，基于Transformer的模型。
 
-常用的是`AutoModel`和`AutoTokenizer`加载模型和分词器。
+## Pipelines进阶
 
+`pipeline`中Transformer的模型结构
 
+```mermaid
+graph LR
+a(Model Input)-->b(Embedings)-->c(Layers)-->d(Hiddne-states)-->e(Head)-->f(Model Output)
+subgraph Full Model
+  subgraph Transformer Network
+  b
+  c
+  end
+d
+e
+end
+```
 
 * 绝大多数预训练模型Transformer Network结构相似，参数可以复用。
 * Full Model的隐藏层与Head负责下游任务如：情感分类、机器对话等。
+
+### 调用大语言模型
+
+1. 使用[GPT-2](https://huggingface.co/openai-community/gpt2)实现文本生成
+
+```python
+prompt = "Python is the best programming language."
+
+generator = pipeline(task="text-generation", model="openai-community/gpt2")
+generator(prompt)
+```
+
+设置文本生成返回条数
+
+```python
+generator = pipeline(
+    task="text-generation", model="openai-community/gpt2", num_return_sequences=3
+)
+result = generator(prompt)
+print(*result, sep='\n')
+```
+
+设置条数同时，控制文本生成最大长度
+
+```python
+result = generator(prompt, num_return_sequences=2, max_new_tokens=16)
+print(*result, sep='\n')
+```
+
+2. 使用[BERT-Base-Chinese](https://huggingface.co/google-bert/bert-base-chinese)实现中文补全
+
+```python
+fill_mask = pipeline(task="fill-mask", model="google-bert/bert-base-chinese")
+fill_mask("python是最[MASK]的编程语言")
+```
+
+设置文本补全的条数
+
+```python
+fill_mask("python是[MASK]的编程语言", top_k=3)
+```
+
+## AutoClasses
+
+[AutoClasses](https://huggingface.co/docs/transformers/v4.52.3/en/model_doc/auto)是一组强大的自动化工具类。它们的核心功能是加载Hugging Face的预训练模型、分词器等工具。常用的是`AutoModel`和`AutoTokenizer`加载模型和分词器。
+
+```python
+from transformers import AutoTokenizer, AutoModel
+
+model_name = "google-bert/bert-base-chinese"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModel.from_pretrained(model_name)
+```
+
+### 查看文本编码
+
+分词
+
+```python
+sequence = "四海之内皆兄弟"
+tokens = tokenizer.tokenize(sequence)
+print(tokens)
+```
+
+词表映射
+
+```python
+token_ids = tokenizer.convert_tokens_to_ids(tokens)
+print(token_ids)
+```
+
+端到端处理（将句子分词后直接转换为词表映射）
+
+```python
+token_ids_e2e = tokenizer.encode(sequence)
+print(token_ids_e2e)
+```
+
+将词表映射还原为token
+
+```python
+print(tokenizer.decode(token_ids))
+print(tokenizer.decode(token_ids_e2e))
+```
+
+编解码多段文本
+
+```python
+sequence_batch = ["秦时明月汉时关", "万里长征人未还"]
+token_ids_batch = tokenizer.encode(sequence_batch)
+print(tokenizer.decode(token_ids_batch))
+```
+
+### 查看词表大小
+
+```python
+len(tokenizer.vocab.keys())
+```
+
+查看词表部分内容
+
+```python
+from itertools import islice
+
+for key, value in islice(tokenizer.vocab.items(), 10):
+    print(f"{key}: {value}")
+```
+
