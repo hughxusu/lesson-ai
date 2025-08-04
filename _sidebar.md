@@ -33,6 +33,7 @@
   * [循环神经网络](/docs/e-nlp/04-rnn.md)
   * [Transformer](/docs/e-nlp/06-transformer.md)
   * [预训练模型](/docs/e-nlp/07-bert.md)
+  * [Hugging Face](/docs/e-nlp/08-huggingface.md)
   
 
 

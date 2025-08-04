@@ -1,4 +1,4 @@
-# Hugging Face Transformers
+# Hugging Face
 
 [Hugging Face](https://huggingface.co/) 是全球领先的开源人工智能平台，核心产品与服务包括
 
@@ -39,7 +39,7 @@ a(Pre-Processing)-->b(Model)-->c(Post-Processing)
 
 `pipeline`支持的常见任务
 
-![](../../images/nlp/Xnip2025-07-31_11-43-08.jpg)
+<img src="../../images/nlp/Xnip2025-07-31_11-43-08.jpg" style="zoom:60%;" />
 
 [`pipeline`支持的完整任务列表](https://huggingface.co/docs/transformers/zh/task_summary)
 
@@ -72,7 +72,7 @@ os.environ['HF_HOME'] = './data/hf'
 os.environ['HF_HUB_CACHE'] = './data/hf/hub'
 ```
 
-1. 文本分类任务
+#### 文本分类任务
 
 ```python
 from transformers import pipeline
@@ -107,7 +107,7 @@ text_list = [
 pipe(text_list)
 ```
 
-2. Token分类
+#### Token分类
 
 在任何NLP任务中，文本都经过预处理，将文本序列分成单个单词或子词。这些被称为[tokens](https://huggingface.co/glossary#token)。Token分类将每个`token`分配一个来自预定义类别集的标签。两种常见的Token分类是：
 
