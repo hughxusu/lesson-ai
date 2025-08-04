@@ -72,7 +72,7 @@ os.environ['HF_HOME'] = './data/hf'
 os.environ['HF_HUB_CACHE'] = './data/hf/hub'
 ```
 
-进行一个文本分类任务
+1. 文本分类任务
 
 ```python
 from transformers import pipeline
@@ -85,13 +85,56 @@ pipe("早餐不好,服务不到位,晚餐无西餐,早餐晚餐相同,房间条�
 >
 > `sentiment-analysis`的默认模型是[DistilBERT base uncased finetuned SST-2](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english)，一般不推荐使用默认模型。默认模型并未针对中文做太多训练，中文分类效果不佳。
 
+使用[IMDB影评数据测试模型](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
 
+```python
+sentence = "What an absolutely stunning movie, if you have 2.5 hrs to kill, watch it, you won't regret it, it's too much fun!"
+pipe(sentence)
 
+sentence = "Kind of drawn in by the erotic scenes, only to realize this was one of the most amateurish and unbelievable bits of film I've ever seen."
+pipe(sentence)
+```
 
+批处理数据
 
+```python
+text_list = [
+    "This a fantastic movie of three prisoners who become famous.",
+    "A wonderful little production.",
+    "This movie made it into one of my top 10 most awful movies."
+]
 
+pipe(text_list)
+```
 
+2. Token分类
 
+在任何NLP任务中，文本都经过预处理，将文本序列分成单个单词或子词。这些被称为[tokens](https://huggingface.co/glossary#token)。Token分类将每个`token`分配一个来自预定义类别集的标签。两种常见的Token分类是：
+
+* 命名实体识别（NER）：根据实体类别（如组织、人员、位置或日期）对`token`进行标记。NER在生物医学设置中特别受欢迎，可以标记基因、蛋白质和药物名称。
+* 词性标注（POS）：根据其词性（如名词、动词或形容词）对标记进行标记。POS对于帮助翻译系统了解两个相同的单词如何在语法上不同很有用（作为名词的银行与作为动词的银行）。
+
+```python
+sentence = "Hugging Face is a French company based in New York City."
+classifier = pipeline(task="ner")
+preds = classifier(sentence)
+print(preds)
+```
+
+合并实体
+
+```python
+classifier = pipeline(task="ner", grouped_entities=True)
+preds = classifier(sentence)
+print(preds)
+```
+
+3. 问答任务
+   * 提取式：给定一个问题和一些上下文，答案是在上下文中查找。
+   * 抽象式：给定一个问题和一些上下文，答案根据上下文生成，并不显示存在。
+
+```python
+```
 
 
 
