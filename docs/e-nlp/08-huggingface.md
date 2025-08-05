@@ -27,7 +27,6 @@ flowchart TB
             c(其他方法)
             subgraph transformer
             	b(Hugging Face \n Transformers)
-            	d(Ollama)
             	e(其他工具)
             end
           end
@@ -36,7 +35,10 @@ flowchart TB
 ```
 
 * Hugging Face Transformers支持全流程开发库、模型生态、高效微调和分布式训练等。
-* Ollama本地化部署工具，简化大型语言模型在本地环境中的运行和管理，提供开箱即用的命令行和 REST API接口。
+* 其他大模型工具
+  * Ollama本地化部署工具，简化大型语言模型在本地环境中的运行和管理，提供开箱即用的命令行和 REST API接口。
+  * LLaMA-Factory专为大模型微调设计的低代码/可视化工具，尤其适合快速部署和工程化训练，提供Web UI和命令行两种操作方式。
+
 
 Transformers会将将模型或其他工具保存在本地，可以在环境变量中统一修改缓存位置，在`~/.zshrc`中添加
 
