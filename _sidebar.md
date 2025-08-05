@@ -34,6 +34,7 @@
   * [Transformer](/docs/e-nlp/06-transformer.md)
   * [预训练模型](/docs/e-nlp/07-bert.md)
   * [Hugging Face](/docs/e-nlp/08-huggingface.md)
+  * [模型微调入门](/docs/e-nlp/09-微调入门.md)
   
 
 

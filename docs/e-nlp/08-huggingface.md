@@ -18,6 +18,26 @@
 pip install 'transformers[torch]' # 安装已Pytorch为底层的transformers
 ```
 
+```mermaid
+flowchart TB
+    subgraph 人工智能
+        subgraph 机器学习
+          subgraph 自然语言处理
+            a(RNN)
+            c(其他方法)
+            subgraph transformer
+            	b(Hugging Face \n Transformers)
+            	d(Ollama)
+            	e(其他工具)
+            end
+          end
+        end
+    end
+```
+
+* Hugging Face Transformers支持全流程开发库、模型生态、高效微调和分布式训练等。
+* Ollama本地化部署工具，简化大型语言模型在本地环境中的运行和管理，提供开箱即用的命令行和 REST API接口。
+
 Transformers会将将模型或其他工具保存在本地，可以在环境变量中统一修改缓存位置，在`~/.zshrc`中添加
 
 ```
