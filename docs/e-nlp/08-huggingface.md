@@ -228,7 +228,11 @@ fill_mask("python是[MASK]的编程语言", top_k=3)
 
 ## AutoClasses
 
-[AutoClasses](https://huggingface.co/docs/transformers/v4.52.3/en/model_doc/auto)是一组强大的自动化工具类。它们的核心功能是加载Hugging Face的预训练模型、分词器等工具。常用的是`AutoModel`和`AutoTokenizer`加载模型和分词器。
+[AutoClasses](https://huggingface.co/docs/transformers/v4.52.3/en/model_doc/auto)是一组强大的自动化工具类。它们的核心功能是加载Hugging Face的预训练模型、分词器等工具，常用工具为：
+
+* `AutoConfig`会加载模型的所有架构参数和超参数。
+* `AutoModel``只加载模型。
+* `AutoTokenizer`只加载分词器。
 
 ```python
 from transformers import AutoTokenizer, AutoModel
@@ -237,6 +241,8 @@ model_name = "google-bert/bert-base-chinese"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModel.from_pretrained(model_name)
 ```
+
+AutoClasses通过全局统一的接口加载模型相关信息，`from_pretrained()`从预训练模型加载相关信息。
 
 ### 查看文本编码
 
