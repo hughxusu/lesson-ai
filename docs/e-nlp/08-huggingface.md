@@ -43,7 +43,9 @@ flowchart TB
 Transformers会将将模型或其他工具保存在本地，可以在环境变量中统一修改缓存位置，在`~/.zshrc`中添加
 
 ```
-export TRANSFORMERS_CACHE="/new/cache/path"
+export TRANSFORMERS_CACHE=/path/to/transformers_cache
+export HF_HOME=/path/to/hf
+export HF_DATASETS_CACHE=/path/to/hf_datasets
 ```
 
 ## Pipeline API
@@ -65,15 +67,6 @@ a(Pre-Processing)-->b(Model)-->c(Post-Processing)
 
 [`pipeline`支持的完整任务列表](https://huggingface.co/docs/transformers/zh/task_summary)
 
-手动设置transformers模型下载路径
-
-```python
-import os
-
-os.environ['HF_HOME'] = './data/hf'
-os.environ['HF_HUB_CACHE'] = './data/hf/hub'
-```
-
 ### 文本分类任务
 
 ```python
@@ -86,6 +79,8 @@ pipe("早餐不好,服务不到位,晚餐无西餐,早餐晚餐相同,房间条�
 > [!warning]
 >
 > `sentiment-analysis`的默认模型是[DistilBERT base uncased finetuned SST-2](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english)，一般不推荐使用默认模型。默认模型并未针对中文做太多训练，中文分类效果不佳。
+>
+> 如果没有设置缓存路径，模型文件下载到`/user/.cache/huggingface/hub`
 
 使用[IMDB影评数据测试模型](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
 
