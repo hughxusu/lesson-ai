@@ -15,7 +15,7 @@
 * 支持多种深度学习框架，如PyTorch、TensorFlow。
 
 ```shell
-pip install "transformers==4.44.2"
+pip install transformers
 ```
 
 ```mermaid
