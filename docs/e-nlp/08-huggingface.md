@@ -239,6 +239,19 @@ model = AutoModel.from_pretrained(model_name)
 
 AutoClasses通过全局统一的接口加载模型相关信息，`from_pretrained()`从预训练模型加载相关信息。
 
+```mermaid
+graph LR
+a(AutoModel)-->b(AutoModelForMaskedLM)
+a-->c(AutoModelForCausalLM)
+a-->d(AutoModelForSeq2SeqLM)
+```
+
+| **类名称**              | **任务类型**             | **典型模型**              | **主要应用**                             |
+| :---------------------- | :----------------------- | :------------------------ | :--------------------------------------- |
+| `AutoModelForMaskedLM`  | 掩码语言建模 (MLM)       | BERT, RoBERTa, DeBERTa    | 文本填充、预训练基础模型、句子特征提取   |
+| `AutoModelForCausalLM`  | 因果语言建模 (CLM)       | GPT, LLaMA, OPT, DeepSeek | 文本生成、代码补全、零样本推理           |
+| `AutoModelForSeq2SeqLM` | 序列到序列建模 (Seq2Seq) | T5, BART, mT5, FLAN-T5    | 翻译、文本摘要、问答系统、数据到文本生成 |
+
 ### 查看文本编码
 
 分词
