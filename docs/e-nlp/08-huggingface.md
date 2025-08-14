@@ -80,7 +80,7 @@ pipe("早餐不好,服务不到位,晚餐无西餐,早餐晚餐相同,房间条�
 >
 > `sentiment-analysis`的默认模型是[DistilBERT base uncased finetuned SST-2](https://huggingface.co/distilbert/distilbert-base-uncased-finetuned-sst-2-english)，一般不推荐使用默认模型。默认模型并未针对中文做太多训练，中文分类效果不佳。
 >
-> 如果没有设置缓存路径，模型文件下载到`/user/.cache/huggingface/hub`
+> 如果没有设置缓存路径，模型文件下载到`~/.cache/huggingface/hub/`
 
 使用[IMDB影评数据测试模型](https://www.kaggle.com/datasets/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews)
 
@@ -312,8 +312,17 @@ pip install -U "huggingface_hub[cli]"
 使用工具下载模型或数据，模型下载到缓存中。
 
 ```python
-huggingface-cli download 模型或数据集名称
+huggingface-cli download 模型或数据集名称 
+--revision main 
+--include "pytorch_model*.bin" "config.json" "tokenizer.json" "generation_config.json"
 ```
+
+* `--revision`指定模型版本为`main`
+* `--include`指定下载文件。
+
+> [!warning]
+>
+> 如果不用`--include`指定下载文件，会将Tensorflow等其他框架的模型文件都下载下来。
 
 设置国内镜像站
 
