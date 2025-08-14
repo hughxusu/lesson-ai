@@ -293,3 +293,34 @@ for key, value in islice(tokenizer.vocab.items(), 10):
     print(f"{key}: {value}")
 ```
 
+## Hugging Face Hub
+
+ Hugging Face Hub就是Hugging Face的托管平台，保存模型或数据等。
+
+1. [`huggingface_hub`](https://huggingface.co/docs/huggingface_hub/quick-start)与托管平台交互的Python库，用于模型或数据的下载，安装命令
+
+```python
+pip install --upgrade huggingface_hub
+```
+
+2. [`huggingface-cli`](https://huggingface.co/docs/huggingface_hub/guides/cli)可以通过终端直接与Hugging Face Hub 交互，安装命令
+
+```python
+pip install -U "huggingface_hub[cli]"
+```
+
+使用工具下载模型或数据，模型下载到缓存中。
+
+```python
+huggingface-cli download 模型或数据集名称
+```
+
+设置国内镜像站
+
+```python
+export HF_ENDPOINT=https://hf-mirror.com
+```
+
+> [!warning]
+>
+> `huggingface-cli`支持断点续传，特别大的模型或数据可以使用工具下载。
