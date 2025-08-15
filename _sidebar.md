@@ -36,6 +36,7 @@
   * [Hugging Face](/docs/e-nlp/08-huggingface.md)
   * [模型微调入门](/docs/e-nlp/09-微调入门.md)
   * [模型量化](/docs/e-nlp/10-模型量化.md)
+  * [大模型高效微调](/docs/e-nlp/11-高效微调.md)
   
 
 
