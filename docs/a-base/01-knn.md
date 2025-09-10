@@ -86,6 +86,7 @@ from collections import Counter
 votes = Counter(top_k_y)
 most = votes.most_common(1)
 predict = most[0][0]
+print(predict)
 ```
 
 [`Counter`类是一个，用于数据统计](https://docs.python.org/zh-cn/3.9/library/collections.html?highlight=collections#counter-objects)
@@ -474,9 +475,9 @@ knn_clf.score(x_test, y_test)
 2. `verbose`打印搜索过程中的信息，值越大信息越详细。
 
 ```python
-%%time
-grid_search = GridSearchCV(knn_clf, param_grid, n_jobs=-1, verbose=2)
+grid_search = GridSearchCV(knn_clf, param_grid, n_jobs=-1)
 grid_search.fit(x_train, y_train)
+print(grid_search.best_score_)
 ```
 
 ## KD树
@@ -506,8 +507,6 @@ K近邻算法的缺点：
 * K近邻算法预测结果不具有可解释性。
 
 * k近邻算法容易陷入位数灾难。维数灾难的一个特点是，随着维度的增加，数据点之间的距离也会变得越来越大。
-
-
 
 | 维度    | 点                         | 距离值 |
 | ------- | -------------------------- | ------ |

@@ -330,7 +330,3 @@ $$
 > [!warning]
 >
 > 机器学习的当前发展阶段是以大数据驱动的。
-
-### 课程使用的软件包
-
-[本课程工具包的虚拟环境文件](https://github.com/hughxusu/lesson-ai/blob/developing/_examples/deep-learning.yml)
