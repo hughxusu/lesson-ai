@@ -125,6 +125,8 @@ print(pca.explained_variance_ratio_)
 ```python
 pca = PCA(n_components=x_std.shape[1])
 pca.fit(x_std)
+print(pca.n_components)
+print(pca.explained_variance_ratio_.shape)
 print(pca.explained_variance_ratio_)
 ```
 
@@ -222,6 +224,8 @@ plt.scatter(x_reduction[y==1, 0], x_reduction[y==1, 1], color='blue')
 plt.plot(x1_plot, x2_plot)
 plt.xticks(fontsize=16)
 plt.yticks(fontsize=16)
+plt.xlim(-5.5, 16)  
+plt.ylim(-8, 13) 
 plt.show()
 ```
 
