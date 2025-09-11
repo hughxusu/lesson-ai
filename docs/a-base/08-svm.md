@@ -101,7 +101,7 @@ $$
 
 上面的目标函数表示为
 
-<img src="../../images/base/maxresdefault.jpg" style="zoom:65%;" />
+<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/maxresdefault.jpg" style="zoom:65%;" />
 
 其中，对于每个样本数据存在不同$\zeta_i$。如果当$\zeta$无穷大时，意味着容错性无穷大，故而分不出类别。为控制$\zeta$的范围，增加正则项
 $$
