@@ -1,13 +1,16 @@
 # 支持向量机
 
-支持向量机（supported vector machine，简称：SVM）的算法的本质是找到一个在两类样本中间位置的分界线。
+支持向量机（supported vector machine，简称：SVM）的算法的本质是找到一个在两类样本中间位置的分界线。等价于两个类别距离分界线最近的点，到分界线的距离相等。
 
-* 等价于两个类别距离分界线最近的点，到分界线的距离相等。
 * 两个类别距离分界线最近的点，构成一个区域，理想条件下，这个区域内没有样本点。
 * 两个类别距离分界线最近的点，被称为支撑向量。
 * SVM特别适用于中小型复杂数据集的分类。
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/svm-compare.png" style="zoom:65%;" />
+
+> [!warning]
+>
+> 当两类数据间可以选择多条分类边界时，称为不适定问题。
 
 支撑向量机算法：
 
@@ -15,17 +18,6 @@
 2. 最大化margin。
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/pF70P6x.png" style="zoom:90%;" />
-
-间隔的分类：
-
-* 硬边界分类 ：所有样本均归类于虚线之外。
-* 软边缘分类：目标是尽可能在保持最大间隔，和限制间隔违例之间找到平衡。
-
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/svm-margin.png" style="zoom:50%;" />
-
-> [!warning]
->
-> 当两类数据间可以选择多条分类边界时，称为不适定问题。
 
 ## Margin的数学表达
 
@@ -61,7 +53,11 @@ $$
 $$
 y^{(i)}(w^Tx^{(i)}+b) \ge 1
 $$
-支持向量机的算法目标是最大化间隔$d$。等价于
+支持向量机的算法目标是最大化间隔$d$。根据点到超平面距离公式
+$$
+d=\frac{|w^Tx+b|}{||w||}
+$$
+等价于
 $$
 \max \frac{2|w^Tx+b|}{||w||}
 $$
@@ -89,7 +85,7 @@ $$
 
 ## Soft Margin SVM
 
-一般的情况下，大部分数据是线性不可分的
+一般的情况下，大部分数据是线性不可分的。软边缘：目标是尽可能在保持最大间隔，和限制间隔违例之间找到平衡。
 
 <img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/pF7kub4.png" style="zoom: 40%;" />
 
@@ -103,9 +99,9 @@ $$
 y^{(i)}(w^Tx^{(i)}+b) \ge 1-\zeta_i, \quad \zeta_i>0
 $$
 
-上面的目标函数表示，允许一些数据点分布在绿线和黄线之间，如下图所示
+上面的目标函数表示为
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/129d7835a23b0db515ef342d94810ca2.jpg" style="zoom:55%;" />
+<img src="../../images/base/maxresdefault.jpg" style="zoom:65%;" />
 
 其中，对于每个样本数据存在不同$\zeta_i$。如果当$\zeta$无穷大时，意味着容错性无穷大，故而分不出类别。为控制$\zeta$的范围，增加正则项
 $$
@@ -126,10 +122,8 @@ y^{(i)}(w^Tx^{(i)}+b) \ge 1-\zeta_i, \quad \zeta_i>0\\
 \end{cases}
 $$
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/image.png" style="zoom:70%;" />
-
-* C值低，间隔较大，分类的错误样本较多；间隔小，更容易出现欠拟合现象。
-* C值高，间隔较小，分类的错误样本较少；间隔小，更容易出现过拟合现象。
+* C值低，分类的错误样本较多，更容易出现欠拟合现象。
+* C值高，分类的错误样本较少，更容易出现过拟合现象。
 
 > [!warning]
 >
@@ -182,7 +176,7 @@ standardScaler.fit(x_reduction)
 x_standard = standardScaler.transform(x_reduction)
 ```
 
-导入SVM类，其中`C=1e9`取一个非常大的值，SVM分类器为Hard SVM，训练模型
+导入SVM类，C表示正则的强弱：小C值强正则化；大C值弱正则化。`C=1e9`取一个非常大的值，SVM分类器为Hard SVM，训练模型
 
 ```python
 from sklearn.svm import LinearSVC
@@ -203,14 +197,8 @@ from sklearn.svm import LinearSVC
 def plot_svm_boundary(svc, X, y):
     plt.figure(figsize=(10, 8))
     DecisionBoundaryDisplay.from_estimator(
-        svc,
-        X,
-        plot_method="contour",
-        colors="k",
-        levels=[-1, 0, 1],
-        alpha=0.5,
-        linestyles=["--", "-", "--"],
-        ax=plt.gca()
+        svc, X, colors="k", alpha=0.5, plot_method="contour",
+        levels=[-1, 0, 1], linestyles=["--", "-", "--"], ax=plt.gca()
     )
     
     plt.scatter(X[:, 0], X[:, 1], c=y, s=100, cmap=plt.cm.Paired)
@@ -223,7 +211,6 @@ def plot_svm_boundary(svc, X, y):
                     s=100, facecolors='none', edgecolors='k', linewidths=1.5,
                     label='Support Vectors')
     
-    plt.legend()
     plt.xticks(fontsize=16)
     plt.yticks(fontsize=16)
     plt.show()
@@ -237,7 +224,7 @@ plot_svm_boundary(svc, x_standard, y)
 svc2 = LinearSVC(C=0.01)
 svc2.fit(x_standard, y)
 print(svc2.score(x_standard, y))
-plot_decision_boundary(svc, x_standard, y
+plot_svm_boundary(svc2, x_standard, y)
 ```
 
 ## 非线性数据分类
@@ -333,7 +320,14 @@ print(poly_kernel_svc.score(x,y))
 plot_svm_boundary(poly_kernel_svc, x, y)
 ```
 
-$d$代表多项式中的degree，$c$代表Soft Margin SVM中的$C$，是两个超参数。使用`coef0`和`gamma`
+`degree`表示多项式的阶数，`C`正则参数。其中
+$$
+K( x_i, x)=\left(\gamma \cdot \langle x_i, x \rangle+\text{coef0} \right )^{\text{degree}}
+$$
+`gamma`控制单个样本的影响范围：
+
+* 样本影响范围大，更平滑，更线性。
+* 样本影响范围小，更复杂，更非线性。
 
 ```python
 def PolynomialKernelSVC2(degree, C=1.0):
