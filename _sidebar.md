@@ -39,11 +39,5 @@
   * [大模型高效微调](/docs/e-nlp/11-高效微调.md)
   * [大模型微调实践](/docs/e-nlp/12-llama.md)
   
-
-
 * 附录
-  * Tensorflow
-    * [Tensorflow基础](/docs/z-others/02-tensorflow.md)
-    * [TensorFlow常用API](/docs/z-others/03-api.md)
-    * [实践案例](/docs/z-others/04-cases.md)
   * [自然语言处理](/docs/z-others/05-nlp.md)
