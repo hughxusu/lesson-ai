@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>机器学习</title>
@@ -11,8 +12,10 @@
   <!-- 样式 -->
   <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css"> -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="//at.alicdn.com/t/c/font_5080785_z3a1g8vkvr.css">
+  <link rel="stylesheet" type="text/css" href="index.css">
 </head>
+
 <body>
   <div id="app"></div>
   <script>
@@ -34,37 +37,77 @@
       // 设置高亮文本框样式
       'flexible-alerts': {
         note: {
-          label: "思考",
-          className: 'note_self'
+          className: 'note_',
+          icon: 'iconfont icbulb',
+          label: '要点'
         },
+
+        think: {
+          className: 'think',
+          icon: 'iconfont icquestion-circle',
+          label: '思考'
+        },
+
         tip: {
-          label: "练习",
-          className: 'tip_self'
+          className: 'tip',
+          icon: 'iconfont icedit',
+          label: '练习'
         },
+
         warning: {
-          label: "提示",
-          className: 'warning_self'
+          className: 'warning',
+          icon: 'iconfont icinfo-circle',
+          label: '注意'
         },
-        attention: {
-          label: "注意",
-          className: "attention_self"
+
+        alert: {
+          className: "alert_",
+          icon: "iconfont icerror",
+          label: '警告'
         }
       },
 
       copyCode: {
-        buttonText : '复制',
-        errorText  : '错误',
+        buttonText: '复制',
+        errorText: '错误',
         successText: '成功'
       },
 
       latex: {
-        inlineMath   : [['$', '$'], ['\\(', '\\)']], // default
-        displayMath  : [['$$', '$$']],               // default
+        inlineMath: [['$', '$'], ['\\(', '\\)']], // default
+        displayMath: [['$$', '$$']],               // default
       },
 
       mermaidConfig: {
         querySelector: ".mermaid"
-      }
+      },
+
+      plugins: [
+        function (hook, vm) {
+          hook.doneEach(function () {
+            function setChinese(els, en, zh) {
+              els.forEach(el => {
+                if (el) el.innerHTML = el.innerHTML.replace(en, zh)
+              })
+            }
+
+            let els = document.querySelectorAll('.think .title')
+            setChinese(els, 'Think', '思考')
+
+            els = document.querySelectorAll('.tip .title')
+            setChinese(els, 'Tip', '练习')
+
+            els = document.querySelectorAll('.alert_ .title')
+            setChinese(els, 'Alert', '警告')
+
+            els = document.querySelectorAll('.warning .title')
+            setChinese(els, 'Warning', '注意')
+
+            els = document.querySelectorAll('.note_ .title')
+            setChinese(els, 'Note', '要点')
+          })
+        }
+      ]
     }
   </script>
   <!-- Docsify v4 -->
@@ -93,6 +136,7 @@
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-less.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
   <!-- 数学公式 -->
   <!-- Docsify script Here -->
   <script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -101,4 +145,5 @@
   <!-- 返回顶部 -->
   <script src="//unpkg.com/docsify-scroll-to-top/dist/docsify-scroll-to-top.min.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,81 @@
+:root {
+    --theme-color   : #1890ff;
+    --sidebar-toggle-icon-color: white;
+    --sidebar-toggle-icon-stroke-width: 2px;
+    --sidebar-toggle-background: #1890ff;
+    --sidebar-toggle-width: 36px;
+    --sidebar-toggle-height: 36px;
+    --sidebar-toggle-border-radius: 5px;
+    --sidebar-toggle-offset-left: -18px;
+    --link-color: #1890ff;
+    --mark-background: #ffc53d;
+}
+
+.note_ {
+    border-left-color: #1890ff !important;
+}
+
+.note_ .title {
+    color: #1890ff;
+    font-weight: bold !important;
+} 
+
+.iconfont.icbulb {
+    font-size: 20px;
+    line-height: 20px;
+}
+
+.think {
+    border-left-color: #722ed1 !important;
+} 
+.think .title {
+    color: #722ed1;
+    font-weight: bold !important;
+} 
+
+.iconfont.icquestion-circle {
+    font-size: 20px;
+    line-height: 20px;
+} 
+
+.tip {
+    border-left-color: #52c41a !important;
+} 
+
+.tip .title {
+    color: #52c41a;
+    font-weight: bold !important;
+} 
+
+.iconfont.icedit {
+    font-size: 21px;
+    line-height: 21px;
+} 
+
+.warning {
+    border-left-color: #faad14 !important;
+} 
+.warning .title {
+    color: #faad14;
+    font-weight: bold !important;
+} 
+
+.iconfont.icinfo-circle {
+    font-size: 20px;    
+    line-height: 20px;
+} 
+
+.alert_ {
+    border-left-color: #ff4d4f !important;
+} 
+
+.alert_ .title {
+    color: #ff4d4f;
+    font-weight: bold !important;
+} 
+
+.iconfont.icerror {
+    font-size: 20px;
+    line-height: 20px;
+} 
+
