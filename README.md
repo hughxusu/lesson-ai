@@ -2,9 +2,7 @@
 
 **本站网址**  https://hughxusu.github.io/lesson-ai/#/
 
-**[课程演示代码仓库](https://gitee.com/hughxusu/lesson-ai-code)**
-
-[![Cloud Studio Template](https://cs-res.codehub.cn/common/assets/icon-badge.svg)](https://cloudstudio.net/courses/27965427868606464)
+**[课程演示代码仓库](https://github.com/hughxusu/lesson-ai)**
 
 ## 课程目标
 
@@ -21,7 +19,6 @@
 ### 学习网站
 
 * [动手学深度学习](https://zh.d2l.ai/index.html)
-* [paperswithcode.com](https://paperswithcode.com/)
 
 ### 参考书
 
