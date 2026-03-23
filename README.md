@@ -18,16 +18,20 @@
 
 ### 学习网站
 
+* [Pytorch官方教程](https://pytorch.org/tutorials/)
+* [20天吃掉那只Pytorch](https://jackiexiao.github.io/eat_pytorch_in_20_days/)
+* [深入浅出PyTorch](https://datawhalechina.github.io/thorough-pytorch/index.html#)
 * [动手学深度学习](https://zh.d2l.ai/index.html)
 
 ### 参考书
 
-| 书名                                                        | 图书馆索书号    |
-| ----------------------------------------------------------- | --------------- |
-| [模式分类](https://book.douban.com/subject/35902334/)       | O235/42         |
-| [深度学习](https://book.douban.com/subject/35472370/)       | TP181/59=2      |
-| [统计学习方法 ](https://book.douban.com/subject/33437381/)  | TP181/11=2      |
-| [机器学习](https://book.douban.com/subject/26708119/)       | TP181/25        |
-| [深度学习入门](https://book.douban.com/subject/30270959/)   | TP311.561/75    |
-| [Python深度学习](https://book.douban.com/subject/36078304/) | TP311.561/101=2 |
+| 书名                                                         | 图书馆索书号    |
+| ------------------------------------------------------------ | --------------- |
+| [模式分类](https://book.douban.com/subject/35902334/)        | O235/42         |
+| [深度学习](https://book.douban.com/subject/35472370/)        | TP181/59=2      |
+| [统计学习方法 ](https://book.douban.com/subject/33437381/)   | TP181/11=2      |
+| [机器学习](https://book.douban.com/subject/26708119/)        | TP181/25        |
+| [深度学习入门](https://book.douban.com/subject/30270959/)    | TP311.561/75    |
+| [Python深度学习](https://book.douban.com/subject/36078304/)  | TP311.561/101=2 |
+| [《PyTorch深度学习实战》](https://book.douban.com/subject/35776474/) |                 |
 
