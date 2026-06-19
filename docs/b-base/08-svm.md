@@ -6,7 +6,7 @@
 * 两个类别距离分界线最近的点，被称为支撑向量。
 * SVM特别适用于中小型复杂数据集的分类。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/svm-compare.png" style="zoom:65%;" />
+<img src="./assets/svm-compare.png" style="zoom:65%;" />
 
 > [!warning]
 >
@@ -17,7 +17,7 @@
 1. 找到这些支撑向量。
 2. 最大化margin。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/pF70P6x.png" style="zoom:90%;" />
+<img src="./assets/pF70P6x.png" style="zoom:90%;" />
 
 ## Margin的数学表达
 
@@ -40,7 +40,7 @@ w^Tx+b = -1
 $$
 直线的示意图如下
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/image-20190814141836897.png" style="zoom:80%;" />
+<img src="./assets/image-20190814141836897.png" style="zoom:80%;" />
 
 支持向量机公式表示为
 $$
@@ -87,7 +87,7 @@ $$
 
 一般的情况下，大部分数据是线性不可分的。软边缘：目标是尽可能在保持最大间隔，和限制间隔违例之间找到平衡。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/pF7kub4.png" style="zoom: 40%;" />
+<img src="./assets/pF7kub4.png" style="zoom: 40%;" />
 
 SVM分类器无法使得所有的$i\in M$满足下列公式
 $$
@@ -101,7 +101,7 @@ $$
 
 上面的目标函数表示为
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/maxresdefault.jpg" style="zoom:65%;" />
+<img src="./assets/maxresdefault.jpg" style="zoom:65%;" />
 
 其中，对于每个样本数据存在不同$\zeta_i$。如果当$\zeta$无穷大时，意味着容错性无穷大，故而分不出类别。为控制$\zeta$的范围，增加正则项
 $$
@@ -283,7 +283,7 @@ plot_svm_boundary(poly_svc, x, y)
 
 核函数的作用就是一个从低维空间到高维空间的映射，而这个映射可以把低维空间中线性不可分的两类点变成线性可分的。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/up-dim.jpg" style="zoom:55%;" />
+<img src="./assets/up-dim-20260619175638358.jpg" style="zoom:55%;" />
 
 > [!warning]
 >
@@ -379,7 +379,7 @@ plot_svm_boundary(rbf_svc, x, y)
 
 对于每个样本点都有围绕它的一个高斯分布图，所以连起来就形成了一片区域，然后形成了决策区域和决策边界。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/6d96b78336d261269b68a73e06b24350.jpg" style="zoom:50%;" />
+<img src="./assets/6d96b78336d261269b68a73e06b24350.jpg" style="zoom:50%;" />
 
 > [!warning]
 >
@@ -389,7 +389,7 @@ plot_svm_boundary(rbf_svc, x, y)
 
 SVM解决回归问题的思路和解决分类问题的思路正好是相反的。找到一条拟合直线，使得这条直线的Margin区域中的样本点越多，说明拟合的越好，反之依然。Margin边界到拟合直线的距离称为$\epsilon$是SVM解决回归问题的一个超参数。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/svm-ress.png" style="zoom:75%;" />
+<img src="./assets/svm-ress.png" style="zoom:75%;" />
 
 导入糖尿病数据集
 

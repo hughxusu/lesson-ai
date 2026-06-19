@@ -7,7 +7,7 @@ K近邻算法K-Nearest Neighbors（KNN）
 3. 选择K个距离最小的样本，以最近的K个样本进行投票。
 4. 未知样本与票数最多的样本一致。
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/popular-knn-metrics-0.png)
+![](./assets/popular-knn-metrics-0.png)
 
 KNN的基本思想是样本距离只够接近，样本的类型可以划分为一类。
 
@@ -329,7 +329,7 @@ print('best_score =', best_score)
 
 对于一般KNN算法，预测的点属于蓝色类。但是一般KNN算法忽略了，样本点之间的距离的影响。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/1681090-20230523083454966-1157335194.png" style="zoom: 50%;" />
+<img src="./assets/1681090-20230523083454966-1157335194.png" style="zoom: 50%;" />
 
 考虑到距离对预测样本的影响，增加了距离权重的参数，权重等于距离的倒数（距离越近对位置样本的影响越大，距离越远对未知样本的影响越小）。
 $$
@@ -339,7 +339,7 @@ $$
 
 计算距离权重之后，样本预测点属于红色。
 
-<img src="https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/20180716163638442.jpeg" style="zoom: 23%;" />
+<img src="./assets/20180716163638442.jpeg" style="zoom: 23%;" />
 
 使用距离权重后，可以有效的解决多分类数据中平票的情况。
 
@@ -375,7 +375,7 @@ print('best_method =', best_method)
 
 评价两个向量的相似程度有多种标准，前面只用了简单的欧式距离。
 
-![](https://raw.githubusercontent.com/hughxusu/lesson-ai/develop/images/base/1541640266.png)
+![](./assets/1541640266.png)
 
 1. 曼哈顿距离
 
