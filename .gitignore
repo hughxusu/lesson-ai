@@ -216,3 +216,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+node_modules
+.vitepress/dist
+.vitepress/cache
+.DS_Store
+*.local
+package-lock.json/
