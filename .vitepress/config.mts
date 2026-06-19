@@ -2,8 +2,8 @@ import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
-  title: "机器学习",
-  description: "机器学习",
+  title: "AI驱动的机器学习实战",
+  description: "AI驱动机器学习实战",
   ignoreDeadLinks: true,
   base: '/lesson-ai/',
   markdown: {
@@ -97,7 +97,7 @@ export default withMermaid({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/hughxusu/lesson-ai' }
     ]
   }
 })
