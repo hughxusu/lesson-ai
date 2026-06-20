@@ -3,7 +3,7 @@ import { withMermaid } from 'vitepress-plugin-mermaid'
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
   title: "AI驱动的机器学习实战",
-  description: "AI驱动机器学习实战",
+  description: "AI驱动的机器学习实战",
   ignoreDeadLinks: true,
   base: '/lesson-ai/',
   markdown: {
@@ -18,10 +18,11 @@ export default withMermaid({
         text: '绪论',
         collapsed: true,
         items: [
-          { text: '机器学习概述', link: '/docs/a-intro/index.md' }
+          { text: '机器学习概述', link: '/docs/a-intro/01-概述.md' },
+          { text: '机器学习工作流程', link: '/docs/a-intro/02-流程.md' },
         ]
       },
-      {
+      { 
         text: '机器学习经典算法',
         collapsed: true,
         items: [
