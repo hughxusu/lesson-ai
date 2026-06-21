@@ -2,146 +2,36 @@
 
 K近邻算法K-Nearest Neighbors（KNN）
 
-1. 存在一定量的数据，包括特征和类别
+1. 存在一定量的数据，包括特征和类别。
 2. 计算未知类别的数据与所有已知数据的距离。
 3. 选择K个距离最小的样本，以最近的K个样本进行投票。
 4. 未知样本与票数最多的样本一致。
 
 ![](./assets/popular-knn-metrics-0.png)
 
-KNN的基本思想是样本距离只够接近，样本的类型可以划分为一类。
+KNN的基本思想是样本距离只够接近，样本的类型可以划分为一类。使用欧拉距离来表示两个样本点之间的差异，对于 $n$ 维向量 $x$​ 其距离公式为，欧拉距离为：
 
-```python
-raw_data_x = [[1.4, 0.2],
-              [1.7, 0.4],
-              [1.5, 0.1],
-              [1.9, 0.2],
-              [1.6, 0.4],
-              [4.7, 1.4],
-              [4.9, 1.5],
-              [4.0, 1.3],
-              [4.4, 1.4],
-              [3.9, 1.1]]
-raw_data_y = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
-x = [4.2, 1.5]
-```
-
-绘制上述样本数据的二维图像
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-x_train = np.array(raw_data_x)
-y_train = np.array(raw_data_y)
-t = np.array(x)
-
-plt.figure(figsize=(10, 8))
-plt.scatter(x_train[y_train == 0, 0], x_train[y_train == 0, 1], 
-            color='g', s=120, label='A')
-plt.scatter(x_train[y_train == 1, 0], x_train[y_train == 1, 1], 
-            color='r', s=120, label='B')
-plt.scatter(t[0], t[1], color='b', s=120, label='Test Point')
-plt.legend()
-plt.show()
-```
-
-使用欧拉距离来表示两个样本点之间的差异，对于 $n$ 维向量 $x$​ 其距离公式为，欧拉距离为：
 $$
 \sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2}
 $$
 
 1. 计算样本间所有距离
+1. 对全部距离进行排序
+1. 选择最近的K个样本，并获取相应的监督数据
+1. 统计监督数据结果
 
-```python
-from math import sqrt
-
-distances = []
-for x_i in x_train:
-    d = sqrt(np.sum((x_i - t) ** 2))
-    distances.append(d)
-    
-# 使用列表生成式来计算全部距离
-distances = [sqrt(np.sum((x_i - t) ** 2)) for x_i in x_train]
-```
-
-2. 对全部距离进行排序
-
-```python
-nearest = np.argsort(distances)
-```
-
-3. 选择最近的K个样本，并获取相应的监督数据
-
-```python
-k = 7
-top_k_y = [y_train[i] for i in nearest[:k]]
-```
-
-4. 统计监督数据结果
-
-```python
-from collections import Counter
-
-votes = Counter(top_k_y)
-most = votes.most_common(1)
-predict = most[0][0]
-print(predict)
-```
-
-[`Counter`类是一个，用于数据统计](https://docs.python.org/zh-cn/3.9/library/collections.html?highlight=collections#counter-objects)
-
-将上述算法过程封装成为一个函数
-
-```python
-def knn_classify(k, x_train, y_train, x):
-    assert 1 <= k <= x_train.shape[0], 'k must be valid'
-    assert x_train.shape[0] == y_train.shape[0], 'the size of x_train must be equal to the size of y_train'
-    assert x_train.shape[1] == x.shape[0], 'the feature number of x must be equal to x_train'
-
-    distances = [sqrt(np.sum((x_i - x) ** 2)) for x_i in x_train]
-    nearest = np.argsort(distances)
-
-    top_k_y = [y_train[i] for i in nearest[:k]]
-    votes = Counter(top_k_y)
-
-    return votes.most_common(1)[0][0]
-
-predict = knn_classify(7, x_train, y_train, t)
-print(predict)
-```
+KNN算法的特点：
 
 * KNN算法是一个不需要训练过程的算法，可以认为KNN算法的模型就是全部训练数据本身。
 * KNN算法的复杂度都集中在算法的预测过程，要从所有的样本数据中选出最小的K个距离。
 
-## scikit-learn
-
-[scikit-learn](https://scikit-learn.org/stable/#)是一个用于机器学习的 Python 库，提供了简单高效的工具来进行数据挖掘和数据分析，它建立在NumPy、SciPy和matplotlib基础之上。
-
-安装scikit-learn包
-
-```shell
-pip install scikit-learn
-```
-
-可以使用scikit-learn工具包中[`KNeighborsClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html#sklearn.neighbors.KNeighborsClassifier)实现KNN算法
-
-```python
-from sklearn.neighbors import KNeighborsClassifier
-
-kNN_classifier = KNeighborsClassifier(n_neighbors=7)
-kNN_classifier.fit(x_train, y_train)
-
-x_predict = t.reshape(1, -1)
-y_predict = kNN_classifier.predict(x_predict)
-print(y_predict)
-```
+## KNN算法实践
 
 机器学习算法的流程
 
 ```mermaid
 graph LR
-a(训练数据\n x_train \n y_train)-->b(机器学习算法)--fit-->c(模型)
+a(训练数据)-->b(机器学习算法)--fit-->c(模型)
 d(输入数据)-->c--predict-->e(预测结果)
 ```
 
@@ -149,62 +39,11 @@ d(输入数据)-->c--predict-->e(预测结果)
 2. `predict`是预测函数，可以同时预测多个结果，传入数据必须为矩阵。`t.reshape`就是将预测数据转换为矩阵形式。
 3. 预测结果也为二维矩阵。
 
-### 模仿sklearn的KNN工具
+### 数据集的划分
 
-根据sklearn的处理流程，完成一个类似的工具类。
-
-```python
-class KNNClassifier:
-    def __init__(self, k):
-        assert k >= 1, 'k must be valid'
-        self.k = k
-        self._x_train = None
-        self._y_train = None
-        
-    def fit(self, x_train, y_train):
-        assert k <= x_train.shape[0], 'k must be valid'
-        assert x_train.shape[0] == y_train.shape[0], 'the size of x_train must be equal to the size of y_train'
-        
-        self._x_train = x_train
-        self._y_train = y_train
-        return self
-    
-    def predict(self, x_predict):
-        assert self._x_train is not None and self._y_train is not None, 'must fit before predict'
-        assert x_predict.shape[1] == self._x_train.shape[1], 'the feature number of x_predict must be equal to x_train'
-        
-        y_predict = [self._predict(x) for x in x_predict]
-        return np.array(y_predict)
-    
-    def _predict(self, x):
-        assert x.shape[0] == self._x_train.shape[1], 'the feature number of x must be equal to x_train'
-        
-        distances = [sqrt(np.sum((x_train - x) ** 2)) for x_train in self._x_train]
-        nearest = np.argsort(distances)
-        
-        top_k_y = [self._y_train[i] for i in nearest[:self.k]]
-        votes = Counter(top_k_y)
-        return votes.most_common(1)[0][0]
-    
-    def __str__(self):
-        return 'KNN(k=%d)' % self.k
-```
-
-对数据进行预测
-
-```python
-knn_clf = KNNClassifier(k=7)
-knn_clf.fit(x_train, y_train)
-x_predict = t.reshape(1, -1)
-y_predict = knn_clf.predict(x_predict)
-print(y_predict)
-```
-
-## 数据集的划分
-
-> [!note]
+> [!tip]
 >
-> 对于对于已知数据集，如何测试机器学习算法性能的优劣？
+> 对于已知数据集，如何测试机器学习算法性能的优劣？
 
 ```mermaid
 graph LR
@@ -214,86 +53,11 @@ graph LR
 
 使用测试数据解可以客观的评价算法和模型的性能。
 
-#### sklearn中的数据集
+### 练习
 
- [`sklearn.datasets`](https://scikit-learn.org/stable/datasets.html) 中嵌入了一些小型数据集用于实验。
-
-* `loaders`用来加载小型测试数据集。
-* `fetchers`用来下载并加载大的真实数据集
-  * 参数`data_home`可以控制下载的位置。
-  * `subset`可以控制下载训练集或测试集。
-* [`fetch_openml`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_openml.html)从[OpenML](https://www.openml.org/)平台下载真实数据集。
-
-两类函数都返回，类似字典的对象。加载完成的鸢尾花数据，`keys()`包含了数据集的所有属性。使用前面介绍的鸢尾花数据。
-
-```python
-from sklearn import datasets
-
-iris = datasets.load_iris()
-print(iris.keys())
-```
-
-`DESCR`打印数据集说明
-
-```python
-print(iris.DESCR)
-```
-
-`data`保存了数据的特征，`target`保存了监督数据的值。
-
-```python
-print(iris.data[:5, :])
-print(iris.target[:5])
-```
-
-### 划分数据集
-
-已知数据集中，数据排列可能是有序的。
-
-```python
-x = iris.data
-y = iris.target
-print(x.shape)
-print(y.shape)
-print(y)
-```
-
-在`sklearn.model_selection`模块中，包含一个数据集划分工具[`train_test_split`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html#train-test-split)。
-
-```python
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=666)
-
-print(x_train.shape)
-print(y_train.shape)
-print(x_test.shape)
-print(y_test.shape)
-```
-
-`test_size`测试数据集的大小默认值为0.2，`random_state`随机种子数。
-
-使用鸢尾花数据集测试KNN算法.
-
-```python
-knn_clf = KNeighborsClassifier(n_neighbors=3)
-knn_clf.fit(x_train, y_train)
-y_predict = knn_clf.predict(x_test)
-print(y_predict)
-print(f'score: {sum(y_predict == y_test) / len(y_test)}')
-```
-
-[`accuracy_score`](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html#sklearn.metrics.accuracy_score)函数可以根据测试集标的监督数据和预测结果，计算准确率。
-
-```python
-from sklearn.metrics import accuracy_score
-print(accuracy_score(y_test, y_predict))
-```
-
-`KNeighborsClassifier`也有`score`函数可以直接计算准确率。
-
-```python
-knn_clf.score(x_test, y_test)
-```
+1. 将二维鸢尾花数据，划分为训练集和测试集。
+2. 使用二维鸢尾花数据，编程实践KNN算法。
+3. 使用Scikit-Learn中的KNN算法，验证鸢尾花数据集。
 
 ## 超参数
 
@@ -495,7 +259,6 @@ K近邻算法的优点：
 * 可以解决分类问题（包括多分类问题）
 
 * 使用k近邻算法可以解决回归问题，取K个近邻的平均值，或加权平均值。
-  * [`KNeighborsRegressor`](https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsRegressor.html)K近邻解决回归问题的工具类。
 
 
 K近邻算法的缺点：
