@@ -46,13 +46,15 @@ graph LR
 
 ### KNN算法实现
 
-根据上面的数据集划分，可以看到训练数据的分布如下
-
-![](./assets/knn-iris.png)
-
-> [!note]
+> [!tip]
 >
-> 使用上面的数据实现鸢尾花的KNN算法。
+> 如何实现一个KNN的分类器。
+
+1. 可以使用类来实现KNN分类器。
+2. 初始化的时候应该传入K的参数。
+3. 输入训练数据训练模型。
+4. 输入测试数据返回预测结果。
+5. 可以根据预测结果统计预测的正确率。
 
 ### sk-learn中的算法
 
@@ -60,18 +62,26 @@ scikit-learn机器学习算法的流程
 
 ```mermaid
 graph LR
-a(训练数据)-->b(机器学习算法)--fit-->c(模型)
-d(输入数据)-->c--predict-->e(预测结果)
+c(模型)--fit-->b(模型训练数据)-->c
+d(初始化)--init-->c--predict-->e(测试数据)-->f(预测结果)
 ```
 
 1. `fit`函数是训练模型，需要传入训练数据。
-2. `predict`是预测函数，可以同时预测多个结果，传入数据必须为矩阵。`t.reshape`就是将预测数据转换为矩阵形式。
-3. 预测结果也为二维矩阵。
+2. `predict`是预测函数，可以同时预测多个结果，传入数据必须为矩阵。预测结果也为二维矩阵。
 
-### 练习
+> [!note]
+>
+> 1. 使用sk-learn完成KNN算法。
+>
+> 2. 比较sk-learn的KNN算法和上面实现的KNN算法结果是否一致。
 
-1. 使用二维鸢尾花数据，编程实践KNN算法。
-2. 使用Scikit-Learn中的KNN算法，验证鸢尾花数据集。
+#### KD树
+
+KNN每次需要预测一个点时，都需要计算训练数据集里每个点到这个点的距离，然后选出距离最近的K个点进行投票。当数据集很大时，这个计算成本非常高。
+
+为了避免每次都重新计算一遍距离，算法会把距离信息保存在一棵树里，这样在计算之前从树里查询距离信息，尽量避免重新计算。构造的这个树叫KD树。
+
+[KD树详解](https://search.bilibili.com/all?vt=11410619&keyword=kd%E6%A0%91&from_source=webtop_search&spm_id_from=333.1007&search_source=5)
 
 ## 超参数
 
@@ -83,22 +93,9 @@ d(输入数据)-->c--predict-->e(预测结果)
 寻找好的超参数：
 
 1. 结合各领域知识、经验数值。
-2. **实验搜索。**
+2. 实验搜索
 
-```python
-best_score = 0.0
-best_k = -1
-for k in range(1, 11):
-    knn_clf = KNeighborsClassifier(n_neighbors=k)
-    knn_clf.fit(x_train, y_train)
-    score = knn_clf.score(x_test, y_test)
-    if score > best_score:
-        best_k = k
-        best_score = score
-        
-print('best_k =', best_k)
-print('best_score =', best_score)
-```
+K参数对模型的影响：
 
 * K值过小：容易受到异常点的影响。
 * K值过大：受到样本均衡问题的影响。
@@ -120,27 +117,6 @@ $$
 <img src="./assets/20180716163638442.jpeg" style="zoom: 23%;" />
 
 使用距离权重后，可以有效的解决多分类数据中平票的情况。
-
-在`KNeighborsClassifier`中通过参数`weights`可以选择是否计算权重。
-
-```python
-best_method = ''
-best_score = 0.0
-best_k = -1
-for method in ['uniform', 'distance']:
-    for k in range(1, 11):
-        knn_clf = KNeighborsClassifier(n_neighbors=k, weights=method)
-        knn_clf.fit(x_train, y_train)
-        score = knn_clf.score(x_test, y_test)
-        if score > best_score:
-            best_k = k
-            best_score = score
-            best_method = method
-
-print('best_k =', best_k)
-print('best_score =', best_score)
-print('best_method =', best_method)
-```
 
 ### 距离类型
 
@@ -173,31 +149,7 @@ $$
 d=\left(\sum_{i=1}^N|x_i-y_i|^p\right)^{\frac{1}{p}}
 $$
 
-这里就获得了，距离计算的超参数 $p$，用来选择不同距离的标准。
-
-```python
-best_p = -1
-best_k = -1
-best_score = 0.0
-
-for k in range(1, 11):
-    for p in range(1, 6):
-        knn_clf = KNeighborsClassifier(n_neighbors=k, weights='distance', p=p)
-        knn_clf.fit(x_train, y_train)
-        score = knn_clf.score(x_test, y_test)
-        if score > best_score:
-            best_k = k
-            best_score = score
-            best_p = p
-            
-print('best_k =', best_k)
-print('best_p =', best_p)
-print('best_score =', best_score)
-```
-
-对超参数p和K进行了搜索，只有计算距离权重的情况下才会引入超参数 p。
-
-其他距离（在sklearn中使用其它距离有特殊的api）
+这里就获得了，距离计算的超参数 $p$，用来选择不同距离的标准。其他距离
 
 * 切比雪夫距离 Chebyshev Distance
 * 向量空间余弦相似度 Cosine Similarity
@@ -205,66 +157,9 @@ print('best_score =', best_score)
 * 皮尔逊相关系数 Pearson Correlation Coefficient
 * Jaccard相似系数 Jaccard Coefficient
 
-### 网格搜索
-
-使用sklearn的网格搜索工具[`GridSearchCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html)，可以更便捷的进行参数搜索。
-
-```python
-%%time
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=100)
-param_grid = [
-    {
-        'weights': ['distance'],
-        'n_neighbors': [i for i in range(1, 11)],
-        'p': [i for i in range(1, 6)]
-    },
-    {
-        'weights': ['uniform'],
-        'n_neighbors': [i for i in range(1, 11)]
-    },
-]
-
-knn_clf = KNeighborsClassifier()
-
-from sklearn.model_selection import GridSearchCV
-grid_search = GridSearchCV(knn_clf, param_grid)
-
-grid_search.fit(x_train, y_train)
-print(grid_search.best_estimator_)
-print(grid_search.best_score_)
-print(grid_search.best_params_)
-```
-
-1. `param_grid`中的参数名称应该与函数名称一致，值是一个列表。
-2. `grid_search.best_estimator_`最佳分类器，返回一个输入的分类器。
-3. `grid_search.best_score_`最佳分类器的准确率。
-4. `grid_search.best_params_`最佳分类器的相关参数。
-
-`GridSearchCV`的参数搜索是采用**交叉验证**的方式进行的，参数预测结果和简单的变量会有出入。使用最佳模型对测试集进行预测
-
-```python
-knn_clf = grid_search.best_estimator_
-knn_clf.score(x_test, y_test)
-```
-
-`GridSearchCV`中两个常用的参数
-
-1. `n_jobs`设置参数搜索是使用的CPU核心数量，值为-1时使用全部处理器。
-2. `verbose`打印搜索过程中的信息，值越大信息越详细。
-
-```python
-grid_search = GridSearchCV(knn_clf, param_grid, n_jobs=-1)
-grid_search.fit(x_train, y_train)
-print(grid_search.best_score_)
-```
-
-## KD树
-
-KNN每次需要预测一个点时，都需要计算训练数据集里每个点到这个点的距离，然后选出距离最近的K个点进行投票。当数据集很大时，这个计算成本非常高。
-
-为了避免每次都重新计算一遍距离，算法会把距离信息保存在一棵树里，这样在计算之前从树里查询距离信息，尽量避免重新计算。构造的这个树叫KD树。
-
-[KD树详解](https://search.bilibili.com/all?vt=11410619&keyword=kd%E6%A0%91&from_source=webtop_search&spm_id_from=333.1007&search_source=5)
+> [!note]
+>
+> 搜索多个超参数的最优组合。
 
 ## KNN算法特点
 
