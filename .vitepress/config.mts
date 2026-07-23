@@ -2,8 +2,8 @@ import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // https://vitepress.dev/reference/site-config
 export default withMermaid({
-  title: "AI驱动的机器学习实战",
-  description: "AI驱动的机器学习实战",
+  title: "大模型驱动机器学习实战",
+  description: "大模型驱动机器学习实战",
   ignoreDeadLinks: true,
   base: '/lesson-ai/',
   markdown: {

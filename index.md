@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "AI驱动的机器学习实战"
+  name: "大模型驱动\n机器学习实战"
   tagline: 专注算法核心，AI驱动编程
   actions:
     - theme: brand

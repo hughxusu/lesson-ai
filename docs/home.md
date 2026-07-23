@@ -1,4 +1,4 @@
-# AI驱动的机器学习实战
+# 大模型驱动机器学习实战
 
 **本站网址**  https://hughxusu.github.io/lesson-ai/#/
 
