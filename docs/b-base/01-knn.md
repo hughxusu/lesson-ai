@@ -12,7 +12,7 @@ K近邻算法K-Nearest Neighbors（KNN）
 KNN的基本思想是样本距离只够接近，样本的类型可以划分为一类。使用欧拉距离来表示两个样本点之间的差异，对于$n$维向量 $x$​ 其距离公式为，欧拉距离为：
 
 $$
-\sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2}
+d=\sqrt{\sum_{i=1}^n\left(x_i^{(a)}-x_i^{(b)} \right)^2}
 $$
 
 1. 计算样本间所有距离
@@ -210,10 +210,10 @@ $$
 
 距离度量（distance measure），需满足如下基本性质：
 
-1. 非负性：$\text{Dist}(X_i,X_j) \ge 0$；
-2. 同一性：$\text{Dist}(X_i,X_j) = 0$。当且仅当$X_i=X_j$。
-3. 对称性：$\text{Dist}(X_i,X_j) = \text{Dist}(X_j,X_i)$。
-4. 三角不等式：$\text{Dist}(X_i,X_j) \le \text{Dist}(X_j,X_k) + \text{Dist}(X_k,X_j)$
+1. 非负性：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) \ge 0$。
+2. 同一性：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) = 0$。当且仅当$\mathbf{x}^{(a)}=\mathbf{x}^{(b)}$。
+3. 对称性：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) = \text{Dist}(\mathbf{x}^{(b)},\mathbf{x}^{(a)})$。
+4. 三角不等式：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) \le \text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) + \text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)})$
 
 评价两个向量的相似程度有多种标准，前面只用了简单的欧式距离。
 
@@ -222,7 +222,7 @@ $$
 1. 曼哈顿距离
 
 $$
-d=\sum_{i=1}^N|x_i-y_i|
+d=\sum_{i=1}^N|x_i^{(a)}-x_i^{(b)}|
 $$
 
 2. 欧拉距离
@@ -234,7 +234,7 @@ $$
 3. 明可夫斯基距离
 
 $$
-d=\left(\sum_{i=1}^N|x_i-y_i|^p\right)^{\frac{1}{p}}
+d=\left(\sum_{i=1}^N|x_i^{(a)}-x_i^{(b)}|^p\right)^{\frac{1}{p}}
 $$
 
 这里就获得了，距离计算的超参数$p$，用来选择不同距离的标准。其他距离
