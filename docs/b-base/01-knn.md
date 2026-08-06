@@ -213,7 +213,7 @@ $$
 1. 非负性：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) \ge 0$。
 2. 同一性：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) = 0$。当且仅当$\mathbf{x}^{(a)}=\mathbf{x}^{(b)}$。
 3. 对称性：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) = \text{Dist}(\mathbf{x}^{(b)},\mathbf{x}^{(a)})$。
-4. 三角不等式：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) \le \text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) + \text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)})$
+4. 三角不等式：$\text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(c)}) \le \text{Dist}(\mathbf{x}^{(a)},\mathbf{x}^{(b)}) + \text{Dist}(\mathbf{x}^{(b)},\mathbf{x}^{(c)})$
 
 评价两个向量的相似程度有多种标准，前面只用了简单的欧式距离。
 

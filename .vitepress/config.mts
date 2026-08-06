@@ -32,7 +32,7 @@ export default withMermaid({
           { text: '多项式回归与模型泛化', link: '/docs/b-base/04-多项式.md' },
           { text: '逻辑回归', link: '/docs/b-base/05-逻辑.md' },
           { text: '评价分类结果', link: '/docs/b-base/06-评价.md' },
-          { text: '主成分分析', link: '/docs/b-base/07-pca.md' },
+          { text: '维度分析', link: '/docs/b-base/07-pca.md' },
           { text: '支持向量机', link: '/docs/b-base/08-svm.md' },
           { text: '决策树', link: '/docs/b-base/09-决策树.md' },
           { text: '集成学习', link: '/docs/b-base/10-集成.md' },
