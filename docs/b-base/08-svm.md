@@ -244,7 +244,7 @@ $$
 
 * Hinge Loss损失函数称为合页损失
 
-<img src="./assets/hinge-loss.png" style="zoom:60%;" />
+<img src="./assets/hinge-loss.png" style="zoom:55%;" />
 
 ## 核函数
 
