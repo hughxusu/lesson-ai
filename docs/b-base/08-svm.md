@@ -181,17 +181,9 @@ $$
 $$
 \begin{cases}
 y(w \cdot \mathbf{x} + b) \ge 1 - \xi_j\\
-\min \left(\frac{1}{2}\Vert{}w\Vert{}^2+C\sum_j^m\xi_j\right), \quad \xi_j \ge 0 \\
+\min \left(\frac{1}{2}\Vert{}w\Vert{}^2+C\sum_j^m\xi_j\right) \\
 \end{cases}
 $$
-上面的目标函数相当于增加了L1正则。L2正则的目标函数表示如下
-$$
-\begin{cases}
-y(w \cdot \mathbf{x} + b) \ge 1 - \xi_j\\
-\min \left(\frac{1}{2}\Vert{}w\Vert{}^2+C\sum_j^m\xi_j^2\right) \\
-\end{cases}
-$$
-
 超参数$C$用于调节惩罚权重的杠杆
 
 * 若$C$极小，对违反约束的容忍度极高，模型倾向于追求更大间隔，但容易欠拟合。
