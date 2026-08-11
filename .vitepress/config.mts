@@ -98,7 +98,8 @@ export default withMermaid({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/hughxusu/lesson-ai' }
+      { icon: 'github', link: 'https://github.com/hughxusu/lesson-ai' },
+      { icon: 'bilibili', link: 'https://space.bilibili.com/94456974/upload/video' }
     ]
   }
 })
