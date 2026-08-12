@@ -183,7 +183,7 @@ x_1^{(m)} - \overline{x}_1  & x_2^{(m)} - \overline{x}_2 & \cdots & x_n^{(m)} - 
 $$
 
 * 其中$\overline{x}_j$是特征$\mathbf{x}_j$的样本均值。
-* 其中$\widetilde{x}_j^{(i)}=x_j^{(i)} - \overline{x}_j$
+* 其中$\widetilde{x}_j^{(i)}=x_j^{(i)} - \overline{x}_j$。
 * $\overline{X}_{mn}$为特征矩阵$X_{mn}$中心化的矩阵。
 
 根据中心化矩阵$\overline{X}_{mn}$可以计算协方差矩阵
