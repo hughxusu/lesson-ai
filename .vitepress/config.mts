@@ -36,6 +36,7 @@ export default withMermaid({
           { text: '支持向量机', link: '/docs/b-base/08-svm.md' },
           { text: '决策树', link: '/docs/b-base/09-决策树.md' },
           { text: '集成学习', link: '/docs/b-base/10-集成.md' },
+          { text: '聚类算法', link: '/docs/b-base/11-聚类.md' },
         ]
       },
       {

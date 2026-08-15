@@ -28,6 +28,10 @@ w \cdot \mathbf{x}+b \ge 1 & \forall y=1 \\
 w \cdot \mathbf{x}+b \le -1  & \forall y=-1
 \end{matrix}\right. \tag{1}
 $$
+> [!warning]
+>
+> 选择正负样本的映射关系$y\in\{1,-1\}$或$y\in\{1,0\}$，唯一的标准是签格式必须与损失函数的数学定义相匹配。
+
 中间分界线的方程为
 $$
 w \cdot \mathbf{x}+b=0
