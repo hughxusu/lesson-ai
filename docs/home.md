@@ -2,8 +2,6 @@
 
 **本站网址**  https://hughxusu.github.io/lesson-ai/#/
 
-**[课程演示代码仓库](https://github.com/hughxusu/lesson-ai)**
-
 ## 课程目标
 
 系统掌握机器学习核心基础知识和相关算法，使用智能体辅助实践经典算法。
