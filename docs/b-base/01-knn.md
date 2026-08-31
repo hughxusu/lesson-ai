@@ -41,14 +41,13 @@ graph LR
 
 ### 分类结果的评价
 
-对于任意样本$i$其真实标签为$y^{(i)}$，KNN模型预测的结果为$\hat{y}^{(i)}$，衡量分类模型性能的标准，可以使用错误率
+对于任意样本$i$其真实标签为$y^{(i)}$，KNN模型预测的结果为$\hat{y}^{(i)}$，衡量分类模型性能的标准，可以使用准确率
+
 $$
-\text{error}=\frac{\sum_{i=1}^m\left|y^{(i)}-\hat{y}^{(i)} \right|}{m} \times 100\%
+\text{Accuracy} = \frac{1}{m} \sum_{i=1}^{m} \mathbb{I}\left(\hat{y}^{(i)} = y^{(i)}\right)
 $$
-也可以使用正确率
-$$
-\text{Accuracy}=1-\text{error}=\frac{m-\sum_{i=1}^m\left|y^{(i)}-\hat{y^{(i)}} \right|}{m} \times 100\%
-$$
+
+* $\mathbb{I}(\cdot)$：指示函数（Indicator Function）。当括号内的条件为真时，其值为$1$；当条件为假时，其值为$0$。
 
 ### KNN算法实现
 
@@ -201,8 +200,10 @@ flowchart LR
 
 考虑到距离对预测样本的影响，增加了距离权重的参数，权重等于距离的倒数（距离越近对位置样本的影响越大，距离越远对未知样本的影响越小）。
 $$
-\text{Red}=1\\
-\text{Blue}=\frac{1}{3}+\frac{1}{4}=\frac{7}{12}
+\begin{aligned}
+\text{Red} &=1 \\
+\text{Blue} &=\frac{1}{3}+\frac{1}{4}=\frac{7}{12}
+\end{aligned}
 $$
 
 计算距离权重之后，样本预测点属于红色。
