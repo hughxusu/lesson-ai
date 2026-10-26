@@ -36,6 +36,7 @@ export default withMermaid({
           { text: "集成学习", link: "/docs/b-base/10-集成.md" },
           { text: "聚类算法", link: "/docs/b-base/11-聚类.md" },
           { text: "贝叶斯分类器", link: "/docs/b-base/12-贝叶斯.md" },
+          { text: "隐马尔可夫模型", link: "/docs/b-base/13-HMM.md" },
         ],
       },
       {
