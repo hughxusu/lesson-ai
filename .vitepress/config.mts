@@ -57,9 +57,7 @@ export default withMermaid({
         collapsed: true,
         items: [
           { text: "简介", link: "/docs/d-cv/a-简介.md" },
-          { text: "图像分类简介", link: "/docs/d-cv/b-分类-1.md" },
-          { text: "AlexNet", link: "/docs/d-cv/c-分类-2.md" },
-          { text: "VGGNet", link: "/docs/d-cv/d-分类-3.md" },
+          { text: "VGGNet", link: "/docs/d-cv/b-分类-1.md" },
           { text: "GoogLeNet", link: "/docs/d-cv/e-分类-4.md" },
           { text: "残差网络", link: "/docs/d-cv/f-分类-5.md" },
         ],
