@@ -67,14 +67,5 @@ ILSVRC的获胜者从2012年开始都是使用的深度学习的方法
 1. AlexNet。2012年，AlexNet以大优势赢得了ImageNet 2012图像识别挑战赛，它首次证明了学习到的特征可以超越人工设计的特征。相关论文：[ImageNet Classification with Deep Convolutional Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
 2. GoogLeNet在加深度的同时做了结构上的创新，获得了2014年的冠军。相关论文：[Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842)
 
-## 模型的评价标准
-
-| 任务类型                 | 合理泛化差距（训练-验证） | 说明                                     |
-| :----------------------- | :------------------------ | :--------------------------------------- |
-| 简单任务（如MNIST）      | < 2%                      | 数据简单，模型容易拟合，差距应非常小     |
-| 中等任务（如CIFAR-10）   | 2% - 5%                   | 数据复杂度中等，允许一定差距             |
-| 复杂任务（如ImageNet）   | 5% - 10%                  | 数据复杂，模型容量大，差距可能较大       |
-| 高噪声任务（如医学图像） | 10% - 15%                 | 数据噪声大，标签可能不准确，允许较大差距 |
-
 
 
