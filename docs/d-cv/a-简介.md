@@ -64,6 +64,9 @@ ILSVRC的获胜者从2012年开始都是使用的深度学习的方法
 
 <img src="./assets/11162584dd974c4fb4dc73ac03f605e2.png" style="zoom:75%;" />
 
+1. AlexNet。2012年，AlexNet以大优势赢得了ImageNet 2012图像识别挑战赛，它首次证明了学习到的特征可以超越人工设计的特征。相关论文：[ImageNet Classification with Deep Convolutional Neural Networks](https://proceedings.neurips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf)
+2. GoogLeNet在加深度的同时做了结构上的创新，获得了2014年的冠军。相关论文：[Going Deeper with Convolutions](https://arxiv.org/pdf/1409.4842)
+
 ## 模型的评价标准
 
 | 任务类型                 | 合理泛化差距（训练-验证） | 说明                                     |
