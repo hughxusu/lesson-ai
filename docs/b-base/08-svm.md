@@ -38,7 +38,7 @@ w \cdot \mathbf{x}+b=0
 $$
 直线的示意图如下
 
-<img src="./assets/Gemini_Generated_Image_dbjv28dbjv28dbjv.png" style="zoom:50%;" />
+<img src="./assets/Gemini_Generated_Image_dbjv28dbjv28dbjv.png" style="zoom:85%;" />
 
 所以上面公式 $(1)$ 的分类器可以统一为
 $$
@@ -142,7 +142,7 @@ $$
 
 一般的情况下，大部分数据是线性不可分的
 
-<img src="./assets/ssvm5_1.png" style="zoom:65%;" />
+<img src="./assets/ssvm5_1.png" style="zoom:45%;" />
 
 针对线性不可分问题，SVM引入了软间隔的概念。允许部分样本被错误分类（或落入间隔边界内），这类样本称为间隔违例。
 
@@ -164,11 +164,9 @@ $$
 * 侵入间隔但分类正确$0 < \xi_j \le 1$，位于间隔边界与决策超平面之间，虽然没有达到标准的间隔要求，但依然被正确分类。
 * 跨越决策边界且分类错误$\xi_j > 1$，越过了$w \cdot \mathbf{x} + b = 0$ 决策面，属于被错误分类的样本，这些点同样被定义为支持向量。
 
-> [!important]
->
-> 对于线性不可分的情况，支持向量是由边界点和错误点共同组成。
+对于线性不可分的情况，上述三种点共同组成支持向量。
 
-<img src="./assets/maxresdefault.jpg" style="zoom:65%;" />
+<img src="./assets/maxresdefault.jpg" style="zoom:60%;" />
 
 对于每个支持向量存在不同$\xi_j$：
 
@@ -240,7 +238,7 @@ $$
 
 * Hinge Loss损失函数称为合页损失
 
-<img src="./assets/hinge-loss.png" style="zoom:55%;" />
+<img src="./assets/hinge-loss.png" style="zoom:45%;" />
 
 ## 核函数
 
@@ -266,7 +264,7 @@ $$
 f(\mathbf{x}) 
 = \text{sign}(\sum_{i=1}^m\alpha^{(i)}y^{(i)}\langle\mathbf{x}^{(i)}, \mathbf{x} \rangle + b)
 $$
-假设$\mathbf{x}$向高位空间映射的函数为$\phi(\mathbf{x})$，所以决策函数可以表示为
+假设$\mathbf{x}$向高维空间映射的函数为$\phi(\mathbf{x})$，所以决策函数可以表示为
 $$
 f(\mathbf{x}) 
 = \text{sign}(\sum_{i=1}^m\alpha^{(i)}y^{(i)}\langle\phi(\mathbf{x}^{(i)}), \phi(\mathbf{x}) \rangle + b)
@@ -314,7 +312,7 @@ $$
 
 > [!note]
 >
-> 使用SVM分类器对sk-learn中的`load_digits`数据进行分类，使用高斯核函数。
+> 使用SVM分类器对sk-learn中的癌症数据进行分类，使用高斯核函数。
 
 ## SVM解决回归问题
 
