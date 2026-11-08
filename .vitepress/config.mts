@@ -59,6 +59,7 @@ export default withMermaid({
           { text: "简介", link: "/docs/d-cv/a-简介.md" },
           { text: "VGGNet", link: "/docs/d-cv/b-分类-1.md" },
           { text: "残差网络", link: "/docs/d-cv/c-分类-2.md" },
+          { text: "更多训练方法", link: "/docs/d-cv/d-分类-3.md" },
         ],
       },
       {
